@@ -1,6 +1,6 @@
 public class EsempiCondizioni {
     public static void main(String[] args) {
-        // Esempio di condizione if
+        // Definizione di variabili
         int x = 10;
         int y = 5;
         int z = 15;
