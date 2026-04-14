@@ -1,6 +1,6 @@
 public class EsempioSwitch {
     public static void main(String[] args) {
-        // Definizine variabili
+        // Definizione variabili
         int day = 3;
         String dayName;
         // Switch
