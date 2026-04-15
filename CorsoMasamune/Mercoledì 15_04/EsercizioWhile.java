@@ -29,14 +29,14 @@ public class EsercizioWhile {
                 risposta = scanner.nextLine();       
             } while(!(risposta.equals("s") || risposta.equals("n")));
             switch (risposta) {
-            case "s":
-                System.out.println("Accesso al sistema effettuato.");
-                break;
-            case "n":
-                System.out.println("Accesso al sistema annullato.");
-            default:
-                System.out.println("Risposta non valida.");
-                break;
+                case "s":
+                    System.out.println("Accesso al sistema effettuato.");
+                    break;
+                case "n":
+                    System.out.println("Accesso al sistema annullato.");
+                default:
+                    System.out.println("Risposta non valida.");
+                    break;
             }
         }else {
             System.out.println("Accesso bloccato.");
