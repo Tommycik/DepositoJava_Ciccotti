@@ -7,6 +7,7 @@ public class EsercizioFor {
             System.out.println("Quanti voti vuoi inserire?");
             int numeroVoti = scanner.nextInt();
             int validi = 0;
+            // Controlla se il numero di voti è positivo
             while(numeroVoti>0) {
                 for(int i = 0; i < numeroVoti; i++) {
                     // Chiede all'utente di inserire il voto
@@ -20,13 +21,14 @@ public class EsercizioFor {
                         if(voto >= 18 && voto < 24){
                             System.out.println("Voto sufficiente.");
                         } else if(voto >= 24) {
-                            System.out.println("Voto ottimo.");
+                            System.out.println("Voto buono o ottimo.");
                         } else {
                             System.out.println("Voto insufficiente.");
                         }   
                     }
                 }
             }
+        // Stampa il numero di voti validi inseriti
         System.out.println("Hai inserito " + validi + " voti validi.");
         }
     }
