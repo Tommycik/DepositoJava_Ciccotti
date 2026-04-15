@@ -1,9 +1,12 @@
 public class EsercizioFor {
     public static void main(String[] args) {
+        // Variabili per il numero di voti e i voti validi
         int numeroVoti;
         int validi;
+        boolean altriVoti = true;
+        // Scanner per leggere l'input dell'utente
         java.util.Scanner scanner = new java.util.Scanner(System.in);
-        while(true) {
+        while(altriVoti) {
             // Chiede all'utente quanti voti vuole inserire
             System.out.println("Quanti voti vuoi inserire?");
             numeroVoti = scanner.nextInt();
@@ -35,12 +38,20 @@ public class EsercizioFor {
             // Stampa il numero di voti validi inseriti
             System.out.println("Hai inserito " + validi + " voti validi.");
             // Chiede all'utente se vuole inserire altri voti
-            System.out.println("Vuoi inserire altri voti? (s/n)");
-            String risposta = scanner.next();
-            if(risposta.equalsIgnoreCase("n")) {
-                System.out.println("Programma terminato.");
-                break; // Esce dal ciclo while se l'utente non vuole inserire altri voti
-            }
+            do {
+                System.out.println("Vuoi inserire altri voti? (s/n)");
+                String risposta = scanner.next();
+                // Controlla la risposta dell'utente
+                if(risposta.equalsIgnoreCase("n")) {
+                    System.out.println("Programma terminato.");
+                    altriVoti = false;
+                    break; // Esce dal ciclo do-while per terminare il programma
+                } else if(risposta.equalsIgnoreCase("s")) {
+                    break; // Esce dal ciclo do-while per inserire altri voti
+                } else {
+                    System.out.println("Risposta non valida. Riprova.");
+                }
+            } while(true);
         }
     }
 }

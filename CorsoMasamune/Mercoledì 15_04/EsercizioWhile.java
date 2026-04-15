@@ -15,25 +15,31 @@ public class EsercizioWhile {
             password = scanner.nextLine();
             // Incremento tentativi
             tentativi++;
+            // Controllo password
             if(password.equals(correctPassword)) {
                 correctPasswordFound = true;
                 break;
+            }else {
+                System.out.println("Password errata. Riprova.");
             }
         }
 
         String risposta;
+        // Controllo se la password corretta è stata trovata
         if(correctPasswordFound) {
             do{
                 //input risposta
                 System.out.println("Vuoi accedere al sistema? (s/n)");
                 risposta = scanner.nextLine();       
             } while(!(risposta.equals("s") || risposta.equals("n")));
+            // Selezione risposta
             switch (risposta) {
                 case "s":
                     System.out.println("Accesso al sistema effettuato.");
                     break;
                 case "n":
                     System.out.println("Accesso al sistema annullato.");
+                    break;
                 default:
                     System.out.println("Risposta non valida.");
                     break;
