@@ -3,13 +3,13 @@ public class EsercizioFor {
         
         java.util.Scanner scanner = new java.util.Scanner(System.in);
         while(true) {
-            // Chide all'utente quanti voti vuole inserire
+            // Chiede all'utente quanti voti vuole inserire
             System.out.println("Quanti voti vuoi inserire?");
             int numeroVoti = scanner.nextInt();
             int validi = 0;
             // Controlla se il numero di voti è positivo
             while(numeroVoti<=0) {
-                System.out.println("Numero di voti minore uguale a zero. Riprova.");
+                System.out.println("Numero di voti minore o uguale a zero. Riprova.");
                 numeroVoti = scanner.nextInt();
             }
             // Ciclo per inserire i voti
