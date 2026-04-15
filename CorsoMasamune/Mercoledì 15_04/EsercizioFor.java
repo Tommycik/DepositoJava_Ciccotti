@@ -8,8 +8,12 @@ public class EsercizioFor {
             int numeroVoti = scanner.nextInt();
             int validi = 0;
             // Controlla se il numero di voti è positivo
-            while(numeroVoti>0) {
-                for(int i = 0; i < numeroVoti; i++) {
+            while(numeroVoti<=0) {
+                System.out.println("Numero di voti minore uguale a zero. Riprova.");
+                numeroVoti = scanner.nextInt();
+            }
+            // Ciclo per inserire i voti
+            for(int i = 0; i < numeroVoti; i++) {
                     // Chiede all'utente di inserire il voto
                     System.out.println("Inserisci un voto tra 0 e 30:");
                     int voto = scanner.nextInt();
@@ -27,7 +31,6 @@ public class EsercizioFor {
                         }   
                     }
                 }
-            }
         // Stampa il numero di voti validi inseriti
         System.out.println("Hai inserito " + validi + " voti validi.");
         }
