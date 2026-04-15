@@ -5,8 +5,8 @@ public class EsempioWhile {
 
         int i = 1; // Inizializzazione della variabile di controllo
         while (i <= 5) {
-        i++; // Incremento della variabile di controllo
-        System.out.println(i);
+            i++; // Incremento della variabile di controllo
+            System.out.println(i);
         }
         // Scanner per input
         Scanner input = new Scanner(System.in);

@@ -79,8 +79,10 @@ public class EsercizioArray {
         //Totale dolci ordinati
         int totaleDolci = 0;
         for(int i=0; i<numeroDolci; i++) {
-            System.out.println(quantitàDolci[i] + " x " + dolciOrdinati[i]);
-            totaleDolci += quantitàDolci[i];
+            if(dolciOrdinati[i] != null) {
+                System.out.println(quantitàDolci[i] + " x " + dolciOrdinati[i]);
+                totaleDolci += quantitàDolci[i];
+            }
         }
         System.out.println("Totale dolci ordinati: " + totaleDolci);
         //Calcolo del costo totale
@@ -88,7 +90,7 @@ public class EsercizioArray {
         for(int i=0; i<numeroDolci; i++) {
             int indiceDolce = 0;
             for(int j=0; j<dolci.length; j++) {
-                if(dolciOrdinati[i].equalsIgnoreCase(dolci[j])) {
+                if(dolciOrdinati[i] != null && dolciOrdinati[i].equalsIgnoreCase(dolci[j])) {
                     indiceDolce = j;
                     break;
                 }

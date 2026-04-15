@@ -8,7 +8,7 @@ public class EsempiArray {
         System.out.println("Primo elemento di valori: " + valori[0]);
         for (int i : valori) {
             System.out.println(i);
-            // Stampa ogni elemento dell'array valori usnado i come ìndice
+            // Stampa ogni elemento dell'array valori usnado i come indice
             System.out.println(valori[i-1]);
         }
         System.out.println("Lunghezza dell'array valori: " + valori.length);
