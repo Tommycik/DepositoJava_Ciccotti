@@ -1,0 +1,64 @@
+public class EsercizioFunzioniChiave {
+    
+    public static int somma(int firstNumber, int secondNumber) {
+        return firstNumber + secondNumber;
+    }
+    // multiply con numeri interi
+    public static int multiply(int firstNumber, int secondNumber) {
+        return firstNumber * secondNumber;
+    }
+    // multiply con numeri in virgola mobile
+    public static double multiply(double firstNumber, double secondNumber) {
+        return firstNumber * secondNumber;
+    }
+    // Funzione per stampare un array di interi
+    public static void printArray(int[] array) {
+        System.out.print("[");
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(array[i]);
+            if (i < array.length - 1) {
+                System.out.print(", ");
+            }
+        }
+        System.out.println("]");
+    }
+    // Funzione ricorsiva che somma i primi n numeri naturali
+    public static int sommaNaturali(int n) {
+        if (n <= 0) {
+            return 0;
+        } else {
+            return n + sommaNaturali(n - 1);
+        }
+    }
+   
+    public static void set(int v, int newValue) {
+        int temp = v; // Salva il valore originale di v
+        v = newValue;
+        newValue = temp; // Modifica newValue per dimostrare che non influisce su v
+    }
+    // Funzione per dimostrare che gli array vengono modificati all'interno della funzione
+    public static void setArray(int[] array, int index, int newValue) {
+        if (index >= 0 && index < array.length) {
+            array[index] = newValue;
+        }
+    }
+
+    public static void main(String[] args) {
+        int firstNumber = 5;
+        int secondNumber = 10;
+        System.out.println("La somma di " + firstNumber + " e " + secondNumber + " è: " + somma(firstNumber, secondNumber));
+        System.out.println("La moltiplicazione di " + firstNumber + " e " + secondNumber + " è: " + multiply(firstNumber, secondNumber));
+        double firstDouble = 2.5;
+        double secondDouble = 4.0;
+        System.out.println("La moltiplicazione di " + firstDouble + " e " + secondDouble + " è: " + multiply(firstDouble, secondDouble));
+        int n = 7;
+        System.out.println("La somma dei primi " + n + " numeri naturali è: " + sommaNaturali(n));
+        int variabile = 10;
+        int newValue = 20;
+        set(variabile, newValue);
+        System.out.println("Il valore della variabile dopo la chiamata a set è: " + variabile);
+        int[] array = {1, 2, 3, 4, 5};
+        setArray(array, 2, newValue);
+        printArray(array);
+    }
+}
