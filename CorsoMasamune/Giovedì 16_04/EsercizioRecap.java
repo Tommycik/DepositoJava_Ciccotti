@@ -35,11 +35,7 @@ public class EsercizioRecap {
         return min;
     }
     // Funzione per verificare se lo studente è promosso o bocciato in base alla media dei voti
-    public static String verificaPromozione(ArrayList<Integer> grades) {
-        if (grades.isEmpty()) {
-            return "La lista dei voti è vuota. Impossibile verificare la promozione.";
-        }
-        int average = calcolaMedia(grades);
+    public static String verificaPromozione(int average) {
         if (average >= 6) {
             return "Promosso";
         } else {
@@ -95,7 +91,7 @@ public class EsercizioRecap {
                     System.out.println("Il voto minimo è: " + trovaMin(grades));
                     break;
                 case 4:
-                    System.out.println(verificaPromozione(grades));
+                    System.out.println(verificaPromozione(calcolaMedia(grades)));
                     break;
                 case 5:
                     System.out.println("Uscita dal programma.");
