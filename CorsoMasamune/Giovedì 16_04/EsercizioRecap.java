@@ -20,7 +20,7 @@ public class EsercizioRecap {
     public static int trovaMax(ArrayList<Integer> numbers) {
         if (numbers.isEmpty()) {
             System.out.println("La lista è vuota. Impossibile trovare il massimo.");
-            return 0; // Restituisce il valore minimo possibile
+            return 0; // Restituisce il valore massimo possibile
         }
         int max = Collections.max(numbers);
         return max;
@@ -29,7 +29,7 @@ public class EsercizioRecap {
     public static int trovaMin(ArrayList<Integer> numbers) {
         if (numbers.isEmpty()) {
             System.out.println("La lista è vuota. Impossibile trovare il minimo.");
-            return 0; // Restituisce il valore massimo possibile
+            return 0; // Restituisce il valore minimo possibile
         }
         int min = Collections.min(numbers);
         return min;
