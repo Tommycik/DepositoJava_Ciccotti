@@ -31,11 +31,17 @@ public class EsercizioFunzioniChiave {
         }
     }
    
-    public static void set(int v, int newValue) {
-        int temp = v; // Salva il valore originale di v
-        v = newValue;
-        newValue = temp; // Modifica newValue per dimostrare che non influisce su v
+    //
+    public static void set(int oldValue, int newValue) {
+        System.out.println("Valore originale di oldValue: " + oldValue);
+        System.out.println("Valore originale di newValue: " + newValue);
+        int temp = oldValue; // Salva il valore originale di oldValue
+        oldValue = newValue;
+        newValue = temp; // Modifica newValue per dimostrare che non influisce su oldValue
+        System.out.println("Valore di oldValue dopo la modifica: " + oldValue);
+        System.out.println("Valore di newValue dopo la modifica: " + newValue);
     }
+
     // Funzione per dimostrare che gli array vengono modificati all'interno della funzione
     public static void setArray(int[] array, int index, int newValue) {
         if (index >= 0 && index < array.length) {
@@ -53,12 +59,15 @@ public class EsercizioFunzioniChiave {
         System.out.println("La moltiplicazione di " + firstDouble + " e " + secondDouble + " è: " + multiply(firstDouble, secondDouble));
         int n = 7;
         System.out.println("La somma dei primi " + n + " numeri naturali è: " + sommaNaturali(n));
-        int variabile = 10;
+        int oldValue = 10;
         int newValue = 20;
-        set(variabile, newValue);
-        System.out.println("Il valore della variabile dopo la chiamata a set è: " + variabile);
+        set(oldValue, newValue);
+        System.out.println("Il valore della variabile dopo la chiamata a set è: " + oldValue);
         int[] array = {1, 2, 3, 4, 5};
+        //stampa l'array prima della modifica
+        printArray(array);
         setArray(array, 2, newValue);
+        // Stampa l'array dopo la modifica per dimostrare che è stato modificato
         printArray(array);
     }
 }
