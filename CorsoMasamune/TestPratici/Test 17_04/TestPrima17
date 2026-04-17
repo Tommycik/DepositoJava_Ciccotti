@@ -66,6 +66,7 @@ public class Test17 {
         System.out.println("Risultato: " + risultato);
         return risultato;
     }
+    
     public static void main(String[] args) {
         //ArrayList per utenti e password
         ArrayList<String> utenti_o = new ArrayList<>();
@@ -132,14 +133,14 @@ public class Test17 {
                 }
             }
             for(int i = 0; i < maxOperazioni && !stop; i++) {
-                //Menu operazioni: Somma, Sottrazione, Moltiplicazione, Divisione, Esponenziazione
-                // Poi lista addedndi, operazioni, risultati e uscita
+                //Menu operazioni: Somma, Sottrazione, Moltiplicazione, Divisione, Esponenziale
+                // Poi lista addendi, operazioni, risultati e uscita
                 System.out.println("Scegli un'operazione:");
                 System.out.println("1. Somma");
                 System.out.println("2. Sottrazione");
                 System.out.println("3. Moltiplicazione");
                 System.out.println("4. Divisione");
-                System.out.println("5. Esponenziazione");
+                System.out.println("5. Esponenziale");
                 System.out.println("6. Visualizza operazioni effettuate");
                 System.out.println("7. Visualizza addendi");
                 System.out.println("8. Visualizza risultati");
@@ -147,6 +148,7 @@ public class Test17 {
                 // Controllo operazione scelta
                 int operazione = new java.util.Scanner(System.in).nextInt();
                 ArrayList<Double> addendiOperazione;
+                //
                 switch (operazione) {
                     case 1:
                         addendiOperazione = inserimentoAddendi();
@@ -173,7 +175,6 @@ public class Test17 {
                         operatori.add("/");
                         break;
                     case 5:
-                        //Inserimento due addendi
                         addendiOperazione = inserimentoAddendi();
                         addendi.add(addendiOperazione);
                         risultati.add(esponenziale(addendiOperazione));
