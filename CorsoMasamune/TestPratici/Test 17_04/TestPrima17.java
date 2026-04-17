@@ -1,16 +1,17 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 public class TestPrima17 {
     //Funzione input x addendi
     public static ArrayList<Double> inserimentoAddendi() {
         ArrayList<Double> addendi = new ArrayList<>();
         while(true) {
             System.out.println("Inserire l'addendo o uscire?(i/u)");
-            String risposta = new java.util.Scanner(System.in).nextLine();
+            String risposta = new Scanner(System.in).nextLine();
             if(risposta.equals("u")) {
                 break;
             }else if(risposta.equals("i")) {
                 System.out.println("Inserisci l'addendo:");
-                addendi.add(new java.util.Scanner(System.in).nextDouble());
+                addendi.add(new Scanner(System.in).nextDouble());
             }else {
                 System.out.println("Risposta non valida. Riprova.");
             }
@@ -77,6 +78,7 @@ public class TestPrima17 {
         ArrayList<String> passwords_o = new ArrayList<>();
         int maxOperazioni = 4;
         boolean stop = false;
+        Scanner stringScanner = new Scanner(System.in);
         // Ciclo principale del programma
         while (!stop) {
             // ArrayList per addendi, risultati e operatori
@@ -89,7 +91,7 @@ public class TestPrima17 {
             while(true) {
                 do{
                     System.out.println("Sei un nuovo utente? (s/n)");
-                    risposta = new java.util.Scanner(System.in).nextLine();
+                    risposta = stringScanner.nextLine();
                     if(risposta.equals("s") || risposta.equals("n")) {
                         break;
                     }else {
@@ -102,7 +104,7 @@ public class TestPrima17 {
                     System.out.println("Inserisci nome utente:");
                     String newUsername;
                     // Controllo se il nome utente è già esistente
-                    newUsername = new java.util.Scanner(System.in).nextLine();
+                    newUsername = stringScanner.nextLine();
                     if(utenti_o.contains(newUsername)) {
                         System.out.println("Nome utente già esistente. Riprova.");
                         continue;
@@ -111,7 +113,7 @@ public class TestPrima17 {
                     }
                     // Inserimento password
                     System.out.println("Inserisci password:");
-                    String newPassword = new java.util.Scanner(System.in).nextLine();
+                    String newPassword = stringScanner.nextLine();
                     utenti_o.add(newUsername);
                     passwords_o.add(newPassword);
                     System.out.println("Registrazione completata. Puoi ora effettuare il login.");
@@ -120,9 +122,9 @@ public class TestPrima17 {
                     // Login utente
                     System.out.println("Login utente:");
                     System.out.println("Inserisci nome utente:");
-                    String username = new java.util.Scanner(System.in).nextLine();
+                    String username = stringScanner.nextLine();
                     System.out.println("Inserisci password:");
-                    String password = new java.util.Scanner(System.in).nextLine();
+                    String password = stringScanner.nextLine();
                     // Controllo se il nome utente esiste e se la password è corretta
                     if(utenti_o.contains(username)) {
                         int index = utenti_o.indexOf(username);
