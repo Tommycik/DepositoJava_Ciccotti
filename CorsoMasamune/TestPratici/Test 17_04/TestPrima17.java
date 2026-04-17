@@ -34,6 +34,7 @@ public class TestPrima17 {
         System.out.println("Risultato: " + risultato);
         return risultato;
     }
+
     //Sottrazione a x elementi
     public static double sottrazione(ArrayList<Double> addendi) {
         double risultato = addendi.get(0);
@@ -74,6 +75,7 @@ public class TestPrima17 {
         System.out.println("Risultato: " + risultato);
         return risultato;
     }
+    
     //Esponenziale a x elementi
     public static double esponenziale(ArrayList<Double> addendi) {
         double risultato = addendi.get(0);
