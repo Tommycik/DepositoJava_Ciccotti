@@ -36,7 +36,7 @@ public class Test17 {
         System.out.println("Risultato: " + risultato);
         return risultato;
     }
-    //Moltiplicazione a x elemnti
+    //Moltiplicazione a x elementi
     public static double moltiplicazione(ArrayList<Double> addendi) {
         double risultato = 1;
         for (double addendo : addendi) {
@@ -62,7 +62,10 @@ public class Test17 {
     }
     //Esponenziale a x elementi
     public static double esponenziale(ArrayList<Double> addendi) {
-        double risultato = Math.pow(addendi.get(0), addendi.get(1));
+        double risultato = addendi.get(0);
+        for (int i = 1; i < addendi.size(); i++) {
+            risultato = Math.pow(risultato, addendi.get(i));
+        }
         System.out.println("Risultato: " + risultato);
         return risultato;
     }
