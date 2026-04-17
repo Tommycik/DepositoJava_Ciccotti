@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class TestPrima17 {
+public class Test17 {
 
     //Funzione input x addendi
     public static ArrayList<Double> inserimentoAddendi() {
@@ -214,7 +214,10 @@ public class TestPrima17 {
                     case 6:
                         // Stampa operazioni effettuate
                         System.out.println("Operazioni effettuate:");
-                        for(int j = 0; j < operatori_o.size(); j++) {
+                        if(operatori_o.size() == 0) {
+                            System.out.println("Nessuna operazione effettuata.");
+                        }else{
+                            for(int j = 0; j < operatori_o.size(); j++) {
                             // Stampa operazione
                             for(int k = 0; k < addendi_o.get(j).size()-1; k++) {
                                 System.out.print(addendi_o.get(j).get(k) + " " + operatori_o.get(j) + " ");
@@ -222,20 +225,29 @@ public class TestPrima17 {
                             // Stampa risultato
                             System.out.print(addendi_o.get(j).get(addendi_o.get(j).size()-1));
                             System.out.println(" = " + risultati_o.get(j));
+                            }
                         }
                         break;
                     case 7:
                         // Stampa addendi
                         System.out.println("Addendi:");
-                        for(ArrayList<Double> gruppoAddendi : addendi_o) {
+                        if(addendi_o.size() == 0) {
+                            System.out.println("Nessun addendo.");
+                        }else{
+                            for(ArrayList<Double> gruppoAddendi : addendi_o) {
                             System.out.println(gruppoAddendi);
+                            }
                         }
                         break;
                     case 8:
                         // Stampa risultati
                         System.out.println("Risultati:");
-                        for(Double risultato : risultati_o) {
+                        if(risultati_o.size() == 0) {
+                            System.out.println("Nessun risultato.");
+                        }else{
+                            for(Double risultato : risultati_o) {
                             System.out.println(risultato);
+                            }
                         }
                         break;
                     case 9: 
