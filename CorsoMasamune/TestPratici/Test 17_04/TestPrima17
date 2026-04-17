@@ -1,5 +1,5 @@
 public class Test17 {
-    //Funzione input x addedndi
+    //Funzione input x addendi
     public static ArrayList<Double> inserimentoAddendi() {
         ArrayList<Double> addendi = new ArrayList<>();
         while(true) {
@@ -60,12 +60,8 @@ public class Test17 {
         System.out.println("Risultato: " + risultato);
         return risultato;
     }
-    //Esponenziazione a 2 elementi
-    public static double esponenziazione(ArrayList<Double> addendi) {
-        if(addendi.size() != 2) {
-            System.out.println("Errore: esponenziazione richiede esattamente 2 addendi.");
-            return -;
-        }
+    //Esponenziale a x elementi
+    public static double esponenziale(ArrayList<Double> addendi) {
         double risultato = Math.pow(addendi.get(0), addendi.get(1));
         System.out.println("Risultato: " + risultato);
         return risultato;
@@ -154,24 +150,34 @@ public class Test17 {
                 switch (operazione) {
                     case 1:
                         addendiOperazione = inserimentoAddendi();
-                        risultati.set(i, somma(addendiOperazione));
+                        addendi.add(addendiOperazione);
+                        risultati.add(somma(addendiOperazione));
+                        operatori.add("+");
                         break;
                     case 2:
                         addendiOperazione = inserimentoAddendi();
-                        risultati.set(i,sottrazione(adde) )
-                        
+                        addendi.add(addendiOperazione);
+                        risultati.add(sottrazione(addendiOperazione) );
+                        operatori.add("-");
                         break;
                     case 3:
                         addendiOperazione = inserimentoAddendi();
-                        moltiplicazione();
+                        addendi.add(addendiOperazione);
+                        risultati.set(moltiplicazione(addendiOperazione) );
+                        operatori.set("*");
                         break;
                     case 4:
                         addendiOperazione = inserimentoAddendi();
-                        divisione();
+                        addendi.add(addendiOperazione);
+                        risultati.add(divisione(addendiOperazione));
+                        operatori.add("/");
                         break;
                     case 5:
-
-                        esponenziazione();
+                        //Inserimento due addendi
+                        addendiOperazione = inserimentoAddendi();
+                        addendi.add(addendiOperazione);
+                        risultati.add(esponenziale(addendiOperazione));
+                        operatori.add("^");
                         break;
                     case 6:
                         // Stampa operazioni effettuate
