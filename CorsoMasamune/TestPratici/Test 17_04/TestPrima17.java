@@ -75,7 +75,7 @@ public class TestPrima17 {
         System.out.println("Risultato: " + risultato);
         return risultato;
     }
-    
+
     //Esponenziale a x elementi
     public static double esponenziale(ArrayList<Double> addendi) {
         double risultato = addendi.get(0);
@@ -180,9 +180,9 @@ public class TestPrima17 {
                     case 1:
                         //Inserimento addendi
                         addendiOperazione_o = inserimentoAddendi();
-                        //Aggiunta addendi all'ArrayList
+                        //Aggiunti addendi all'ArrayList
                         addendi_o.add(addendiOperazione_o);
-                        //Aggiunta risultato all'ArrayList
+                        //Aggiunto risultato all'ArrayList
                         risultati_o.add(somma(addendiOperazione_o));
                         //Aggiunta operazione all'ArrayList
                         operatori_o.add("+");
@@ -248,8 +248,7 @@ public class TestPrima17 {
                         System.out.println("Operazione non valida. Riprova.");
                         i--;
                         break;
-                }    
-                
+                }      
             }
             //Avverte l'utente che deve fare di nuovo il login
             System.out.println("Numero di operazioni massime per sessione raggiunto, per effettuare nuove operazioni effettua il login");    
