@@ -1,13 +1,14 @@
-public class Test17 {
+import java.util.ArrayList;
+public class TestPrima17 {
     //Funzione input x addendi
     public static ArrayList<Double> inserimentoAddendi() {
         ArrayList<Double> addendi = new ArrayList<>();
         while(true) {
-            System.out.println("Vuoi inserire un addendo o uscire?(inserire/uscire)");
+            System.out.println("Inserire l'addendo o uscire?(i/u)");
             String risposta = new java.util.Scanner(System.in).nextLine();
-            if(risposta.equals("uscire")) {
+            if(risposta.equals("u")) {
                 break;
-            }else if(!risposta.equals("inserire")) {
+            }else if(risposta.equals("i")) {
                 System.out.println("Inserisci l'addendo:");
                 addendi.add(new java.util.Scanner(System.in).nextDouble());
             }else {
@@ -79,42 +80,44 @@ public class Test17 {
         // Ciclo principale del programma
         while (!stop) {
             // ArrayList per addendi, risultati e operatori
-            ArrayList<Double[]> addendi = new ArrayList<>();
-            ArrayList<Double[]> risultati = new ArrayList<>();
+            ArrayList<ArrayList<Double>> addendi = new ArrayList<>();
+            ArrayList<Double> risultati = new ArrayList<>();
             ArrayList<String> operatori = new ArrayList<>();
             //Registrazione utente o login
-            do{
-                System.out.println("Sei un nuovo utente? (s/n)");
-                String risposta = new java.util.Scanner(System.in).nextLine();
-                if(risposta.equals("s") || risposta.equals("n")) {
-                    break;
-                }else {
-                    System.out.println("Risposta non valida. Riprova.");
-                }
-            } while (true); 
-            // Registrazione utente
-            if(risposta.equals("s")) {
-                System.out.println("Registrazione utente:");
-                System.out.println("Inserisci nome utente:");
-                // Controllo se il nome utente è già esistente
-                while(true) {
-                    String newUsername = new java.util.Scanner(System.in).nextLine();
+            String risposta;
+            // Ciclo per registrazione o login
+            while(true) {
+                do{
+                    System.out.println("Sei un nuovo utente? (s/n)");
+                    risposta = new java.util.Scanner(System.in).nextLine();
+                    if(risposta.equals("s") || risposta.equals("n")) {
+                        break;
+                    }else {
+                        System.out.println("Risposta non valida. Riprova.");
+                    }
+                } while (true); 
+                // Registrazione utente
+                if(risposta.equals("s")) {
+                    System.out.println("Registrazione utente:");
+                    System.out.println("Inserisci nome utente:");
+                    String newUsername;
+                    // Controllo se il nome utente è già esistente
+                    newUsername = new java.util.Scanner(System.in).nextLine();
                     if(utenti_o.contains(newUsername)) {
                         System.out.println("Nome utente già esistente. Riprova.");
+                        continue;
                     }else {
                         utenti_o.add(newUsername);
-                        break;
                     }
-                }
-                // Inserimento password
-                System.out.println("Inserisci password:");
-                String newPassword = new java.util.Scanner(System.in).nextLine();
-                utenti_o.add(newUsername);
-                passwords_o.add(newPassword);
-                System.out.println("Registrazione completata. Puoi ora effettuare il login.");
-            }else {
-                // Login utente
-                while(true) {
+                    // Inserimento password
+                    System.out.println("Inserisci password:");
+                    String newPassword = new java.util.Scanner(System.in).nextLine();
+                    utenti_o.add(newUsername);
+                    passwords_o.add(newPassword);
+                    System.out.println("Registrazione completata. Puoi ora effettuare il login.");
+                    break;
+                }else {
+                    // Login utente
                     System.out.println("Login utente:");
                     System.out.println("Inserisci nome utente:");
                     String username = new java.util.Scanner(System.in).nextLine();
@@ -128,13 +131,16 @@ public class Test17 {
                             break;
                         }else {
                             System.out.println("Password errata. Riprova.");
+                            continue;
                         }
                     }else {
                         System.out.println("Nome utente non trovato. Riprova.");
+                        continue;
 
                     }
                 }
             }
+
             for(int i = 0; i < maxOperazioni && !stop; i++) {
                 //Menu operazioni: Somma, Sottrazione, Moltiplicazione, Divisione, Esponenziale
                 // Poi lista addendi, operazioni, risultati e uscita
@@ -151,7 +157,7 @@ public class Test17 {
                 // Controllo operazione scelta
                 int operazione = new java.util.Scanner(System.in).nextInt();
                 ArrayList<Double> addendiOperazione;
-                //
+                //Verifica operazione scelta
                 switch (operazione) {
                     case 1:
                         addendiOperazione = inserimentoAddendi();
@@ -168,8 +174,8 @@ public class Test17 {
                     case 3:
                         addendiOperazione = inserimentoAddendi();
                         addendi.add(addendiOperazione);
-                        risultati.set(moltiplicazione(addendiOperazione) );
-                        operatori.set("*");
+                        risultati.add(moltiplicazione(addendiOperazione) );
+                        operatori.add("*");
                         break;
                     case 4:
                         addendiOperazione = inserimentoAddendi();
@@ -187,24 +193,29 @@ public class Test17 {
                         // Stampa operazioni effettuate
                         System.out.println("Operazioni effettuate:");
                         for(int j = 0; j < operatori.size(); j++) {
-                            for(doble addendo : addendi.get(j)) {
-                                System.out.print(addendo + " " + operatori.get(j) + " ");
+                            // Stampa operazione
+                            for(int k = 0; k < addendi.get(j).size()-1; k++) {
+                                System.out.print(addendi.get(j).get(k) + " " + operatori.get(j) + " ");
                             }
-                            System.out.println("= " + risultati.get(j)[0]);
+                            // Stampa risultato
+                            System.out.print(addendi.get(j).get(addendi.get(j).size()-1));
+                            System.out.println(" = " + risultati.get(j));
                         }
+                        break;
                     case 7:
                         // Stampa addendi
                         System.out.println("Addendi:");
-                        for(Double[] addendo : addendi) {
-                            System.out.println(Arrays.toString(addendo));
+                        for(ArrayList<Double> gruppoAddendi : addendi) {
+                            System.out.println(gruppoAddendi);
                         }
-                        
+                        break;
                     case 8:
                         // Stampa risultati
                         System.out.println("Risultati:");
-                        for(Double[] risultato : risultati) {
-                            System.out.println(Arrays.toString(risultato));
+                        for(Double risultato : risultati) {
+                            System.out.println(risultato);
                         }
+                        break;
                     case 9: 
                         // Uscita dal programma
                         System.out.println("Uscita dal programma. Arrivederci!");
@@ -213,12 +224,13 @@ public class Test17 {
                     default:
                         // Operazione non valida
                         System.out.println("Operazione non valida. Riprova.");
-                        operazione = new java.util.Scanner(System.in).nextInt();
                         i--;
                         break;
                 }    
                 
             }
+            //Avverte l'utente che deve fare di nuovo il login
+            System.out.println("Numero di operazioni massime per sessione raggiunto, per effettuare nuove operazioni effettua il login");    
         }
     }
 }
