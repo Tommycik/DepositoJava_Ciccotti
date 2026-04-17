@@ -1,13 +1,17 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+
 public class TestPrima17 {
+
     //Funzione input x addendi
     public static ArrayList<Double> inserimentoAddendi() {
+        //ArrayList per addendi inseriti dall'utente
         ArrayList<Double> addendi = new ArrayList<>();
         while(true) {
             System.out.println("Inserire l'addendo o uscire?(i/u)");
             String risposta = new Scanner(System.in).nextLine();
             if(risposta.equals("u")) {
+                System.out.println("Inserimento terminato.");
                 break;
             }else if(risposta.equals("i")) {
                 System.out.println("Inserisci l'addendo:");
@@ -18,56 +22,66 @@ public class TestPrima17 {
         }
         return addendi;
     }
+
     //Somma a x elementi
     public static double somma(ArrayList<Double> addendi) {
         double risultato = 0;
+        //Calcolo della somma
         for (double addendo : addendi) {
             risultato += addendo;
         }
-
+        //Stampa e ritorno del risultato
         System.out.println("Risultato: " + risultato);
         return risultato;
     }
     //Sottrazione a x elementi
     public static double sottrazione(ArrayList<Double> addendi) {
         double risultato = addendi.get(0);
+        //Calcolo della sottrazione
         for (int i = 1; i < addendi.size(); i++) {
             risultato -= addendi.get(i);
         }
-
+        //Stampa e ritorno del risultato
         System.out.println("Risultato: " + risultato);
         return risultato;
     }
+
     //Moltiplicazione a x elementi
     public static double moltiplicazione(ArrayList<Double> addendi) {
         double risultato = 1;
+        //Calcolo della moltiplicazione
         for (double addendo : addendi) {
             risultato *= addendo;
         }
-
+        //Stampa e ritorno del risultato
         System.out.println("Risultato: " + risultato);
         return risultato;
     }
+
     //Divisione a x elementi
     public static double divisione(ArrayList<Double> addendi) {
         double risultato = addendi.get(0);
+        //Calcolo della divisione
         for (int i = 1; i < addendi.size(); i++) {
+            //Controllo divisione per zero
             if(addendi.get(i) == 0) {
                 System.out.println("Errore: divisione per zero.");
                 return Double.NaN;
             }
             risultato /= addendi.get(i);
         }
-
+        //Stampa e ritorno del risultato
         System.out.println("Risultato: " + risultato);
         return risultato;
     }
     //Esponenziale a x elementi
     public static double esponenziale(ArrayList<Double> addendi) {
         double risultato = addendi.get(0);
+        //Calcolo dell'esponenziale
         for (int i = 1; i < addendi.size(); i++) {
             risultato = Math.pow(risultato, addendi.get(i));
         }
+        //Stampa e ritorno del risultato
         System.out.println("Risultato: " + risultato);
         return risultato;
     }
@@ -82,9 +96,9 @@ public class TestPrima17 {
         // Ciclo principale del programma
         while (!stop) {
             // ArrayList per addendi, risultati e operatori
-            ArrayList<ArrayList<Double>> addendi = new ArrayList<>();
-            ArrayList<Double> risultati = new ArrayList<>();
-            ArrayList<String> operatori = new ArrayList<>();
+            ArrayList<ArrayList<Double>> addendi_o = new ArrayList<>();
+            ArrayList<Double> risultati_o = new ArrayList<>();
+            ArrayList<String> operatori_o = new ArrayList<>();
             //Registrazione utente o login
             String risposta;
             // Ciclo per registrazione o login
@@ -158,63 +172,67 @@ public class TestPrima17 {
                 System.out.println("9. Esci");
                 // Controllo operazione scelta
                 int operazione = new java.util.Scanner(System.in).nextInt();
-                ArrayList<Double> addendiOperazione;
+                ArrayList<Double> addendiOperazione_o;
                 //Verifica operazione scelta
                 switch (operazione) {
                     case 1:
-                        addendiOperazione = inserimentoAddendi();
-                        addendi.add(addendiOperazione);
-                        risultati.add(somma(addendiOperazione));
-                        operatori.add("+");
+                        //Inserimento addendi
+                        addendiOperazione_o = inserimentoAddendi();
+                        //Aggiunta addendi all'ArrayList
+                        addendi_o.add(addendiOperazione_o);
+                        //Aggiunta risultato all'ArrayList
+                        risultati_o.add(somma(addendiOperazione_o));
+                        //Aggiunta operazione all'ArrayList
+                        operatori_o.add("+");
                         break;
                     case 2:
-                        addendiOperazione = inserimentoAddendi();
-                        addendi.add(addendiOperazione);
-                        risultati.add(sottrazione(addendiOperazione) );
-                        operatori.add("-");
+                        addendiOperazione_o = inserimentoAddendi();
+                        addendi_o.add(addendiOperazione_o);
+                        risultati_o.add(sottrazione(addendiOperazione_o) );
+                        operatori_o.add("-");
                         break;
                     case 3:
-                        addendiOperazione = inserimentoAddendi();
-                        addendi.add(addendiOperazione);
-                        risultati.add(moltiplicazione(addendiOperazione) );
-                        operatori.add("*");
+                        addendiOperazione_o = inserimentoAddendi();
+                        addendi_o.add(addendiOperazione_o);
+                        risultati_o.add(moltiplicazione(addendiOperazione_o) );
+                        operatori_o.add("*");
                         break;
                     case 4:
-                        addendiOperazione = inserimentoAddendi();
-                        addendi.add(addendiOperazione);
-                        risultati.add(divisione(addendiOperazione));
-                        operatori.add("/");
+                        addendiOperazione_o = inserimentoAddendi();
+                        addendi_o.add(addendiOperazione_o);
+                        risultati_o.add(divisione(addendiOperazione_o));
+                        operatori_o.add("/");
                         break;
                     case 5:
-                        addendiOperazione = inserimentoAddendi();
-                        addendi.add(addendiOperazione);
-                        risultati.add(esponenziale(addendiOperazione));
-                        operatori.add("^");
+                        addendiOperazione_o = inserimentoAddendi();
+                        addendi_o.add(addendiOperazione_o);
+                        risultati_o.add(esponenziale(addendiOperazione_o));
+                        operatori_o.add("^");
                         break;
                     case 6:
                         // Stampa operazioni effettuate
                         System.out.println("Operazioni effettuate:");
-                        for(int j = 0; j < operatori.size(); j++) {
+                        for(int j = 0; j < operatori_o.size(); j++) {
                             // Stampa operazione
-                            for(int k = 0; k < addendi.get(j).size()-1; k++) {
-                                System.out.print(addendi.get(j).get(k) + " " + operatori.get(j) + " ");
+                            for(int k = 0; k < addendi_o.get(j).size()-1; k++) {
+                                System.out.print(addendi_o.get(j).get(k) + " " + operatori_o.get(j) + " ");
                             }
                             // Stampa risultato
-                            System.out.print(addendi.get(j).get(addendi.get(j).size()-1));
-                            System.out.println(" = " + risultati.get(j));
+                            System.out.print(addendi_o.get(j).get(addendi_o.get(j).size()-1));
+                            System.out.println(" = " + risultati_o.get(j));
                         }
                         break;
                     case 7:
                         // Stampa addendi
                         System.out.println("Addendi:");
-                        for(ArrayList<Double> gruppoAddendi : addendi) {
+                        for(ArrayList<Double> gruppoAddendi : addendi_o) {
                             System.out.println(gruppoAddendi);
                         }
                         break;
                     case 8:
                         // Stampa risultati
                         System.out.println("Risultati:");
-                        for(Double risultato : risultati) {
+                        for(Double risultato : risultati_o) {
                             System.out.println(risultato);
                         }
                         break;
