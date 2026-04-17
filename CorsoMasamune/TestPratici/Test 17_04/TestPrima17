@@ -1,0 +1,214 @@
+public class Test17 {
+    //Funzione input x addedndi
+    public static ArrayList<Double> inserimentoAddendi() {
+        ArrayList<Double> addendi = new ArrayList<>();
+        while(true) {
+            System.out.println("Vuoi inserire un addendo o uscire?(inserire/uscire)");
+            String risposta = new java.util.Scanner(System.in).nextLine();
+            if(risposta.equals("uscire")) {
+                break;
+            }else if(!risposta.equals("inserire")) {
+                System.out.println("Inserisci l'addendo:");
+                addendi.add(new java.util.Scanner(System.in).nextDouble());
+            }else {
+                System.out.println("Risposta non valida. Riprova.");
+            }
+        }
+        return addendi;
+    }
+    //Somma a x elementi
+    public static double somma(ArrayList<Double> addendi) {
+        double risultato = 0;
+        for (double addendo : addendi) {
+            risultato += addendo;
+        }
+
+        System.out.println("Risultato: " + risultato);
+        return risultato;
+    }
+    //Sottrazione a x elementi
+    public static double sottrazione(ArrayList<Double> addendi) {
+        double risultato = addendi.get(0);
+        for (int i = 1; i < addendi.size(); i++) {
+            risultato -= addendi.get(i);
+        }
+
+        System.out.println("Risultato: " + risultato);
+        return risultato;
+    }
+    //Moltiplicazione a x elemnti
+    public static double moltiplicazione(ArrayList<Double> addendi) {
+        double risultato = 1;
+        for (double addendo : addendi) {
+            risultato *= addendo;
+        }
+
+        System.out.println("Risultato: " + risultato);
+        return risultato;
+    }
+    //Divisione a x elementi
+    public static double divisione(ArrayList<Double> addendi) {
+        double risultato = addendi.get(0);
+        for (int i = 1; i < addendi.size(); i++) {
+            if(addendi.get(i) == 0) {
+                System.out.println("Errore: divisione per zero.");
+                return Double.NaN;
+            }
+            risultato /= addendi.get(i);
+        }
+
+        System.out.println("Risultato: " + risultato);
+        return risultato;
+    }
+    //Esponenziazione a 2 elementi
+    public static double esponenziazione(ArrayList<Double> addendi) {
+        if(addendi.size() != 2) {
+            System.out.println("Errore: esponenziazione richiede esattamente 2 addendi.");
+            return -;
+        }
+        double risultato = Math.pow(addendi.get(0), addendi.get(1));
+        System.out.println("Risultato: " + risultato);
+        return risultato;
+    }
+    public static void main(String[] args) {
+        //ArrayList per utenti e password
+        ArrayList<String> utenti_o = new ArrayList<>();
+        ArrayList<String> passwords_o = new ArrayList<>();
+        int maxOperazioni = 4;
+        boolean stop = false;
+        // Ciclo principale del programma
+        while (!stop) {
+            // ArrayList per addendi, risultati e operatori
+            ArrayList<Double[]> addendi = new ArrayList<>();
+            ArrayList<Double[]> risultati = new ArrayList<>();
+            ArrayList<String> operatori = new ArrayList<>();
+            //Registrazione utente o login
+            do{
+                System.out.println("Sei un nuovo utente? (s/n)");
+                String risposta = new java.util.Scanner(System.in).nextLine();
+                if(risposta.equals("s") || risposta.equals("n")) {
+                    break;
+                }else {
+                    System.out.println("Risposta non valida. Riprova.");
+                }
+            } while (true); 
+            // Registrazione utente
+            if(risposta.equals("s")) {
+                System.out.println("Registrazione utente:");
+                System.out.println("Inserisci nome utente:");
+                // Controllo se il nome utente è già esistente
+                while(true) {
+                    String newUsername = new java.util.Scanner(System.in).nextLine();
+                    if(utenti_o.contains(newUsername)) {
+                        System.out.println("Nome utente già esistente. Riprova.");
+                    }else {
+                        utenti_o.add(newUsername);
+                        break;
+                    }
+                }
+                // Inserimento password
+                System.out.println("Inserisci password:");
+                String newPassword = new java.util.Scanner(System.in).nextLine();
+                utenti_o.add(newUsername);
+                passwords_o.add(newPassword);
+                System.out.println("Registrazione completata. Puoi ora effettuare il login.");
+            }else {
+                // Login utente
+                while(true) {
+                    System.out.println("Login utente:");
+                    System.out.println("Inserisci nome utente:");
+                    String username = new java.util.Scanner(System.in).nextLine();
+                    System.out.println("Inserisci password:");
+                    String password = new java.util.Scanner(System.in).nextLine();
+                    // Controllo se il nome utente esiste e se la password è corretta
+                    if(utenti_o.contains(username)) {
+                        int index = utenti_o.indexOf(username);
+                        if(passwords_o.get(index).equals(password)) {
+                            System.out.println("Login effettuato con successo. Benvenuto, " + username + "!");
+                            break;
+                        }else {
+                            System.out.println("Password errata. Riprova.");
+                        }
+                    }else {
+                        System.out.println("Nome utente non trovato. Riprova.");
+
+                    }
+                }
+            }
+            for(int i = 0; i < maxOperazioni && !stop; i++) {
+                //Menu operazioni: Somma, Sottrazione, Moltiplicazione, Divisione, Esponenziazione
+                // Poi lista addedndi, operazioni, risultati e uscita
+                System.out.println("Scegli un'operazione:");
+                System.out.println("1. Somma");
+                System.out.println("2. Sottrazione");
+                System.out.println("3. Moltiplicazione");
+                System.out.println("4. Divisione");
+                System.out.println("5. Esponenziazione");
+                System.out.println("6. Visualizza operazioni effettuate");
+                System.out.println("7. Visualizza addendi");
+                System.out.println("8. Visualizza risultati");
+                System.out.println("9. Esci");
+                // Controllo operazione scelta
+                int operazione = new java.util.Scanner(System.in).nextInt();
+                ArrayList<Double> addendiOperazione;
+                switch (operazione) {
+                    case 1:
+                        addendiOperazione = inserimentoAddendi();
+                        risultati.set(i, somma(addendiOperazione));
+                        break;
+                    case 2:
+                        addendiOperazione = inserimentoAddendi();
+                        risultati.set(i,sottrazione(adde) )
+                        
+                        break;
+                    case 3:
+                        addendiOperazione = inserimentoAddendi();
+                        moltiplicazione();
+                        break;
+                    case 4:
+                        addendiOperazione = inserimentoAddendi();
+                        divisione();
+                        break;
+                    case 5:
+
+                        esponenziazione();
+                        break;
+                    case 6:
+                        // Stampa operazioni effettuate
+                        System.out.println("Operazioni effettuate:");
+                        for(int j = 0; j < operatori.size(); j++) {
+                            for(doble addendo : addendi.get(j)) {
+                                System.out.print(addendo + " " + operatori.get(j) + " ");
+                            }
+                            System.out.println("= " + risultati.get(j)[0]);
+                        }
+                    case 7:
+                        // Stampa addendi
+                        System.out.println("Addendi:");
+                        for(Double[] addendo : addendi) {
+                            System.out.println(Arrays.toString(addendo));
+                        }
+                        
+                    case 8:
+                        // Stampa risultati
+                        System.out.println("Risultati:");
+                        for(Double[] risultato : risultati) {
+                            System.out.println(Arrays.toString(risultato));
+                        }
+                    case 9: 
+                        // Uscita dal programma
+                        System.out.println("Uscita dal programma. Arrivederci!");
+                        stop = true;
+                        break;
+                    default:
+                        // Operazione non valida
+                        System.out.println("Operazione non valida. Riprova.");
+                        operazione = new java.util.Scanner(System.in).nextInt();
+                        i--;
+                        break;
+                }    
+                
+            }
+        }
+    }
+}
