@@ -1,5 +1,7 @@
 -- create database Negozio;
+-- creazione database
 use negozio;
+-- creazione tabella vendite 
 /*create table Vendite (
 
     id INT not null,
@@ -15,6 +17,7 @@ use negozio;
     data_vendita DATE
 	
 );
+-- inserimento valori
 INSERT INTO Vendite (id, prodotto, categoria, quantita, prezzo_unitario, data_vendita) 
 VALUES (1, 'Smartphone Alpha', 'Elettronica', 2, 599.99, '2024-01-10');
 
@@ -75,29 +78,36 @@ VALUES (19, 'Hard Disk Esterno 2TB', 'Elettronica', 3, 79.00, '2024-03-12');
 INSERT INTO Vendite (id, prodotto, categoria, quantita, prezzo_unitario, data_vendita) 
 VALUES (20, 'Agenda 2024', 'Cancelleria', 25, 10.00, '2024-03-15');
 */
+-- mostra le vendite per categoria
 select categoria, count(id)  as venditeCategoria
 from vendite
 group by categoria;
 
+-- mostra il prezzo medio per categoria
 select categoria, avg(prezzo_unitario) as mediaCategorie
 from vendite
 group by categoria;
 
+-- mostra le vendite per ogni prodotto
 select prodotto, sum(quantita) as totaleVenduti
 from vendite
 group by prodotto;
 
+-- prezzo massimo e minimo
 select max(prezzo_unitario) as max, min(prezzo_unitario) as min
 from vendite;
 
+-- vendite totali
 select count(*) as venditeTotali
 from vendite;
 
+-- prodotti più costosi
 select prodotto, prezzo_unitario
 from vendite
 order by prezzo_unitario desc
 limit 5;
 
+-- prodotti meno venduti
 select prodotto, sum(quantita) as prodottiVenduti
 from vendite
 group by prodotto
