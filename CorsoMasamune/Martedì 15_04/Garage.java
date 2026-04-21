@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Garage {
     public static void main(String[] args){
@@ -15,6 +16,17 @@ public class Garage {
         auto2.anno=2007;
         auto2.prezzo=15000;
         auto2.mostraInfo();
+        // le metto in una lista
+        ArrayList<Auto> auto_o = new ArrayList<>();
+        auto_o.add(auto);
+        auto_o.add(auto2);
+        //ora posso usare il for each
+        for(Auto a : auto_o){
+            a.mostraInfo();
+            //Meglio se si accede tramite la classe
+            System.out.println("Numero di ruote: "+ a.numeroRuote);
+        }
+
     }
     
 }
