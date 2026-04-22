@@ -179,7 +179,7 @@ class BankAccount {
         }
         if (o instanceof BankAccount) {
             BankAccount account = (BankAccount) o;
-            return holderName.equals(account.holderName) && balance == account.balance;
+            return holderName.equals(account.holderName) && balance == account.balance && password.equals(account.password);
         }
         return false;
     }
@@ -188,6 +188,7 @@ class BankAccount {
     public int hashCode() {
         int result = holderName.hashCode();
         result = 31 * result + (int) (balance * 31);
+        result = 31 * result + password.hashCode();
         return result;
     }
 
