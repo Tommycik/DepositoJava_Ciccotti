@@ -26,7 +26,7 @@ public class EsercizioIncapsulamento {
             String nome = stringScanner.nextLine();
             //controlla se è stato premuto 'esc'
             if(nome.equalsIgnoreCase("esc")) {
-                System.out.println("Esci dal programma");
+                System.out.println("Uscita dal programma");
                 break;
             }
             boolean trovato = false;
