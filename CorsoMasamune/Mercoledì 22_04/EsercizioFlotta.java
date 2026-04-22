@@ -94,7 +94,7 @@ class Pilota{
         this.nome = nome;
     }
     public void setOreVolo(int oreVolo) {
-        if(oreVolo>0) {
+        if(oreVolo>=0) {
             this.oreVolo = oreVolo;
         }else {
             System.out.println("Ore di volo non valide");
@@ -112,8 +112,8 @@ class Pilota{
 
 class CompagniaAerea{
     private String nome;
-    ArrayList<Aereo> flotta = new ArrayList<Aereo>();
-    ArrayList<Pilota> piloti = new ArrayList<Pilota>();
+    private ArrayList<Aereo> flotta = new ArrayList<Aereo>();
+    private ArrayList<Pilota> piloti = new ArrayList<Pilota>();
 
     public CompagniaAerea(String nome) {
         this.nome = nome;
