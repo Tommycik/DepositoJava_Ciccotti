@@ -152,7 +152,7 @@ class BankAccount {
 
     //withdraw
     public void withdraw(double amount) {
-        if (amount <= balance) {
+        if (amount <= balance && amount > 0) {
             balance -= amount;
         } else {
             System.out.println("Insufficient funds");
