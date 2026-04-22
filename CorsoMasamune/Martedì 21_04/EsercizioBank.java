@@ -147,7 +147,11 @@ class BankAccount {
     }
     //deposit
     public void deposit(double amount) {
-        balance += amount;
+        if(amount > 0){
+            balance += amount;
+        }else{
+            System.out.println("Invalid amount");
+        }
     }
 
     //withdraw
