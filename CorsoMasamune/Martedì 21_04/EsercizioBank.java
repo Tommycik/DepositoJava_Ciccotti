@@ -85,24 +85,30 @@ public class EsercizioBank {
                 System.out.println("4. Change account");
                 System.out.println("4. Exit");
                 int choice = Integer.parseInt(stringScanner.nextLine());
+                //scelta del menu
                 switch (choice) {
                     case 1:
+                        //deposit
                         System.out.println("Enter the amount to deposit:");
                         double amount = doubleScanner.nextDouble();
                         account.deposit(amount);
                         break;
                     case 2:
+                        //withdraw
                         System.out.println("Enter the amount to withdraw:");
                         double amount2 = doubleScanner.nextDouble();
                         account.withdraw(amount2);
                         break;
                     case 3:
+                        //displayBalance
                         account.displayBalance();
                         break;
                     case 4:
+                        //change account
                         operate = false;
                         break;
                     case 5:
+                        //exit
                         operate = false;
                         continueLoop = false;
                         System.out.println("Exiting");
