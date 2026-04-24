@@ -132,8 +132,8 @@ class Furgone extends VeicoloConsegna implements Tracciabile{
             return null;
         }
         System.out.println("Consegna pacco via strada a "+destinazione + " con targa "+getTarga());
-        //codice di consegna
-        String codice = String.valueOf(new Random().nextInt(10000));
+        //codice di consegna univoco
+        String codice = java.util.UUID.randomUUID().toString().substring(0, 8);
         setCodiceConsegna(codice);
         return codice;
     }
@@ -154,8 +154,8 @@ class Drone extends VeicoloConsegna implements Tracciabile{
             return null;
         }
         System.out.println("Consegna pacco via aria a "+destinazione + " con targa "+getTarga());
-        //codice di consegna
-        String codice = String.valueOf(new Random().nextInt(10000));
+        //codice di consegna univoco
+        String codice = java.util.UUID.randomUUID().toString().substring(0, 8);
         tracciaConsegna(String.valueOf(codice));
         setCodiceConsegna(codice);
         return codice;
@@ -201,7 +201,7 @@ class ConsegnaManager {
     public void  tracciaConsegna( String codice) {
         //Controlla se il veicolo è presente
         for (VeicoloConsegna veicolo : veicoli) {
-            if (veicolo.getCodiceConsegna().equals(codice)) {
+            if (veicolo.getCodiceConsegna()!=null && veicolo.getCodiceConsegna().equals(codice)) {
                 if(veicolo instanceof Tracciabile t){
                     ((Tracciabile)veicolo).tracciaConsegna(codice);
                     return;
