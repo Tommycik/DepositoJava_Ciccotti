@@ -147,7 +147,7 @@ abstract class Veicolo{
     }
 
     public void stampaInfo(){
-        System.out.println("Veicolo "+getNumeroAssi()+" con targa "+getTarga()+" e velocità "+getVelocita());
+        System.out.println("Veicolo con "+getNumeroAssi()+" assi, targa "+getTarga()+" e velocità "+getVelocita());
     }
 }
 
@@ -176,7 +176,7 @@ class Auto extends Veicolo{
     }
     @Override
     public void stampaInfo(){
-        System.out.println("Veicolo "+getNumeroAssi()+" con targa "+getTarga()+" e velocità "+getVelocita()+" e potenza "+getPotenza());
+        System.out.println("Auto con "+getNumeroAssi()+" assi, targa "+getTarga()+", velocità "+getVelocita()+" e potenza "+getPotenza());
     }
 }
 
@@ -206,7 +206,7 @@ class Camion extends Veicolo{
     }
     @Override
     public void stampaInfo(){
-        System.out.println("Veicolo "+getNumeroAssi()+" con targa "+getTarga()+" e velocità "+getVelocita()+" e cilindrata "+getCilindrata());
+        System.out.println("Camion con "+getNumeroAssi()+" assi, targa "+getTarga()+", velocità "+getVelocita()+" e cilindrata "+getCilindrata());
     }
 }
 
@@ -236,6 +236,6 @@ class Moto extends Veicolo{
     }
     @Override
     public void stampaInfo(){
-        System.out.println("Veicolo "+getNumeroAssi()+" con targa "+getTarga()+" e velocità "+getVelocita()+" e peso "+getPeso());
+        System.out.println("Moto con "+getNumeroAssi()+" assi, targa "+getTarga()+", velocità "+getVelocita()+" e peso "+getPeso());
     }
 }
