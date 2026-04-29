@@ -1,3 +1,4 @@
+
 import java.util.Date;
 import java.util.Scanner;
 
@@ -14,8 +15,8 @@ public class EsercizioSingleton {
         //verifichiamo che il logger sia lo stesso usando il riferimento
         System.out.println("Sono lo stesso logger: " + logger.toString().equals(logger2.toString()));
         //Proviamo a ottenere  l'utente
-        Utente utente = Utente.getInstance();
-        Utente utente2 = Utente.getInstance();
+        UtenteProva utente = UtenteProva.getInstance();
+        UtenteProva utente2 = UtenteProva.getInstance();
         //Facciamo la stessa prova
         System.out.println("Sono lo stesso utente: " + utente.toString().equals(utente2.toString()));
         //Fai scrivere messaggi all'utente
@@ -53,18 +54,18 @@ class Logger {
     }
 }
 //utente singleton
-class Utente {
+class UtenteProva {
     // Instance
-    private static Utente instance;
+    private static UtenteProva instance;
     private Logger logger;
     //costruttore privato
-    private Utente() {
+    private UtenteProva() {
         logger = Logger.getInstance();
     }
     //metodo per ottenere l'istanza
-    public static Utente getInstance() {
+    public static UtenteProva getInstance() {
         if (instance == null) {
-            instance = new Utente();
+            instance = new UtenteProva();
         }
         return instance;
     }
