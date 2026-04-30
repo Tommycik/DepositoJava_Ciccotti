@@ -162,19 +162,6 @@ class AgenziaBorsa{
         }
     }
 }
-
-//utente privato
-class UtentePrivato extends Utente {
-    //costruttore
-    public UtentePrivato(String nome, String password) {
-        super(nome, password);
-    }
-    // override notifica
-    @Override
-    public void notifica(String azione, double valore) {
-        System.out.println(nome + " (Privato): azione " + azione + " = " + valore);
-    }
-}
 //classe astratta utente
 abstract class Utente implements Investitore {
     protected String nome;
@@ -198,6 +185,18 @@ abstract class Utente implements Investitore {
      @Override
     public void notifica(String azione, double valore) {
         System.out.println(nome + " ha ricevuto aggiornamento: " + azione + " = " + valore);
+    }
+}
+//utente privato
+class UtentePrivato extends Utente {
+    //costruttore
+    public UtentePrivato(String nome, String password) {
+        super(nome, password);
+    }
+    // override notifica
+    @Override
+    public void notifica(String azione, double valore) {
+        System.out.println(nome + " (Privato): azione " + azione + " = " + valore);
     }
 }
 //utente bancario
