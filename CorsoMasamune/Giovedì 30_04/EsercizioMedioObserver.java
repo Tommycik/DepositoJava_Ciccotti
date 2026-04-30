@@ -27,9 +27,10 @@ public class EsercizioMedioObserver {
             System.out.println("2. Login");
             System.out.println("3. Aggiorna azione");
             System.out.println("4. Investi");
-            System.out.println("5. Esci");
+            System.out.println("5. Logout");
+            System.out.println("6. Esci");
             int scelta = intScanner.nextInt();
-            Utente utente;
+            Utente utente = null;
             switch (scelta){
                 case 1:
                     System.out.println("Inserisci il tuo nome: ");
@@ -91,8 +92,21 @@ public class EsercizioMedioObserver {
                     agenziaBorsa.notificaInvestitori(azioneInvestimento, quantità);
                     break;
                 case 5:
+                    if(Sessione.getInstance().getUtente() == null){
+                        System.out.println("Non hai effettuato il login");
+                        break;
+                    }else{
+                        Sessione.getInstance().logout();
+                    }
+                    break;
+
+                case 6:
                     System.out.println("Arrivederci!");
                     return;
+                default:
+                    System.out.println("Scelta non valida"); 
+                    break;   
+                }
         }
     }
 }
@@ -192,6 +206,14 @@ class Sessione {
 
     public Utente getUtente() {
         return utenteLoggato;
+    }
+    public void logout() {
+        if (utenteLoggato != null) {
+            System.out.println("Logout di " + utenteLoggato.getNome());
+            utenteLoggato = null;
+        } else {
+            System.out.println("Nessun utente loggato!");
+        }
     }
 }
 
