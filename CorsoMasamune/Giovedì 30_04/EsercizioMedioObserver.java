@@ -18,8 +18,6 @@ public class EsercizioMedioObserver {
         Scanner intScanner = new Scanner(System.in);
         Scanner stringScanner = new Scanner(System.in);
         Scanner doubleScanner = new Scanner(System.in);
-        System.out.println("Inserisci il tuo nome: ");
-        String nome = stringScanner.nextLine();
         List<Utente> utenti = new ArrayList<>();
         //creazione utente
         while(true){
@@ -46,7 +44,6 @@ public class EsercizioMedioObserver {
                         utente = new UtenteBancario(nomeUtente, password);
                     }
                     utenti.add(utente);
-                    agenziaBorsa.addInvestitore(utente);
                     Sessione.getInstance().login(utente);
                     break;
                 case 2:
@@ -85,11 +82,8 @@ public class EsercizioMedioObserver {
                         System.out.println("Non hai effettuato il login");
                         break;
                     }
-                    System.out.println("Inserisci il nome dell'azione: ");
-                    String azioneInvestimento = stringScanner.nextLine();
-                    System.out.println("Inserisci il nuovo valore dell'azione: ");
-                    double quantità = doubleScanner.nextDouble();
-                    agenziaBorsa.notificaInvestitori(azioneInvestimento, quantità);
+                    agenziaBorsa.addInvestitore(Sessione.getInstance().getUtente());
+                    System.out.println("Hai investito!");
                     break;
                 case 5:
                     if(Sessione.getInstance().getUtente() == null){
