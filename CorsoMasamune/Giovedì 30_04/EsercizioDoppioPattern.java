@@ -33,8 +33,9 @@ public class EsercizioDoppioPattern {
             System.out.println("2. Login");
             System.out.println("3. Pubblica notifica");
             System.out.println("4. Chiedi aggiornamenti");
-            System.out.println("5. Logout");
-            System.out.println("6. Esci");
+            System.out.println("5. Ferma aggiornamenti");
+            System.out.println("6. Logout");
+            System.out.println("7. Esci");
             int scelta = intScanner.nextInt();
             Utente utente = null;
             //scelta utente
@@ -96,8 +97,19 @@ public class EsercizioDoppioPattern {
                         break;
                     }
                     gestoreNotifiche.addObserver(Sessione.getInstance().getUtente());
+                    System.out.println("Hai richiesto le notifiche");
                     break;
-                case 5:
+                case 5: 
+                    //ferma notifiche  
+                    if(Sessione.getInstance().getUtente() == null){
+                        System.out.println("Non hai effettuato il login");
+                        break;
+                    }
+                     
+                    gestoreNotifiche.removeObserver(Sessione.getInstance().getUtente());
+                    System.out.println("Hai fermato le notifiche");
+                    break;
+                case 6:
                     //logout utente
                     if(Sessione.getInstance().getUtente() == null){
                         System.out.println("Non hai effettuato il login");
@@ -107,7 +119,7 @@ public class EsercizioDoppioPattern {
                     }
                     break;
 
-                case 6:
+                case 7:
                     //esci
                     System.out.println("Arrivederci!");
                     return;
