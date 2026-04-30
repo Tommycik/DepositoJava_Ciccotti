@@ -47,7 +47,7 @@ public class EsercizioDoppioPattern {
                     String password = stringScanner.nextLine();
                     //controlla se nome già presente
                     for (Utente u : utenti) {
-                        if (u.getNome().equals(nomeUtente)) {
+                        if (u.getNome().equalsIgnoreCase(nomeUtente)) {
                             System.out.println("Utente già presente");
                             break;
                         }
@@ -66,7 +66,7 @@ public class EsercizioDoppioPattern {
                     Utente utenteLogin = null;
                     //controllo nome e password
                     for (Utente u : utenti) {
-                        if (u.getNome().equals(nomeLogin) && u.getPassword().equals(passLogin)) {
+                        if (u.getNome().equalsIgnoreCase(nomeLogin) && u.getPassword().equals(passLogin)) {
                             utenteLogin = u;
                             break;
                         }

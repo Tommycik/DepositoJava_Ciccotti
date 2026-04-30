@@ -38,7 +38,7 @@ public class EsercizioMedioObserver {
                     int tipo = intScanner.nextInt();
                     //controlla doppioni
                     for (Utente u : utenti) {
-                        if (u.getNome().equals(nomeUtente)) {
+                        if (u.getNome().equalsIgnoreCase(nomeUtente)) {
                             System.out.println("Utente già presente");
                             break;
                         }
@@ -60,7 +60,7 @@ public class EsercizioMedioObserver {
                     String passLogin = stringScanner.nextLine();
                     Utente utenteLogin = null;
                     for (Utente u : utenti) {
-                        if (u.getNome().equals(nomeLogin) && u.getPassword().equals(passLogin)) {
+                        if (u.getNome().equalsIgnoreCase(nomeLogin) && u.getPassword().equals(passLogin)) {
                             utenteLogin = u;
                             break;
                         }
