@@ -1,29 +1,36 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-public class EsercizioMedioObserver {
+
+public class EsercizioDoppioPattern {
     public static void main(String[] args) {
-        //creazione agenzia borsa
-        AgenziaBorsa agenziaBorsa = new AgenziaBorsa();
-        
-        //aggiungi investitori bancari  
-        agenziaBorsa.addInvestitore(new UtenteBancario("Mario", "1234"));
-        agenziaBorsa.addInvestitore(new UtenteBancario("Mario", "1234"));
-        // aggiungi investitori privati
-        agenziaBorsa.addInvestitore(new UtentePrivato("Mario", "1234"));
-        agenziaBorsa.addInvestitore(new UtentePrivato("Mario", "1234"));
-        
-        //notifica gli investitori
-        agenziaBorsa.notificaInvestitori("Investimento", 1000);
-        Scanner intScanner = new Scanner(System.in);
+        //lista degli utenti
+        Arraylist<Utente> utenti = new ArrayList<>();
+        //creazione gestore notifiche
+        GestoreNotifiche gestoreNotifiche = GestoreNotifiche.getInstance();
+        //creazione utente
+        Utente provaUtente =new utente("Mario", "1234");
+        utenti.add(provaUtente);
+        // aggiungi observer
+        gestoreNotifiche.addObserver(provaUtente);
+        Utente provaUtente2 =new utente("Mario", "1234");
+        utenti.add(provaUtente2);
+        // aggiungi observer
+        gestoreNotifiche.addObserver(provaUtente2);
+        //notifica gli observer
+        gestoreNotifiche.notify("Messaggio di prova");
+        //rimuovi observer
+        gestoreNotifiche.removeObserver(provaUtente);
+        //notifica gli observer
+        gestoreNotifiche.notify("Messaggio di prova 2");
+         Scanner intScanner = new Scanner(System.in);
         Scanner stringScanner = new Scanner(System.in);
         Scanner doubleScanner = new Scanner(System.in);
-        List<Utente> utenti = new ArrayList<>();
         while(true){
             System.out.println("\n1. Registrazione utente");
             System.out.println("2. Login");
-            System.out.println("3. Aggiorna azione");
-            System.out.println("4. Investi");
+            System.out.println("3. Pubblica notifica");
+            System.out.println("4. Chiedi aggiornamenti");
             System.out.println("5. Logout");
             System.out.println("6. Esci");
             int scelta = intScanner.nextInt();
@@ -34,14 +41,14 @@ public class EsercizioMedioObserver {
                     String nomeUtente = stringScanner.nextLine();
                     System.out.println("Inserisci la password: ");
                     String password = stringScanner.nextLine();
-                    System.out.println("Tipo: 1=Privato, 2=Bancario");
-                    int tipo = intScanner.nextInt();
-                    if(tipo == 1){
-                        utente = new UtentePrivato(nomeUtente, password);
-                       
-                    }else if(tipo == 2){
-                        utente = new UtenteBancario(nomeUtente, password);
+                    //controlla doppioni
+                    for (Utente u : utenti) {
+                        if (u.getNome().equals(nomeUtente)) {
+                            System.out.println("Utente già presente");
+                            break;
+                        }
                     }
+                    utente = new Utente(nomeUtente, password);
                     utenti.add(utente);
                     Sessione.getInstance().login(utente);
                     break;
@@ -70,19 +77,16 @@ public class EsercizioMedioObserver {
                         System.out.println("Non hai effettuato il login");
                         break;
                     }
-                    System.out.println("Inserisci il nome dell'azione: ");
-                    String azione = stringScanner.nextLine();
-                    System.out.println("Inserisci il nuovo valore dell'azione: ");
-                    double valore = doubleScanner.nextDouble();
-                    agenziaBorsa.aggiornaValoreAzione(azione, valore);
+                    System.out.println("Inserisci il tetso della notifica: ");
+                    String notifica = stringScanner.nextLine();
+                    gestoreNotifiche.notify(notifica);
                     break;
                 case 4:
                     if(Sessione.getInstance().getUtente() == null){
                         System.out.println("Non hai effettuato il login");
                         break;
                     }
-                    agenziaBorsa.addInvestitore(Sessione.getInstance().getUtente());
-                    System.out.println("Hai investito!");
+                    gestoreNotifiche.addObserver(Sessione.getInstance().getUtente);
                     break;
                 case 5:
                     if(Sessione.getInstance().getUtente() == null){
@@ -103,79 +107,67 @@ public class EsercizioMedioObserver {
         }
     }
 }
-// interfaccia investitore
-interface Investitore{
-    void notifica(String azione, double valore);
-}
-//subject
-class AgenziaBorsa{
-    //lista degli investitori
-    private List<Investitore> investitori = new ArrayList<>();
-    //aggiungi investitore
-    public void addInvestitore(Investitore investitore){
-        investitori.add(investitore);
+//singleton gestione notifiche
+class GestoreNotifiche implements Subject{
+    private static GestoreNotifiche instance;
+    private List<Observer> observers = new ArrayList<>();
+    //costruttore e getinstance
+    private GestoreNotifiche(){}
+    public static GestoreNotifiche getInstance(){
+        if(instance == null){
+            instance = new GestoreNotifiche();
+        }
+        return instance;
     }
-    //rimuovi investitore
-    public void removeInvestitore(Investitore investitore){
-        investitori.remove(investitore);
+    //aggiungi observer
+    public void addObserver(Observer observer){
+        observers.add(observer);
     }
-    //notifica gli investitori
-    public void notificaInvestitori(String azione, double valore){
-        for (Investitore investitore : investitori) {
-            investitore.notifica(azione, valore);
+    //rimuovi observer
+    public void removeObserver(Observer observer){
+        observers.remove(observer);
+    }
+    //notifica gli observer
+    public void notifyObservers(String messaggio){
+        for(Observer observer : observers){
+            observer.update(messaggio);
         }
     }
-    public void aggiornaValoreAzione(String nome, double valore){
-        if(valore >= 0){
-            notificaInvestitori(nome, valore);
-        }else{
-            System.out.println("Non puoi avere un valore negativo");
-        }
+    //pubblicazione notifica
+    public void notify(String messaggio){
+        notifyObservers(messaggio);
     }
 }
-
-class UtentePrivato extends Utente {
-
-    public UtentePrivato(String nome, String password) {
-        super(nome, password);
-    }
-
-    @Override
-    public void notifica(String azione, double valore) {
-        System.out.println(nome + " (Privato): azione " + azione + " = " + valore);
-    }
+//interfaccia observer
+interface Observer{
+    public void update(String messaggio);
 }
-abstract class Utente implements Investitore {
-    protected String nome;
-    protected String password;
-
-    public Utente(String nome, String password) {
+//interfaccia subject
+interface Subject{
+    public void addObserver(Observer observer);
+    public void removeObserver(Observer observer);
+    public void notifyObservers(String messaggio);
+}
+class utente implements Observer{
+    private String nome;
+    private String password;
+    //costruttore
+    public utente(String nome, String password){
         this.nome = nome;
         this.password = password;
     }
-
-    public String getNome() {
+    //metodo per ottenere il nome
+    public String getNome(){
         return nome;
     }
-
-    public String getPassword() {
+    //metodo per ottenere la password
+    public String getPassword(){
         return password;
     }
-     @Override
-    public void notifica(String azione, double valore) {
-        System.out.println(nome + " ha ricevuto aggiornamento: " + azione + " = " + valore);
-    }
-}
-
-class UtenteBancario extends Utente{
-
-    public UtenteBancario(String nome, String password) {
-        super(nome, password);
-    }
-
+    //metodo per notificare gli observer
     @Override
-    public void notifica(String azione, double valore) {
-        System.out.println(nome + " (Banca) avvisa cliente -> " + azione + " = " + valore);
+    public void update(String messaggio) {
+        System.out.println(nome + " ha ricevuto la notifica: " + messaggio);
     }
 }
 
@@ -213,6 +205,3 @@ class Sessione {
         }
     }
 }
-
-
-
