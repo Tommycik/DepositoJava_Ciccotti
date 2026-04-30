@@ -3,31 +3,96 @@ import java.util.List;
 import java.util.Scanner;
 public class EsercizioMedioObserver {
     public static void main(String[] args) {
-        //creazione utente
-        Utente utente = Utente.getInstance("Tommy");
-        //aggiungi investitori privati
-        utente.addInvestitore(new InvestitorePrivato());
-        utente.addInvestitore(new InvestitorePrivato());
-        //aggiungi investitori bancari
-        utente.addInvestitore(new InvestitoreBancario());
-        utente.addInvestitore(new InvestitoreBancario());
-        Scanner StringScanner = new Scanner(System.in);
+        //creazione agenzia borsa
+        AgenziaBorsa agenziaBorsa = new AgenziaBorsa();
+        
+        //aggiungi investitori bancari  
+        agenziaBorsa.addInvestitore(new UtenteBancario("Mario", "1234"));
+        agenziaBorsa.addInvestitore(new UtenteBancario("Mario", "1234"));
+        // aggiungi investitori privati
+        agenziaBorsa.addInvestitore(new UtentePrivato("Mario", "1234"));
+        agenziaBorsa.addInvestitore(new UtentePrivato("Mario", "1234"));
+        
+        //notifica gli investitori
+        agenziaBorsa.notificaInvestitori("Investimento", 1000);
+        Scanner intScanner = new Scanner(System.in);
+        Scanner stringScanner = new Scanner(System.in);
         Scanner doubleScanner = new Scanner(System.in);
+        System.out.println("Inserisci il tuo nome: ");
+        String nome = stringScanner.nextLine();
+        List<Utente> utenti = new ArrayList<>();
+        //creazione utente
         while(true){
-            System.out.println("Ciao " + utente.getNome() + ", cosa vuole fare?");
-            //chiedi se vuole uscire o cambiare valore di una azione
-            System.out.println("Vuoi cambiare valore di una azione? [s/n]");
-            String risposta = StringScanner.nextLine();
-            if(risposta.equalsIgnoreCase("s")){
-                System.out.println("Inserisci il nome dell'azione: ");
-                String azione = StringScanner.nextLine();
-                System.out.println("Inserisci il nuovo valore dell'azione: ");
-                double valore = doubleScanner.nextDouble();
-                utente.aggiornaValoreAzione(azione, valore);
-            }else if(risposta.equalsIgnoreCase("n")){
-                System.out.println("Arrivederci!");
-                break;
-            }
+            System.out.println("\n1. Registrazione utente");
+            System.out.println("2. Login");
+            System.out.println("3. Aggiorna azione");
+            System.out.println("4. Investi");
+            System.out.println("5. Esci");
+            int scelta = intScanner.nextInt();
+            Utente utente;
+            switch (scelta){
+                case 1:
+                    System.out.println("Inserisci il tuo nome: ");
+                    String nomeUtente = stringScanner.nextLine();
+                    System.out.println("Inserisci la password: ");
+                    String password = stringScanner.nextLine();
+                    System.out.println("Tipo: 1=Privato, 2=Bancario");
+                    int tipo = intScanner.nextInt();
+                    if(tipo == 1){
+                        utente = new UtentePrivato(nomeUtente, password);
+                       
+                    }else if(tipo == 2){
+                        utente = new UtenteBancario(nomeUtente, password);
+                    }
+                    utenti.add(utente);
+                    agenziaBorsa.addInvestitore(utente);
+                    Sessione.getInstance().login(utente);
+                    break;
+                case 2:
+                    System.out.println("Nome:");
+                    String nomeLogin = stringScanner.nextLine();
+
+                    System.out.println("Password:");
+                    String passLogin = stringScanner.nextLine();
+                    Utente utenteLogin = null;
+                    for (Utente u : utenti) {
+                        if (u.getNome().equals(nomeLogin) && u.getPassword().equals(passLogin)) {
+                            utenteLogin = u;
+                            break;
+                        }
+                    }
+                    if (utenteLogin != null) {
+                        Sessione.getInstance().login(utenteLogin);
+                        System.out.println("Benvenuto " + utenteLogin.getNome());
+                    }else{
+                        System.out.println("Utente non trovato");
+                    }
+                    break;
+                case 3:
+                    if(Sessione.getInstance().getUtente() == null){
+                        System.out.println("Non hai effettuato il login");
+                        break;
+                    }
+                    System.out.println("Inserisci il nome dell'azione: ");
+                    String azione = stringScanner.nextLine();
+                    System.out.println("Inserisci il nuovo valore dell'azione: ");
+                    double valore = doubleScanner.nextDouble();
+                    agenziaBorsa.aggiornaValoreAzione(azione, valore);
+                    break;
+                case 4:
+                    if(Sessione.getInstance().getUtente() == null){
+                        System.out.println("Non hai effettuato il login");
+                        break;
+                    }
+                    System.out.println("Inserisci il nome dell'azione: ");
+                    String azioneInvestimento = stringScanner.nextLine();
+                    System.out.println("Inserisci il nuovo valore dell'azione: ");
+                    double quantità = doubleScanner.nextDouble();
+                    agenziaBorsa.notificaInvestitori(azioneInvestimento, quantità);
+                    break;
+                case 5:
+                    System.out.println("Arrivederci!");
+                    return;
         }
     }
 }
@@ -61,61 +126,72 @@ class AgenziaBorsa{
         }
     }
 }
-// implementazione investitore
-class InvestitorePrivato implements Investitore{
-    //override notifica
-    @Override
-    public void notifica(String azione, double valore) {
-        System.out.println("La mia azione: " + azione + " ha un nuovo valore: " + valore);
-    }
-}
-//implementazione investitore
-class InvestitoreBancario implements Investitore{
-    //override notifica
-    @Override
-    public void notifica(String azione, double valore) {
-        System.out.println("Devo avvertire il cliente che l'azione: " + azione + " ha un nuovo valore: " + valore);
-    }
-}
 
-//Singleton utente
-class Utente{
-    private static Utente instance;
-    private String nome;
-    private AgenziaBorsa agenzia;
-    //costruttore
-    private Utente(String nome){
+class UtentePrivato extends Utente {
+
+    public UtentePrivato(String nome, String password) {
+        super(nome, password);
+    }
+
+    @Override
+    public void notifica(String azione, double valore) {
+        System.out.println(nome + " (Privato): azione " + azione + " = " + valore);
+    }
+}
+abstract class Utente implements Investitore {
+    protected String nome;
+    protected String password;
+
+    public Utente(String nome, String password) {
         this.nome = nome;
-        agenzia = new AgenziaBorsa();
-        agenzia.addInvestitore(new InvestitorePrivato());
-        agenzia.addInvestitore(new InvestitoreBancario());
+        this.password = password;
     }
-    //getInstance
-    public static Utente getInstance(String nome){
-        if(instance == null){
-            instance = new Utente(nome);
-        }
-        return instance;
-    }
-    //getter e setter
-    public void setNome(String nome){
-        this.nome = nome;
-    }
-    public String getNome(){
+
+    public String getNome() {
         return nome;
     }
 
-    //aggiorna valore azione
-    public void aggiornaValoreAzione(String azione, double valore){
-        agenzia.aggiornaValoreAzione(nome, valore);
+    public String getPassword() {
+        return password;
     }
-    //aggiungi investitore
-    public void addInvestitore(Investitore investitore){
-        agenzia.addInvestitore(investitore);
+     @Override
+    public void notifica(String azione, double valore) {
+        System.out.println(nome + " ha ricevuto aggiornamento: " + azione + " = " + valore);
     }
-    //rimuovi investitore
-    public void removeInvestitore(Investitore investitore){
-        agenzia.removeInvestitore(investitore);
+}
+
+class UtenteBancario extends Utente{
+
+    public UtenteBancario(String nome, String password) {
+        super(nome, password);
+    }
+
+    @Override
+    public void notifica(String azione, double valore) {
+        System.out.println(nome + " (Banca) avvisa cliente -> " + azione + " = " + valore);
+    }
+}
+
+//Singleton sessione
+class Sessione {
+    private static Sessione instance;
+    private Utente utenteLoggato;
+
+    private Sessione() {}
+
+    public static Sessione getInstance() {
+        if (instance == null) {
+            instance = new Sessione();
+        }
+        return instance;
+    }
+
+    public void login(Utente u) {
+        this.utenteLoggato = u;
+    }
+
+    public Utente getUtente() {
+        return utenteLoggato;
     }
 }
 
