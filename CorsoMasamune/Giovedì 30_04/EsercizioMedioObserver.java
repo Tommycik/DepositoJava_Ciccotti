@@ -36,6 +36,13 @@ public class EsercizioMedioObserver {
                     String password = stringScanner.nextLine();
                     System.out.println("Tipo: 1=Privato, 2=Bancario");
                     int tipo = intScanner.nextInt();
+                    //controlla doppioni
+                    for (Utente u : utenti) {
+                        if (u.getNome().equals(nomeUtente)) {
+                            System.out.println("Utente già presente");
+                            break;
+                        }
+                    }
                     if(tipo == 1){
                         utente = new UtentePrivato(nomeUtente, password);
                        

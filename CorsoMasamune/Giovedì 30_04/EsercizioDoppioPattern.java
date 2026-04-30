@@ -5,15 +5,15 @@ import java.util.Scanner;
 public class EsercizioDoppioPattern {
     public static void main(String[] args) {
         //lista degli utenti
-        Arraylist<Utente> utenti = new ArrayList<>();
+        ArrayList<Utente> utenti = new ArrayList<>();
         //creazione gestore notifiche
         GestoreNotifiche gestoreNotifiche = GestoreNotifiche.getInstance();
         //creazione utente
-        Utente provaUtente =new utente("Mario", "1234");
+        Utente provaUtente =new Utente("Marco", "1234");
         utenti.add(provaUtente);
         // aggiungi observer
         gestoreNotifiche.addObserver(provaUtente);
-        Utente provaUtente2 =new utente("Mario", "1234");
+        Utente provaUtente2 =new Utente("Mario", "1234");
         utenti.add(provaUtente2);
         // aggiungi observer
         gestoreNotifiche.addObserver(provaUtente2);
@@ -21,12 +21,14 @@ public class EsercizioDoppioPattern {
         gestoreNotifiche.notify("Messaggio di prova");
         //rimuovi observer
         gestoreNotifiche.removeObserver(provaUtente);
+        System.out.println("Notifiche rimosse per " + provaUtente.getNome());
         //notifica gli observer
         gestoreNotifiche.notify("Messaggio di prova 2");
          Scanner intScanner = new Scanner(System.in);
         Scanner stringScanner = new Scanner(System.in);
         Scanner doubleScanner = new Scanner(System.in);
         while(true){
+            //menu
             System.out.println("\n1. Registrazione utente");
             System.out.println("2. Login");
             System.out.println("3. Pubblica notifica");
@@ -35,13 +37,15 @@ public class EsercizioDoppioPattern {
             System.out.println("6. Esci");
             int scelta = intScanner.nextInt();
             Utente utente = null;
+            //scelta utente
             switch (scelta){
                 case 1:
+                    //registrazione utente
                     System.out.println("Inserisci il tuo nome: ");
                     String nomeUtente = stringScanner.nextLine();
                     System.out.println("Inserisci la password: ");
                     String password = stringScanner.nextLine();
-                    //controlla doppioni
+                    //controlla se nome già presente
                     for (Utente u : utenti) {
                         if (u.getNome().equals(nomeUtente)) {
                             System.out.println("Utente già presente");
@@ -53,18 +57,21 @@ public class EsercizioDoppioPattern {
                     Sessione.getInstance().login(utente);
                     break;
                 case 2:
+                    //login utente
                     System.out.println("Nome:");
                     String nomeLogin = stringScanner.nextLine();
 
                     System.out.println("Password:");
                     String passLogin = stringScanner.nextLine();
                     Utente utenteLogin = null;
+                    //controllo nome e password
                     for (Utente u : utenti) {
                         if (u.getNome().equals(nomeLogin) && u.getPassword().equals(passLogin)) {
                             utenteLogin = u;
                             break;
                         }
                     }
+                    //controllo se utente trovato
                     if (utenteLogin != null) {
                         Sessione.getInstance().login(utenteLogin);
                         System.out.println("Benvenuto " + utenteLogin.getNome());
@@ -73,6 +80,7 @@ public class EsercizioDoppioPattern {
                     }
                     break;
                 case 3:
+                    //pubblicazione notifica
                     if(Sessione.getInstance().getUtente() == null){
                         System.out.println("Non hai effettuato il login");
                         break;
@@ -82,13 +90,15 @@ public class EsercizioDoppioPattern {
                     gestoreNotifiche.notify(notifica);
                     break;
                 case 4:
+                    //richiedi notifiche
                     if(Sessione.getInstance().getUtente() == null){
                         System.out.println("Non hai effettuato il login");
                         break;
                     }
-                    gestoreNotifiche.addObserver(Sessione.getInstance().getUtente);
+                    gestoreNotifiche.addObserver(Sessione.getInstance().getUtente());
                     break;
                 case 5:
+                    //logout utente
                     if(Sessione.getInstance().getUtente() == null){
                         System.out.println("Non hai effettuato il login");
                         break;
@@ -98,9 +108,11 @@ public class EsercizioDoppioPattern {
                     break;
 
                 case 6:
+                    //esci
                     System.out.println("Arrivederci!");
                     return;
                 default:
+                    //scelta non valida
                     System.out.println("Scelta non valida"); 
                     break;   
                 }
@@ -148,11 +160,11 @@ interface Subject{
     public void removeObserver(Observer observer);
     public void notifyObservers(String messaggio);
 }
-class utente implements Observer{
+class Utente implements Observer{
     private String nome;
     private String password;
     //costruttore
-    public utente(String nome, String password){
+    public Utente(String nome, String password){
         this.nome = nome;
         this.password = password;
     }
@@ -184,8 +196,8 @@ class Sessione {
         }
         return instance;
     }
-
     public void login(Utente u) {
+        //controllo utente non nullo
         if(u == null){
             System.out.println("Utente non esistente");
             return;
