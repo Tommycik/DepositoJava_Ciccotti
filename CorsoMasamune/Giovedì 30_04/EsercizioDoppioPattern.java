@@ -133,9 +133,11 @@ public class EsercizioDoppioPattern {
 }
 //singleton gestione notifiche
 class GestoreNotifiche implements Subject{
+    //istanza
     private static GestoreNotifiche instance;
+    //lista degli observer
     private List<Observer> observers = new ArrayList<>();
-    //costruttore e getinstance
+    //costruttore privato e getinstance
     private GestoreNotifiche(){}
     public static GestoreNotifiche getInstance(){
         if(instance == null){
@@ -197,17 +199,20 @@ class Utente implements Observer{
 
 //Singleton sessione
 class Sessione {
+    //istanza
     private static Sessione instance;
+    //utente loggato
     private Utente utenteLoggato;
-
+    //costruttore privato
     private Sessione() {}
-
+    //metodo per ottenere istanza
     public static Sessione getInstance() {
         if (instance == null) {
             instance = new Sessione();
         }
         return instance;
     }
+    //metodo per effettuare il login
     public void login(Utente u) {
         //controllo utente non nullo
         if(u == null){
@@ -216,10 +221,11 @@ class Sessione {
         }
         this.utenteLoggato = u;
     }
-
+    //metodo per ottenere l'utente loggato
     public Utente getUtente() {
         return utenteLoggato;
     }
+    //metodo per effettuare il logout
     public void logout() {
         if (utenteLoggato != null) {
             System.out.println("Logout di " + utenteLoggato.getNome());
