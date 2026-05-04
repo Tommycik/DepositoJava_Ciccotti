@@ -1,0 +1,341 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+public class EsercizioTriploPatternDecorator{
+    public static void main(String[] args) {
+        //creazione Sistema di notifica
+        NotificationManager notificationManager = NotificationManager.getInstance();
+        //creazione Utente
+        Utente utenteProva = new Utente("Mario", "1234");
+        //creazione decorator
+        DecoratorMaiuscolo maiuscolo = new DecoratorMaiuscolo(utenteProva);
+        DecoratorTimestamp timestamp = new DecoratorTimestamp(maiuscolo);
+        DecoratorEmoji emoji = new DecoratorEmoji(timestamp);
+        //aggiunta utente a notifica
+        notificationManager.addObserver(utente);
+        //creazione utente normale
+        Utente utenteNormale = new Utente("Franco", "1234");
+        notificationManager.addObserver(utenteNormale);
+        //notifica utenti
+        utente.notifyObservers("Messaggio di prova");
+        
+        //Scanners
+        Scanner intScanner = new Scanner(System.in);
+        Scanner stringScanner = new Scanner(System.in);
+        //lista degli utenti
+        List<Utente> utenti = new ArrayList<>();
+        while(true){
+            //menu
+            System.out.println("\n1. Registrazione utente");
+            System.out.println("2. Login");
+            System.out.println("3. Invia notifica");
+            System.out.println("4. Richiedi notifica");
+            System.out.println("5. Smetti di ricevere notifiche");
+            System.out.println("6. Logout");
+            System.out.println("7. Esci");
+            int scelta = intScanner.nextInt();
+            Utente utente = null;
+            Observer component = null;
+            boolean valid=true;
+            switch (scelta){
+                //scelta utente
+                case 1:
+                    //registrazione utente
+                    System.out.println("Inserisci il tuo nome: ");
+                    String nomeUtente = stringScanner.nextLine();
+                    System.out.println("Inserisci la password: ");
+                    String password = stringScanner.nextLine();
+                    System.out.println("Tipo: 1=TimeStamp, 2=Maiuscolo, 3=Emoji, 4=Normale, 5=Tutti");
+                    int tipo = intScanner.nextInt();
+                    //controlla doppioni
+                    for (Utente u : utenti) {
+                        if (u.getNome().equalsIgnoreCase(nomeUtente)) {
+                            System.out.println("Utente già presente");
+                            break;
+                        }
+                    }
+                    utente = new Utente(nomeUtente, password);
+                    switch (tipo) {
+                        case 1:
+                            // TimeStamp
+                            component = new DecoratorTimestamp(new Utente(nomeUtente, password));
+                            break;
+                        case 2:
+                            // Maiuscolo
+                            component = new DecoratorMaiuscolo(new Utente(nomeUtente, password));
+                            break;
+                        case 3:
+                            // Emoji
+                            component = new DecoratorEmoji(new Utente(nomeUtente, password));
+                            break;
+                        case 4:
+                            // Normale
+                            break;
+                        case 5:
+                            // Tutti
+                            component = new DecoratorMaiuscolo(new DecoratorTimestamp(new DecoratorEmoji(new Utente(nomeUtente, password))));
+                            break;
+                    
+                        default:
+                            // Tipo non valido
+                            valid=false;
+                            System.out.println("Scelta non valida");
+                            break;
+                    }
+                    //controllo
+                    if (valid) {
+
+                        notificationManager.addObserver(component);
+                        utenti.add(utente);
+                        Sessione.getInstance().login(utente);
+                        System.out.println("Utente registrato con successo");
+                    }
+                   
+                    break;
+                case 2:
+                    //login utente
+                    System.out.println("Nome:");
+                    String nomeLogin = stringScanner.nextLine();
+
+                    System.out.println("Password:");
+                    String passLogin = stringScanner.nextLine();
+                    Utente utenteLogin = null;
+                    //controllo nome e password
+                    for (Utente u : utenti) {
+                        if (u.getNome().equalsIgnoreCase(nomeLogin) && u.getPassword().equals(passLogin)) {
+                            utenteLogin = u;
+                            break;
+                        }
+                    }
+                    if (utenteLogin != null) {
+                        Sessione.getInstance().login(utenteLogin);
+                        System.out.println("Benvenuto " + utenteLogin.getNome());
+                    }else{
+                        System.out.println("Utente non trovato");
+                    }
+                    break;
+                case 3:
+                    //Invia notifica
+                    //controllo sessione
+                    if(Sessione.getInstance().getUtente() == null){
+                        System.out.println("Non hai effettuato il login");
+                        break;
+                    }
+                    System.out.println("Inserisci la notifica: ");
+                    String messaggio = stringScanner.nextLine();
+                    notificationManager.inviaNotifica(messaggio);
+                    break;
+                case 4:
+                    //Richiedi notifiche
+                    if(Sessione.getInstance().getUtente() == null){
+                        System.out.println("Non hai effettuato il login");
+                        break;
+                    }
+                    notificationManager.addObserver(Sessione.getInstance().getUtente());
+                    System.out.println("Notifiche richieste");
+                    break;
+                case 5:
+                    //smetti di ricevere notifiche
+                    if(Sessione.getInstance().getUtente() == null){
+                        System.out.println("Non hai effettuato il login"); 
+                        break;
+                    }
+                    notificationManager.removeObserver(Sessione.getInstance().getUtente());
+                    System.out.println("Hai disdetto le notifiche");
+                    break;
+                case 6:
+                    //logout
+                    if(Sessione.getInstance().getUtente() == null){
+                        System.out.println("Non hai effettuato il login");
+                        break;
+                    }else{
+                        Sessione.getInstance().logout();
+                    }
+                    break;
+
+                case 7:
+                    //esci
+                    System.out.println("Arrivederci!");
+                    return;
+                default:
+                    System.out.println("Scelta non valida"); 
+                    break;   
+                }
+        }
+    }
+}
+
+//Singleton sessione
+class Sessione {
+    //instanza
+    private static Sessione instance;
+    //utente loggato
+    private Utente utenteLoggato;
+    //costruttore privato
+    private Sessione() {}
+    //metodo per ottenere istanza
+    public static Sessione getInstance() {
+        if (instance == null) {
+            instance = new Sessione();
+        }
+        return instance;
+    }
+    //metodo per effettuare il login
+    public void login(Utente u) {
+        if(u == null){
+            System.out.println("Utente non esistente");
+            return;
+        }
+        this.utenteLoggato = u;
+    }
+    //metodo per ottenere l'utente loggato
+    public Utente getUtente() {
+        return utenteLoggato;
+    }
+    //metodo per effettuare il logout
+    public void logout() {
+        if (utenteLoggato != null) {
+            System.out.println("Logout di " + utenteLoggato.getNome());
+            utenteLoggato = null;
+        } else {
+            System.out.println("Nessun utente loggato!");
+        }
+    }
+}
+//interfaccia subject
+interface Subject {
+    void addObserver(Observer o);
+    void removeObserver(Observer o);
+    void notifyObservers(String messaggio);
+}
+//interfaccia observer
+interface Observer {
+    void update(String messaggio);
+}
+
+// Singleton NotificationManager
+class NotificationManager implements Subject {
+    //istanza
+    private static NotificationManager instance;
+    //lista degli utenti
+    private List<Observer> observers = new ArrayList<>();
+    //costruttore privato
+    private NotificationManager() {}
+    //metodo per ottenere istanza
+    public static NotificationManager getInstance() {
+        if (instance == null) {
+            instance = new NotificationManager();
+        }
+        return instance;
+    }
+    //metodo per aggiungere utente
+    public void addObserver(Observer o) {
+        observers.add(o);
+    } 
+    //metodo per rimuovere utente
+    public void removeObserver(Observer o) {
+        observers.remove(o);
+    }
+    //metodo per notificare utenti
+    public void notifyObservers(String messaggio) {
+        for (Observer o : observers) {
+            o.update(messaggio);
+        }
+    }
+    //invia notifica
+    public void inviaNotifica(String messaggio) {
+        notifyObservers(messaggio);
+    }
+}
+//interfaccia component
+interface component{
+    String modifyNotification(String messaggio);
+}
+
+abstract class DecoratorUtente implements component, Observer{
+    //campo componente
+    private Component component;
+    public DecoratorUtente(Component component){
+        this.component = component;
+    }
+    //override printNotification
+    @Override
+    public String modifyNotification(String messaggio) {
+        return component.modifyNotification(messaggio);
+    }
+    //override update
+    @Override
+    public void update(String messaggio) {
+        String text=modifyNotification(messaggio);
+        System.out.println(text);
+    }
+}
+//Decorator concreto maiuscolo
+class DecoratorMaiuscolo extends DecoratorUtente{
+    //costruttore
+    public DecoratorMaiuscolo(Component component){
+        super(component);
+    }
+    //override modifyNotification
+    @Override
+    public String modifyNotification(String messaggio) {
+        return messaggio.toUpperCase();
+    }
+}
+// Decorator concreto Timestamp
+class DecoratorTimestamp extends DecoratorUtente{
+    //costruttore
+    public DecoratorTimestamp(Component component){
+        super(component);
+    }
+    //override modifyNotification
+    @Override
+    public String modifyNotification(String messaggio) {
+        return "["+System.currentTimeMillis()+"] "+messaggio;
+    }
+}
+//decorator emoji
+class DecoratorEmoji extends DecoratorUtente{
+    //costruttore
+    public DecoratorEmoji(Component component){
+        super(component);
+    }
+    //override modifyNotification
+    @Override
+    public String modifyNotification(String messaggio) {
+        return messaggio+" :)";
+    }
+}
+
+class Utente implements Observer, component{
+    //campo notifica
+    private String password;
+    private String username;
+    //costruttore
+    public Utente(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+    //getter e setter
+    public String getUsername() {
+        return username;
+    }
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    public String getPassword() {
+        return password;
+    }
+    //override modifyNotification
+    @Override
+    public String modifyNotification(String messaggio) {
+        return messaggio;
+    }
+    //override update
+    @Override
+    public void update(String messaggio) {
+        String text=modifyNotification(messaggio);
+        System.out.println(text);
+    }
+
+}
