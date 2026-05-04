@@ -94,7 +94,6 @@ public class EsercizioTriploPatternDecorator{
                         observer= (Observer) utente;
                         notificationManager.addObserver(observer);
                         utenti.add(utente);
-                        //aggiunta utente alla map
                         Sessione.getInstance().login(utente);
                         System.out.println("Utente registrato con successo");
                     }
@@ -339,7 +338,7 @@ class DecoratorEmoji extends DecoratorUtente{
         return super.modifyNotification(messaggio)+" :)";
     }
 }
-
+//Utente 
 class Utente implements Observer, Component{
     //campo notifica
     private String password;
