@@ -23,12 +23,13 @@ public class EsercizioTriploPatternDecorator{
         notificationManager.addObserver(utenteNormale);
         //notifica utenti
         notificationManager.notifyObservers("Messaggio di prova");
-        
         //Scanners
         Scanner intScanner = new Scanner(System.in);
         Scanner stringScanner = new Scanner(System.in);
         //lista degli utenti
         List<Component> utenti = new ArrayList<>();
+        utenti.add(utenteNormale);
+        utenti.add(emoji);
         while(true){
             //menu
             System.out.println("\n1. Registrazione utente e richiesta notifiche");
