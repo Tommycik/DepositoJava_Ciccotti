@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 public class EsercizioTriploPatternDecorator{
     public static void main(String[] args) {
-        //map utente decorator
+        //map utente Observer
         Map<Utente, Observer> observerMap = new HashMap<>();
         //creazione Sistema di notifica
         NotificationManager notificationManager = NotificationManager.getInstance();
@@ -32,7 +32,7 @@ public class EsercizioTriploPatternDecorator{
         List<Utente> utenti = new ArrayList<>();
         while(true){
             //menu
-            System.out.println("\n1. Registrazione utente e richeista notifiche");
+            System.out.println("\n1. Registrazione utente e richiesta notifiche");
             System.out.println("2. Login");
             System.out.println("3. Invia notifica");
             System.out.println("4. Richiedi notifica");
