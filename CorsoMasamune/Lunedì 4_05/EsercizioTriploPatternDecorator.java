@@ -8,8 +8,6 @@ import java.util.Scanner;
 
 public class EsercizioTriploPatternDecorator{
     public static void main(String[] args) {
-        //map utente Observer
-        Map<Utente, Observer> observerMap = new HashMap<>();
         //creazione Sistema di notifica
         NotificationManager notificationManager = NotificationManager.getInstance();
         //creazione Utente
@@ -30,7 +28,7 @@ public class EsercizioTriploPatternDecorator{
         Scanner intScanner = new Scanner(System.in);
         Scanner stringScanner = new Scanner(System.in);
         //lista degli utenti
-        List<Utente> utenti = new ArrayList<>();
+        List<Component> utenti = new ArrayList<>();
         while(true){
             //menu
             System.out.println("\n1. Registrazione utente e richiesta notifiche");
@@ -41,7 +39,7 @@ public class EsercizioTriploPatternDecorator{
             System.out.println("6. Logout");
             System.out.println("7. Esci");
             int scelta = intScanner.nextInt();
-            Utente utente = null;
+            Component utente = null;
             Observer observer = null;
             boolean valid=true;
             switch (scelta){
@@ -55,7 +53,7 @@ public class EsercizioTriploPatternDecorator{
                     System.out.println("Tipo: 1=TimeStamp, 2=Maiuscolo, 3=Emoji, 4=Normale, 5=Tutti");
                     int tipo = intScanner.nextInt();
                     //controlla doppioni
-                    for (Utente u : utenti) {
+                    for (Component u : utenti) {
                         if (u.getNome().equalsIgnoreCase(nomeUtente)) {
                             System.out.println("Utente già presente");
                             break;
@@ -63,26 +61,25 @@ public class EsercizioTriploPatternDecorator{
                     }
                     //creazione utente base
                     utente = new Utente(nomeUtente, password);
-                    Component comp = utente;
                     switch (tipo) {
                         case 1:
                             // TimeStamp
-                            comp = new DecoratorTimestamp(comp);
+                            utente = new DecoratorTimestamp(utente);
                             break;
                         case 2:
                             // Maiuscolo
-                            comp = new DecoratorMaiuscolo(comp);
+                            utente = new DecoratorMaiuscolo(utente);
                             break;
                         case 3:
                             // Emoji
-                            comp = new DecoratorEmoji(comp);
+                            utente = new DecoratorEmoji(utente);
                             break;
                         case 4:
                             // Normale
                             break;
                         case 5:
                             // Tutti
-                            comp = new DecoratorMaiuscolo(new DecoratorTimestamp(new DecoratorEmoji(comp)));
+                            utente = new DecoratorMaiuscolo(new DecoratorTimestamp(new DecoratorEmoji(utente)));
                             break;
                     
                         default:
@@ -93,11 +90,10 @@ public class EsercizioTriploPatternDecorator{
                     }
                     //controllo
                     if (valid) {
-                        observer= (Observer) comp;
+                        observer= (Observer) utente;
                         notificationManager.addObserver(observer);
                         utenti.add(utente);
                         //aggiunta utente alla map
-                        observerMap.put(utente, observer);
                         Sessione.getInstance().login(utente);
                         System.out.println("Utente registrato con successo");
                     }
@@ -110,17 +106,17 @@ public class EsercizioTriploPatternDecorator{
 
                     System.out.println("Password:");
                     String passLogin = stringScanner.nextLine();
-                    Utente utenteLogin = null;
+                    utente = null;
                     //controllo nome e password
-                    for (Utente u : utenti) {
+                    for (Component u : utenti) {
                         if (u.getNome().equalsIgnoreCase(nomeLogin) && u.getPassword().equals(passLogin)) {
-                            utenteLogin = u;
+                            utente = u;
                             break;
                         }
                     }
-                    if (utenteLogin != null) {
-                        Sessione.getInstance().login(utenteLogin);
-                        System.out.println("Benvenuto " + utenteLogin.getNome());
+                    if (utente != null) {
+                        Sessione.getInstance().login(utente);
+                        System.out.println("Benvenuto " + utente.getNome());
                     }else{
                         System.out.println("Utente non trovato");
                     }
@@ -144,7 +140,7 @@ public class EsercizioTriploPatternDecorator{
                         break;
                     }
                     //ottengo observer
-                    observer = observerMap.get(Sessione.getInstance().getUtente());
+                    observer = (Observer) Sessione.getInstance().getUtente();
                     if(observer != null){
                         notificationManager.addObserver(observer);
                         System.out.println("Notifiche richieste");
@@ -157,7 +153,7 @@ public class EsercizioTriploPatternDecorator{
                         break;
                     }
                     //ottengo observer
-                    observer = observerMap.get(Sessione.getInstance().getUtente());
+                    observer = (Observer) Sessione.getInstance().getUtente();
                     if(observer != null){
                         notificationManager.removeObserver(observer);
                         System.out.println("Hai disdetto le notifiche");
@@ -190,7 +186,7 @@ class Sessione {
     //instanza
     private static Sessione instance;
     //utente loggato
-    private Utente utenteLoggato;
+    private Component utenteLoggato;
     //costruttore privato
     private Sessione() {}
     //metodo per ottenere istanza
@@ -201,7 +197,7 @@ class Sessione {
         return instance;
     }
     //metodo per effettuare il login
-    public void login(Utente u) {
+    public void login(Component u) {
         if(u == null){
             System.out.println("Utente non esistente");
             return;
@@ -209,7 +205,7 @@ class Sessione {
         this.utenteLoggato = u;
     }
     //metodo per ottenere l'utente loggato
-    public Utente getUtente() {
+    public Component getUtente() {
         return utenteLoggato;
     }
     //metodo per effettuare il logout
@@ -270,6 +266,8 @@ class NotificationManager implements Subject {
 //interfaccia component
 interface Component{
     String modifyNotification(String messaggio);
+    String getNome();
+    String getPassword();
 }
 
 abstract class DecoratorUtente implements Component, Observer{
@@ -288,6 +286,16 @@ abstract class DecoratorUtente implements Component, Observer{
     public void update(String messaggio) {
         String text=modifyNotification(messaggio);
         System.out.println(text);
+    }
+    //override getNome
+    @Override
+    public String getNome() {
+        return component.getNome();
+    }
+    //override getPassword
+    @Override
+    public String getPassword() {
+        return component.getPassword();
     }
 }
 //Decorator concreto maiuscolo
@@ -341,14 +349,16 @@ class Utente implements Observer, Component{
         this.password = password;
     }
     //getter e setter
- public String getNome() {
-    return nome;
-}
-    public void setNome(String nome) {
-        this.nome = nome;
+    @Override
+    public String getNome() {
+        return nome;
     }
+    @Override
     public String getPassword() {
         return password;
+    }
+    public void setNome(String nome) {
+        this.nome = nome;
     }
     //override modifyNotification
     @Override
