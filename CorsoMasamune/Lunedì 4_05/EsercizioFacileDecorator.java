@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class EsercizioFacileDecorator {
+
     public static void main(String[] args) {
         //Creazione componente
         Messaggio component = new MessaggioBase("ciao");
@@ -13,6 +14,7 @@ public class EsercizioFacileDecorator {
         //ciclo while e menu per inserimento
         Scanner intScanner = new Scanner(System.in);
         Scanner stringScanner = new Scanner(System.in);
+        
         while(true){
             System.out.println("Inserisci un comando:");
             System.out.println("1. Esci");
