@@ -1,8 +1,14 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 public class EsercizioTriploPatternDecorator{
     public static void main(String[] args) {
+        //map utente decorator
+        Map<Utente, Observer> observerMap = new HashMap<>();
         //creazione Sistema di notifica
         NotificationManager notificationManager = NotificationManager.getInstance();
         //creazione Utente
@@ -12,12 +18,12 @@ public class EsercizioTriploPatternDecorator{
         DecoratorTimestamp timestamp = new DecoratorTimestamp(maiuscolo);
         DecoratorEmoji emoji = new DecoratorEmoji(timestamp);
         //aggiunta utente a notifica
-        notificationManager.addObserver(utente);
+        notificationManager.addObserver(emoji);
         //creazione utente normale
         Utente utenteNormale = new Utente("Franco", "1234");
         notificationManager.addObserver(utenteNormale);
         //notifica utenti
-        utente.notifyObservers("Messaggio di prova");
+        notificationManager.notifyObservers("Messaggio di prova");
         
         //Scanners
         Scanner intScanner = new Scanner(System.in);
@@ -26,7 +32,7 @@ public class EsercizioTriploPatternDecorator{
         List<Utente> utenti = new ArrayList<>();
         while(true){
             //menu
-            System.out.println("\n1. Registrazione utente");
+            System.out.println("\n1. Registrazione utente e richeista notifiche");
             System.out.println("2. Login");
             System.out.println("3. Invia notifica");
             System.out.println("4. Richiedi notifica");
@@ -55,25 +61,26 @@ public class EsercizioTriploPatternDecorator{
                         }
                     }
                     utente = new Utente(nomeUtente, password);
+                    Component comp = utente;
                     switch (tipo) {
                         case 1:
                             // TimeStamp
-                            component = new DecoratorTimestamp(new Utente(nomeUtente, password));
+                            comp = new DecoratorTimestamp(comp);
                             break;
                         case 2:
                             // Maiuscolo
-                            component = new DecoratorMaiuscolo(new Utente(nomeUtente, password));
+                            comp = new DecoratorMaiuscolo(comp);
                             break;
                         case 3:
                             // Emoji
-                            component = new DecoratorEmoji(new Utente(nomeUtente, password));
+                            comp = new DecoratorEmoji(comp);
                             break;
                         case 4:
                             // Normale
                             break;
                         case 5:
                             // Tutti
-                            component = new DecoratorMaiuscolo(new DecoratorTimestamp(new DecoratorEmoji(new Utente(nomeUtente, password))));
+                            comp = new DecoratorMaiuscolo(new DecoratorTimestamp(new DecoratorEmoji(comp)));
                             break;
                     
                         default:
@@ -84,9 +91,10 @@ public class EsercizioTriploPatternDecorator{
                     }
                     //controllo
                     if (valid) {
-
+                        component= (Observer) comp;
                         notificationManager.addObserver(component);
                         utenti.add(utente);
+                        observerMap.put(utente, component);
                         Sessione.getInstance().login(utente);
                         System.out.println("Utente registrato con successo");
                     }
@@ -131,8 +139,11 @@ public class EsercizioTriploPatternDecorator{
                         System.out.println("Non hai effettuato il login");
                         break;
                     }
-                    notificationManager.addObserver(Sessione.getInstance().getUtente());
-                    System.out.println("Notifiche richieste");
+                    component = observerMap.get(Sessione.getInstance().getUtente());
+                    if(component != null){
+                        notificationManager.addObserver(component);
+                        System.out.println("Notifiche richieste");
+                    }
                     break;
                 case 5:
                     //smetti di ricevere notifiche
@@ -140,8 +151,11 @@ public class EsercizioTriploPatternDecorator{
                         System.out.println("Non hai effettuato il login"); 
                         break;
                     }
-                    notificationManager.removeObserver(Sessione.getInstance().getUtente());
-                    System.out.println("Hai disdetto le notifiche");
+                    component = observerMap.get(Sessione.getInstance().getUtente());
+                    if(component != null){
+                        notificationManager.removeObserver(component);
+                        System.out.println("Hai disdetto le notifiche");
+                    }
                     break;
                 case 6:
                     //logout
@@ -248,11 +262,11 @@ class NotificationManager implements Subject {
     }
 }
 //interfaccia component
-interface component{
+interface Component{
     String modifyNotification(String messaggio);
 }
 
-abstract class DecoratorUtente implements component, Observer{
+abstract class DecoratorUtente implements Component, Observer{
     //campo componente
     private Component component;
     public DecoratorUtente(Component component){
@@ -279,7 +293,7 @@ class DecoratorMaiuscolo extends DecoratorUtente{
     //override modifyNotification
     @Override
     public String modifyNotification(String messaggio) {
-        return messaggio.toUpperCase();
+        return super.modifyNotification(messaggio).toUpperCase();
     }
 }
 // Decorator concreto Timestamp
@@ -291,8 +305,12 @@ class DecoratorTimestamp extends DecoratorUtente{
     //override modifyNotification
     @Override
     public String modifyNotification(String messaggio) {
-        return "["+System.currentTimeMillis()+"] "+messaggio;
-    }
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        String timestamp = now.format(formatter);
+
+        return "[" + timestamp + "] " + super.modifyNotification(messaggio);
+        }
 }
 //decorator emoji
 class DecoratorEmoji extends DecoratorUtente{
@@ -303,25 +321,25 @@ class DecoratorEmoji extends DecoratorUtente{
     //override modifyNotification
     @Override
     public String modifyNotification(String messaggio) {
-        return messaggio+" :)";
+        return super.modifyNotification(messaggio)+" :)";
     }
 }
 
-class Utente implements Observer, component{
+class Utente implements Observer, Component{
     //campo notifica
     private String password;
-    private String username;
+    private String nome;
     //costruttore
-    public Utente(String username, String password) {
-        this.username = username;
+    public Utente(String nome, String password) {
+        this.nome = nome;
         this.password = password;
     }
     //getter e setter
-    public String getUsername() {
-        return username;
-    }
-    public void setUsername(String username) {
-        this.username = username;
+ public String getNome() {
+    return nome;
+}
+    public void setNome(String nome) {
+        this.nome = nome;
     }
     public String getPassword() {
         return password;
