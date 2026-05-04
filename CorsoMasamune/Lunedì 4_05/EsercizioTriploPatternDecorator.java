@@ -5,6 +5,7 @@ import java.util.Map;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+
 public class EsercizioTriploPatternDecorator{
     public static void main(String[] args) {
         //map utente Observer
@@ -41,7 +42,7 @@ public class EsercizioTriploPatternDecorator{
             System.out.println("7. Esci");
             int scelta = intScanner.nextInt();
             Utente utente = null;
-            Observer component = null;
+            Observer observer = null;
             boolean valid=true;
             switch (scelta){
                 //scelta utente
@@ -60,6 +61,7 @@ public class EsercizioTriploPatternDecorator{
                             break;
                         }
                     }
+                    //creazione utente base
                     utente = new Utente(nomeUtente, password);
                     Component comp = utente;
                     switch (tipo) {
@@ -91,10 +93,11 @@ public class EsercizioTriploPatternDecorator{
                     }
                     //controllo
                     if (valid) {
-                        component= (Observer) comp;
-                        notificationManager.addObserver(component);
+                        observer= (Observer) comp;
+                        notificationManager.addObserver(observer);
                         utenti.add(utente);
-                        observerMap.put(utente, component);
+                        //aggiunta utente alla map
+                        observerMap.put(utente, observer);
                         Sessione.getInstance().login(utente);
                         System.out.println("Utente registrato con successo");
                     }
@@ -131,6 +134,7 @@ public class EsercizioTriploPatternDecorator{
                     }
                     System.out.println("Inserisci la notifica: ");
                     String messaggio = stringScanner.nextLine();
+                    //invia notifica
                     notificationManager.inviaNotifica(messaggio);
                     break;
                 case 4:
@@ -139,9 +143,10 @@ public class EsercizioTriploPatternDecorator{
                         System.out.println("Non hai effettuato il login");
                         break;
                     }
-                    component = observerMap.get(Sessione.getInstance().getUtente());
-                    if(component != null){
-                        notificationManager.addObserver(component);
+                    //ottengo observer
+                    observer = observerMap.get(Sessione.getInstance().getUtente());
+                    if(observer != null){
+                        notificationManager.addObserver(observer);
                         System.out.println("Notifiche richieste");
                     }
                     break;
@@ -151,9 +156,10 @@ public class EsercizioTriploPatternDecorator{
                         System.out.println("Non hai effettuato il login"); 
                         break;
                     }
-                    component = observerMap.get(Sessione.getInstance().getUtente());
-                    if(component != null){
-                        notificationManager.removeObserver(component);
+                    //ottengo observer
+                    observer = observerMap.get(Sessione.getInstance().getUtente());
+                    if(observer != null){
+                        notificationManager.removeObserver(observer);
                         System.out.println("Hai disdetto le notifiche");
                     }
                     break;
