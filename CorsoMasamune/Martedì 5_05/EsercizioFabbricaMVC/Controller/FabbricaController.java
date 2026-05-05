@@ -20,30 +20,50 @@ public class FabbricaController {
         this.view = view;
         this.fabbrica.aggiungiObserver(view);
     }
-    //metodo per la creazione di un veicolo
-    public void creaAuto(String nome, String targa) {
-        Component c = new Auto(nome, targa);
-        fabbrica.creaVeicolo(c);
-    }
-    //metodo per la decorazione con navigatore satellitare
-    public void creaVeicoloNavigatore(Component c) {
-        Component d = new DecoratorNavigatore(c);
-        fabbrica.creaVeicolo(d);
-    }
-    //metodo per la decorazione con sistema multimediale
-    public void creaVeicoloMultimediale(Component c) {
-        Component d = new DecoratorMultimediale(c);
-        fabbrica.creaVeicolo(d);
-    }
-    //metodo per la decorazione con airbag di sicurezza
-    public void creaVeicoloSicurezza(Component c) {
-        Component d = new DecoratorSicurezza(c);
-        fabbrica.creaVeicolo(d);
-    }
-    //metodo per la creazione di una moto
-    public void creaMoto(String nome, String targa) {
-        Component c = new Moto(nome, targa);
-        fabbrica.creaVeicolo(c);
+    //metodo per la creazione dei veicoli
+    public void creaVeicoloCompleto(int tipoVeicolo, String nome, String targa, int tipoDecorazione) {
+        Component veicolo = null;
+        // Controllo tipo veicolo
+        switch (tipoVeicolo) {
+
+            case 1 :
+                veicolo = new Auto(nome, targa);
+                break;
+            case 2 : 
+                veicolo = new Moto(nome, targa);
+                break;
+            default :
+                veicolo = null;
+                break;
+        };
+
+        // Controllo se veicolo è nullo
+        if (veicolo == null) {
+            view.mostraMessaggio("Tipo veicolo non valido.");
+            return;
+        }
+
+        // controllo decorazione
+        switch (tipoDecorazione) {
+            case 1 : 
+                veicolo = new DecoratorNavigatore(veicolo);
+                break;
+            case 2 : 
+                veicolo = new DecoratorMultimediale(veicolo);
+                break;
+            case 3 :
+                veicolo = new DecoratorSicurezza(veicolo);
+                break;
+            case 4 :
+                veicolo = new DecoratorSicurezza(new DecoratorMultimediale(new DecoratorNavigatore(veicolo)));
+                break;
+            default :
+                veicolo = null;
+                break; // Include il caso 5 e le scelte errate
+        };
+
+        // 3. Aggiunta alla fabbrica
+        fabbrica.creaVeicolo(veicolo);
     }
     //metodo per la stamps dei veicoli prodotti
     public void mostraVeicoliProdotti() {
@@ -62,13 +82,6 @@ public class FabbricaController {
     public void mostraMenuDecorator() {
         view.mostraMenuDecorator();
     }
-    //crea con tutto
-    public void creaVeicoloTuttoDecorato(Component c) {
-        fabbrica.creaVeicolo(new DecoratorSicurezza(new DecoratorMultimediale(new DecoratorNavigatore(c))));
-    }
-    //aggiungi un veicolo
-    public void aggiungiVeicolo(Component c) {
-        fabbrica.creaVeicolo(c);
-    }
+
 }
 

@@ -45,58 +45,9 @@ public class EsercizioFabbricaMVC {
                     System.out.print("Targa: ");
                     String targa = stringScanner.nextLine();
 
-                    Component base = null;
-
-                    switch (tipo) {
-                        case 1:
-                            //crea auto
-                            base = new Auto(nome, targa);
-                            break;
-                        case 2:
-                            //crea moto
-                            base = new Moto(nome, targa);
-                            break;
-                        default:
-                            //scelta non valida
-                            System.out.println("Scelta non valida");
-                            break;
-                    }
-                    //controllo se oggetto è nullo
-                    if(base==null){
-                        System.out.println("Veicolo non creato");
-                        break;
-                    }
-                     fabbricaController.mostraMenuDecorator();
-                     int decorator = intScanner.nextInt();
-                     Component dec = base;
-                     switch (decorator) {
-                        case 1:
-                            //crea veicolo con navigatore satellitare
-                            fabbricaController.creaVeicoloNavigatore(base);
-                            break;
-                        case 2:
-                            //crea veicolo con sistema multimediale
-                            fabbricaController.creaVeicoloMultimediale(dec);
-                            break;
-                        case 3:
-                            //crea veicolo con airbag di sicurezza
-                            fabbricaController.creaVeicoloSicurezza(base);
-                            break;
-                        case 4:
-                            //crea con tutto
-                            fabbricaController.creaVeicoloTuttoDecorato(base);
-                            break;
-                        case 5:
-                            //nessuno
-                            fabbricaController.aggiungiVeicolo(dec);
-                            break;
-                        default:
-                            //scelta non valida
-                            System.out.println("Scelta non valida");
-                            break;
-
-                        
-                    }
+                    fabbricaController.mostraMenuDecorator();
+                    int decorator = intScanner.nextInt();
+                    fabbricaController.creaVeicoloCompleto(tipo, nome, targa, decorator);
                     break;
                 case 2:
                     //mostra storico
