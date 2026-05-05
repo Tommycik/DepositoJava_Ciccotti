@@ -61,6 +61,7 @@ public class EsercizioFabbricaMVC {
                             System.out.println("Scelta non valida");
                             break;
                     }
+                    //controllo se oggetto è nullo
                     if(base==null){
                         System.out.println("Veicolo non creato");
                         break;

@@ -27,12 +27,13 @@ public class UtenteController {
     //metodo login
     public void login(Utente utente) {
         this.utente = utente;
-        mostraMessaggioBenvenuto();
+        view.login();
         mostraUtente();
     }
     //metodo logout
     public void logout() {
         this.utente = null;
+        view.logout();
     }
     //metodo per mostrare il messaggio di benvenuto
     public void mostraMessaggioBenvenuto() {
