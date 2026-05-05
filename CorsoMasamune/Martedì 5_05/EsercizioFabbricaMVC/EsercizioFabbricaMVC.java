@@ -129,7 +129,6 @@ public class EsercizioFabbricaMVC {
                     //esci
                     System.out.println("Uscita dal programma");
                     return;
-                    break;
                 default:
                     //scelta non valida
                     System.out.println("Scelta non valida");
