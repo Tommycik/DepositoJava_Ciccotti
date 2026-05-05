@@ -46,20 +46,28 @@ public class FabbricaController {
         // controllo decorazione
         switch (tipoDecorazione) {
             case 1 : 
+                //crea veicolo con navigatore satellitare
                 veicolo = new DecoratorNavigatore(veicolo);
                 break;
             case 2 : 
+                //crea veicolo con sistema multimediale
                 veicolo = new DecoratorMultimediale(veicolo);
                 break;
             case 3 :
+                //crea veicolo con airbag di sicurezza
                 veicolo = new DecoratorSicurezza(veicolo);
                 break;
             case 4 :
+                //crea veicolo con tutto
                 veicolo = new DecoratorSicurezza(new DecoratorMultimediale(new DecoratorNavigatore(veicolo)));
                 break;
+            case 5 :
+                //nessun decoratore
+                break;
             default :
-                veicolo = null;
-                break; // Include il caso 5 e le scelte errate
+                //scelta non valida
+                System.out.println("Scelta decoratore non valida");
+                break;
         };
 
         // 3. Aggiunta alla fabbrica
