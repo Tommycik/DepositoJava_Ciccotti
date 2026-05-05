@@ -8,7 +8,7 @@ import EsercizioFabbricaMVC.Model.Observer;
 public class FabbricaView implements Observer {
     //metodo per la stampa dei veicoli prodotti
     public void mostraVeicoliProdotti(ArrayList<Component> veicoli) {
-        System.out.println("\n VEICOLI PRODOTTI: ");
+        System.out.println("\nVEICOLI PRODOTTI: ");
         for (Component c : veicoli) {
             System.out.println(c.getDescrizione());
         }
