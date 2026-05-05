@@ -9,10 +9,10 @@ public class EsempioDecorator{
     }
 }
 //Interfaccia component
-interface Component{
+/*interface Component{
     //metodo di interfaccia
     void operation();
-}
+}*/
 //Componente concreto
 class ConcreteComponent implements Component{
     //implementazione dell'interfaccia
