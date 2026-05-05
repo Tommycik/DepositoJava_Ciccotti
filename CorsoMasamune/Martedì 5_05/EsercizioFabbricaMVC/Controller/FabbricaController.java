@@ -66,5 +66,9 @@ public class FabbricaController {
     public void creaVeicoloTuttoDecorato(Component c) {
         fabbrica.creaVeicolo(new DecoratorSicurezza(new DecoratorMultimediale(new DecoratorNavigatore(c))));
     }
+    //aggiungi un veicolo
+    public void aggiungiVeicolo(Component c) {
+        fabbrica.creaVeicolo(c);
+    }
 }
 
