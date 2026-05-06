@@ -2,7 +2,7 @@ package EsercizioComputer.Controller;
 import EsercizioComputer.Model.ComputerFacade;
 import EsercizioComputer.View.ComputerView;
 public class ControllerPc {
-    private ComputerFacade computerFacade = new ComputerFacade();
+    private ComputerFacade computerFacade;
     private ComputerView view;
     //costruttore
     public ControllerPc(ComputerView view, ComputerFacade computerFacade) {
