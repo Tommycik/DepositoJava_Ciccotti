@@ -11,30 +11,23 @@ public class ComputerFacade {
     public ComputerFacade() {
         sistemaOperativo.setStrategy(new ConcreteStrategyWindows());
     }
-
+    //helper per accendere componente
+    private String accendiComponente(StrategyComponente componente) {
+        context.setStrategy(componente);
+        String messaggio =context.inizializza();
+        messaggio += "\n";
+        messaggio += context.carica();
+        messaggio += "\n";
+        messaggio += context.avvia();
+        return messaggio;
+    }
     //metodo per accendere il computer
     public String AccendiComputer() {
-        String messaggio = "";
-        context.setStrategy(bios);
-        messaggio = context.inizializza();
+        String messaggio = accendiComponente(bios);
         messaggio += "\n";
-        messaggio += context.carica();
-        messaggio += "\n";        
-        messaggio += context.avvia();
-        context.setStrategy(hardDisk);
+        messaggio += accendiComponente(hardDisk);
         messaggio += "\n";
-        messaggio += context.inizializza();
-        messaggio += "\n";
-        messaggio += context.carica();
-        messaggio += "\n";
-        messaggio += context.avvia();
-        context.setStrategy(sistemaOperativo);
-        messaggio += "\n";
-        messaggio += context.inizializza();
-        messaggio += "\n";
-        messaggio += context.carica();
-        messaggio += "\n";
-        messaggio += context.avvia();
+        messaggio += accendiComponente(sistemaOperativo);
         return messaggio;
     }
     //metodo per cambiare sistema operativo
