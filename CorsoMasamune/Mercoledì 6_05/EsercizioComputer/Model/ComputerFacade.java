@@ -7,6 +7,10 @@ public class ComputerFacade {
     private SistemaOperativo sistemaOperativo = new SistemaOperativo();
     //contesto strategy
     private Context context = new Context();
+    //costruttore
+    public ComputerFacade() {
+        sistemaOperativo.setStrategy(new ConcreteStrategyWindows());
+    }
 
     //metodo per accendere il computer
     public String AccendiComputer() {
