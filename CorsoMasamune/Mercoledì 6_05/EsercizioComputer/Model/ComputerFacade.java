@@ -1,9 +1,11 @@
 package EsercizioComputer.Model;
 
 public class ComputerFacade {
+    //componenti
     private Bios bios = new Bios();
     private HardDisk hardDisk = new HardDisk();
     private SistemaOperativo sistemaOperativo = new SistemaOperativo();
+    //contesto strategy
     private Context context = new Context();
 
     //metodo per accendere il computer

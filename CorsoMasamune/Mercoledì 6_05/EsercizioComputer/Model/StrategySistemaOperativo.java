@@ -1,5 +1,5 @@
 package EsercizioComputer.Model;
-
+//Strategy SistemaOperativo
 interface StrategySistemaOperativo {
     String modifica(String messaggio);
 }

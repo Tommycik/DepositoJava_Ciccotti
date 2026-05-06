@@ -17,6 +17,7 @@ public class EsercizioComputer {
         boolean continueLoop = true;
         while (continueLoop) {
             controllerPc.mostraMenùComputer();
+            //scelta utente
             int scelta = intScanner.nextInt();
             switch (scelta) {
                 case 1 :
