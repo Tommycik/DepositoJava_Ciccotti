@@ -72,7 +72,7 @@ public class GestoreTicketController {
             continua = context.eseguiAzioneMenu(scelta, this);
         }catch(InputMismatchException e) {
             //inserimento non valido
-            stampaMessaggio("Inserimento non valido, ritorno al menu");
+            stampaMessaggio("Inserimento non valido");
         }catch(Exception e) {
             //errore imprevisto
             stampaMessaggio("Errore imprevisto, stop al programma");
