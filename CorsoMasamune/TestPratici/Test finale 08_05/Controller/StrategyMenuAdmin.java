@@ -16,22 +16,21 @@ public class StrategyMenuAdmin extends StrategyMenuUtente{
         Scanner stringScanner = new Scanner(System.in);
         Scanner intScanner = new Scanner(System.in);
         //modifica ticket
-        controller.getView().stampaMessaggio("Inserisci id del ticket da modificare:");
+        controller.stampaMessaggio("Inserisci id del ticket da modificare:");
         int id3 = intScanner.nextInt();
-        controller.getView().stampaMessaggio("Inserisci nuovo titolo del ticket:");
+        controller.stampaMessaggio("Inserisci nuovo titolo del ticket:");
         String titolo2 = stringScanner.nextLine();
-        controller.getView().stampaMessaggio("Inserisci nuova descrizione del ticket:");
+        controller.stampaMessaggio("Inserisci nuova descrizione del ticket:");
         String descrizione2 = stringScanner.nextLine();
         Ticket ticket = new Ticket(titolo2, "autore", descrizione2);
         ticket.setId(id3);
-        controller.getView().stampaMessaggio(controller.getGestore().aggiornaTicket(ticket));
+        controller.stampaMessaggio(controller.getGestore().aggiornaTicket(ticket));
     }
     
     //metodo per eseguire azione menu
     @Override
     public boolean eseguiAzioneMenu(int scelta, GestoreTicketController controller) {
         //scanner
-        Scanner stringScanner = new Scanner(System.in);
         Scanner intScanner = new Scanner(System.in);
         //controllo scelta
         switch(scelta) {
@@ -41,15 +40,15 @@ public class StrategyMenuAdmin extends StrategyMenuUtente{
                 break;
             case 2:
                 //risolvi ticket
-                controller.getView().stampaMessaggio("Inserisci id del ticket da risolvere:");
+                controller.stampaMessaggio("Inserisci id del ticket da risolvere:");
                 int id = intScanner.nextInt();
-                controller.getView().stampaMessaggio(controller.getGestore().risolvereTicket(id));
+                controller.stampaMessaggio(controller.getGestore().risolvereTicket(id));
                 break;
             case 3:
                 //cancellazione ticket
-                controller.getView().stampaMessaggio("Inserisci id del ticket da cancellare:");
+                controller.stampaMessaggio("Inserisci id del ticket da cancellare:");
                 int id2 = intScanner.nextInt();
-                controller.getView().stampaMessaggio(controller.getGestore().cancellaTicket(id2));
+                controller.stampaMessaggio(controller.getGestore().cancellaTicket(id2));
                 break;
             case 4:
                 //modifica ticket
@@ -69,11 +68,11 @@ public class StrategyMenuAdmin extends StrategyMenuUtente{
                 break;
             case 8:
                 //esci
-                controller.getView().stampaMessaggio("Esci dal programma");
+                controller.stampaMessaggio("Esci dal programma");
                 return false;
             default:
                 //scelta non valida
-                controller.getView().stampaMessaggio("Scelta non valida");
+                controller.stampaMessaggio("Scelta non valida");
         }
         return true;
     }

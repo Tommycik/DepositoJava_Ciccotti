@@ -10,7 +10,7 @@ public class StrategyMenuNonLoggato implements StrategyMenu{
         controller.getUtenti().add(utente);
         controller.getGestore().addObserver(utente);
         controller.getSessione().login(utente);
-        controller.getView().stampaMessaggio("Utente creato con successo: " + utente.getDescrizioneCompleta());
+        controller.stampaMessaggio("Utente creato con successo: " + utente.getDescrizioneCompleta());
     }
 
     //helper registrazione utente
@@ -19,19 +19,19 @@ public class StrategyMenuNonLoggato implements StrategyMenu{
 
         //input utente
         Scanner stringScanner = new Scanner(System.in);
-        controller.getView().stampaMessaggio("Inserisci nome:");
+        controller.stampaMessaggio("Inserisci nome:");
         String nome = stringScanner.nextLine();
-        controller.getView().stampaMessaggio("Inserisci password:");
+        controller.stampaMessaggio("Inserisci password:");
         String password = stringScanner.nextLine();
 
         //utente o admin
-        controller.getView().stampaMessaggio("Inserisci admin (1) o utente (2):");
+        controller.stampaMessaggio("Inserisci admin (1) o utente (2):");
         int sceltaAdmin = stringScanner.nextInt();
         UtenteSistema utente = null;
         //controllo se nome già in uso
         for(UtenteSistema u : controller.getUtenti()) {
             if(u.getNome().equalsIgnoreCase(nome)) {
-                controller.getView().stampaMessaggio("Nome già in uso");
+                controller.stampaMessaggio("Nome già in uso");
                 break;
             }
         }
@@ -47,7 +47,7 @@ public class StrategyMenuNonLoggato implements StrategyMenu{
             aggiungiUtente(utente, controller);
             controller.setStrategy(new StrategyMenuUtenteNormale());
         }else {
-            controller.getView().stampaMessaggio("Scelta non valida");
+            controller.stampaMessaggio("Scelta non valida");
         }
     }
 
@@ -56,9 +56,9 @@ public class StrategyMenuNonLoggato implements StrategyMenu{
         //scanner
         Scanner stringScanner = new Scanner(System.in);
         //login
-        controller.getView().stampaMessaggio("Inserisci username:");
+        controller.stampaMessaggio("Inserisci username:");
         String username = stringScanner.nextLine();
-        controller.getView().stampaMessaggio("Inserisci password:");
+        controller.stampaMessaggio("Inserisci password:");
         String password = stringScanner.nextLine();
         //controllo utente
         for(UtenteSistema utente : controller.getUtenti()) {
@@ -73,11 +73,11 @@ public class StrategyMenuNonLoggato implements StrategyMenu{
                 //login utente
                 controller.getSessione().login(utente);
                 //login effettuato
-                controller.getView().stampaMessaggio("Login effettuato con successo: " + utente.getDescrizioneCompleta());
+                controller.stampaMessaggio("Login effettuato con successo: " + utente.getDescrizioneCompleta());
                 break;
             }
         }
-        controller.getView().stampaMessaggio("Utente non trovato");
+        controller.stampaMessaggio("Utente non trovato");
     }
 
     //metodo per stampare menu
@@ -102,11 +102,11 @@ public class StrategyMenuNonLoggato implements StrategyMenu{
                 break;
             case 3:
                 //esci
-                controller.getView().stampaMessaggio("Esci dal programma");
+                controller.stampaMessaggio("Esci dal programma");
                 return false;
             default:
                 //scelta non valida
-                controller.getView().stampaMessaggio("Scelta non valida");
+                controller.stampaMessaggio("Scelta non valida");
             }
         return true;
     }

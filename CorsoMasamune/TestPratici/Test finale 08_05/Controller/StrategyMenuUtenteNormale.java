@@ -16,19 +16,18 @@ public class StrategyMenuUtenteNormale extends StrategyMenuUtente{
         //scanner
         Scanner stringScanner = new Scanner(System.in);
         //aggiungi ticket
-        controller.getView().stampaMessaggio("Inserisci titolo del ticket:");
+        controller.stampaMessaggio("Inserisci titolo del ticket:");
         String titolo = stringScanner.nextLine();
-        controller.getView().stampaMessaggio("Inserisci autore del ticket:");
+        controller.stampaMessaggio("Inserisci autore del ticket:");
         String autore = stringScanner.nextLine();
-        controller.getView().stampaMessaggio("Inserisci descrizione del ticket:");
+        controller.stampaMessaggio("Inserisci descrizione del ticket:");
         String descrizione = stringScanner.nextLine();
-        controller.getView().stampaMessaggio(controller.getGestore().aggiungiTicket(new Ticket(titolo, autore, descrizione)));
+        controller.stampaMessaggio(controller.getGestore().aggiungiTicket(new Ticket(titolo, autore, descrizione)));
     }
 
     //metodo per eseguire azione menu
     @Override
     public boolean eseguiAzioneMenu(int scelta, GestoreTicketController controller) {
-        Scanner stringScanner = new Scanner(System.in);
         //controllo scelta
         switch(scelta) {
             case 1:
@@ -53,11 +52,11 @@ public class StrategyMenuUtenteNormale extends StrategyMenuUtente{
                 break;
             case 6:
                 //esci
-                controller.getView().stampaMessaggio("Esci dal programma");
+                controller.stampaMessaggio("Esci dal programma");
                 return false;
             default:
                 //scelta non valida
-                controller.getView().stampaMessaggio("Scelta non valida");
+                controller.stampaMessaggio("Scelta non valida");
         }
         return true;
 

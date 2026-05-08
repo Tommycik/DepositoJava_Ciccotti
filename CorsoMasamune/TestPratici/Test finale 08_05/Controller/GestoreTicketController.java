@@ -5,6 +5,8 @@ import Model.UtenteSistema;
 import Model.GestoreTicketFacade;
 import View.GestoreTicketView;
 import Model.SessioneFacade;
+import java.util.InputMismatchException;
+
 //classe controller gestore ticket
 public class GestoreTicketController {
 
@@ -27,6 +29,7 @@ public class GestoreTicketController {
         this.context = new ContextUtente();
         this.context.setStrategy(new StrategyMenuNonLoggato());
     }
+
     //getter
     public SessioneFacade getSessione() {
         return sessione;
@@ -59,14 +62,31 @@ public class GestoreTicketController {
 
     //esegui azione menu
     public boolean eseguiAzioneMenu(int scelta) {
-        //controlo se non è loggato o strategia non impostata
-        if(context.getStrategy() == null || (!sessione.isLogged())) {
-            context.setStrategy(new StrategyMenuNonLoggato());
-        }
-        return context.eseguiAzioneMenu(scelta, this);
+        //controllo errore inserimento non valido
+        boolean continua = true;
+        try {
+            //controlo se non è loggato o strategia non impostata
+            if(context.getStrategy() == null || (!sessione.isLogged())) {
+                context.setStrategy(new StrategyMenuNonLoggato());
+            }
+            continua = context.eseguiAzioneMenu(scelta, this);
+        }catch(InputMismatchException e) {
+            //inserimento non valido
+            stampaMessaggio("Inserimento non valido, ritorno al menu");
+        }catch(Exception e) {
+            //errore imprevisto
+            stampaMessaggio("Errore imprevisto, stop al programma");
+            continua = false;
+        }  
+        return continua;
     }
-
-
+    //mostra messaggio
+    public void stampaMessaggio(String messaggio) {
+        view.stampaMessaggio(messaggio);
+    }
 }
+
+
+
 
     
