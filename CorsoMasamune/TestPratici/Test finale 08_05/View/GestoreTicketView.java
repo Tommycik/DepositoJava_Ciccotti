@@ -5,18 +5,18 @@ import Model.Ticket;
 //View Gestore ticket
 public class GestoreTicketView {
     //menu utenti normali
-    public static void menuUtentiNormale() {
+    public void menuUtentiNormale() {
         System.out.println("Menu utenti:");
         System.out.println("1. Aggiungi ticket");
         System.out.println("2. Lista ticket");
         System.out.println("3. Cerca ticket per titolo");
         System.out.println("4. Guarda notifiche");
         System.out.println("5. Logout");
-        System.out.println("6. Esci");
+        System.out.println("6. Esci\n");
 
     }
     //menu utenti admin
-    public static void menuUtentiAdmin() {
+    public void menuUtentiAdmin() {
         System.out.println("Menu admin:");
         System.out.println("1. Lista ticket");
         System.out.println("2. Risolvi ticket");
@@ -25,17 +25,17 @@ public class GestoreTicketView {
         System.out.println("5. Cerca ticket per titolo");
         System.out.println("6. Guarda notifiche");
         System.out.println("7. Logout");
-        System.out.println("8. Esci");
+        System.out.println("8. Esci\n");
     }
     //menu utenti non loggati
-    public static void menuUtentiNonLoggato() {
+    public void menuUtentiNonLoggato() {
         System.out.println("Menu utenti non loggati:");
         System.out.println("1. Login");
         System.out.println("2. Registrati");
-        System.out.println("3. Esci");
+        System.out.println("3. Esci\n");
     }
     //Stampa lista ticket
-    public static void stampaListaTicket(ArrayList<Ticket> tickets) {
+    public void stampaListaTicket(ArrayList<Ticket> tickets) {
         if(tickets.size() == 0) {
             System.out.println("Non ci sono ticket");
         }else {
@@ -43,13 +43,14 @@ public class GestoreTicketView {
                 System.out.println(ticket.getDescrizioneCompleta());
             }
         }
+        System.out.println("\n");
     }
     //stampa messagio
-    public static void stampaMessaggio(String messaggio) {
+    public void stampaMessaggio(String messaggio) {
         System.out.println(messaggio);
     }
     //Stampa notifiche
-    public static void stampaNotifiche(ArrayList<String> notifiche) {
+    public void stampaNotifiche(ArrayList<String> notifiche) {
         if(notifiche.size() == 0) {
             System.out.println("Non ci sono notifiche");
         }else {
@@ -57,7 +58,7 @@ public class GestoreTicketView {
                 System.out.println(notifica);
             }
         }
-        System.out.println();
+        System.out.println("\n");
     }
     
 }

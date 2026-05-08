@@ -1,7 +1,7 @@
 //esercizio finale
 import java.util.Scanner;
 import Controller.GestoreTicketController;
-import Controller.StrategyNonLoggato;
+import Controller.StrategyMenuNonLoggato;
 public class EsercizioFinale {  
     //main
     public static void main(String[] args) {
@@ -10,7 +10,7 @@ public class EsercizioFinale {
         //Scanner
         Scanner intScanner = new Scanner(System.in);
         //Strategy non loggato
-        gestore.getContext().setStrategy(new StrategyNonLoggato());
+        gestore.setStrategy(new StrategyMenuNonLoggato());
         //Scelta non valida di default
         int scelta = -1;
         do {
