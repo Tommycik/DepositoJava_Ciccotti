@@ -1,3 +1,4 @@
+package Model;
 import java.util.ArrayList;
 public class GestoreTicketFacade {
     private S_GestoreTicket s_gestoreTicket;
@@ -13,8 +14,11 @@ public class GestoreTicketFacade {
     public String addTicket(Ticket ticket) {
         if(SessioneUtenteSistema.getInstance().isLogged()) {
             if(!SessioneUtenteSistema.getInstance().isAdmin()) {
-                s_gestoreTicket.addTicket(ticket);
-                return "Ticket numero " + ticket.getId() + "con titolo " + ticket.getTitolo() + " aggiunto";
+                if(s_gestoreTicket.addTicket(ticket)){
+                    return "Ticket numero " + ticket.getId() + "con titolo " + ticket.getTitolo() + " aggiunto";
+                }else {
+                    return "Errore nell'aggiunta del ticket";
+                }
             }else {
                 return "Non hai i permessi per aggiungere ticket";
             }
@@ -25,8 +29,11 @@ public class GestoreTicketFacade {
     public String updateTicket(Ticket ticket) {
         if(SessioneUtenteSistema.getInstance().isLogged()) {
             if(SessioneUtenteSistema.getInstance().isAdmin()) {
-                s_gestoreTicket.updateTicket(ticket);
-                return "Ticket numero " + ticket.getId() + "con titolo " + ticket.getTitolo() + " aggiornato";
+                if(s_gestoreTicket.updateTicket(ticket)){
+                    return "Ticket numero " + ticket.getId() + "con titolo " + ticket.getTitolo() + " aggiornato";
+                }else {
+                    return "Errore nell'aggiornamento del ticket";
+                }
             }else {
                 return "Non hai i permessi per aggiornare ticket";
             }
@@ -37,8 +44,11 @@ public class GestoreTicketFacade {
     public String deleteTicket(int id) {
         if(SessioneUtenteSistema.getInstance().isLogged()) {
             if(SessioneUtenteSistema.getInstance().isAdmin()) {
-                s_gestoreTicket.deleteTicket(id);
-                return "Ticket numero " + id + " cancellato";
+                if(s_gestoreTicket.deleteTicket(id)){
+                    return "Ticket numero " + id + " cancellato";
+                }else {
+                    return "Errore nella cancellazione del ticket";
+                }
             }else {
                 return "Non hai i permessi per cancellare ticket";
             }
@@ -49,8 +59,11 @@ public class GestoreTicketFacade {
     public String risolvereTicket(int id) {
         if(SessioneUtenteSistema.getInstance().isLogged()) {
             if(SessioneUtenteSistema.getInstance().isAdmin()) {
-                s_gestoreTicket.risolvereTicket(id);
-                return "Ticket numero " + id + " risolto";
+                if(s_gestoreTicket.risolvereTicket(id)){
+                    return "Ticket numero " + id + " risolto";
+                }else {
+                    return "Errore nel risolvere del ticket";
+                }
             }else {
                 return "Non hai i permessi per risolvere ticket";
             }

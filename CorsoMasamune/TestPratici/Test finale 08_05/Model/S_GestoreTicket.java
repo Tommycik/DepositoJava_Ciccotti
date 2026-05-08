@@ -1,8 +1,12 @@
+package Model;
 import java.util.ArrayList;
 //S_GestoreTicket singleton
 public class S_GestoreTicket implements SubjectNotifiche {
+    //tickets
     private ArrayList<Ticket> tickets;
+    //instance
     private static S_GestoreTicket instance;
+    //id progressivi
     private int id = 0;
     //observers
     private ArrayList<ObserverNotifiche> observers;
@@ -46,20 +50,22 @@ public class S_GestoreTicket implements SubjectNotifiche {
         ticket.setId(id);
         id++;
         tickets.add(ticket);
-        notifica("Ticket numero " + ticket.getId() + "con titolo " + ticket.getTitolo() + " aggiunto");
+        notifica("Ticket numero " + ticket.getId() + " con titolo " + ticket.getTitolo() + " aggiunto");
         return true;
     }
-    //metodo updateTicket by id
+    //metodo per aggiornare ticket per id
     public boolean updateTicket(Ticket ticket) {
         for (int i = 0; i < tickets.size(); i++) {
             if (tickets.get(i).getId() == ticket.getId()) {
+                ticket.setAutore(tickets.get(i).getAutore());
                 tickets.set(i, ticket);
+                notifica("Ticket numero " + ticket.getId() + " con titolo " + ticket.getTitolo() + " aggiornato");
             }
         }
         return true;
     }
 
-    //metodo deleteTicket by id
+    //metodo per cancellare ticket per id
     public boolean deleteTicket(int id) {
         for (int i = 0; i < tickets.size(); i++) {
             if (tickets.get(i).getId() == id) {
@@ -70,7 +76,7 @@ public class S_GestoreTicket implements SubjectNotifiche {
         return true;
         
     }
-    //metodo searchTicket by id
+    //metodo per cercare ticket per id
         public Ticket searchTicket(int id) {
             for (int i = 0; i < tickets.size(); i++) {
                 if (tickets.get(i).getId() == id) {
@@ -79,7 +85,7 @@ public class S_GestoreTicket implements SubjectNotifiche {
             }
             return null;
         }
-        // metodo searchTicket by titolo
+        // metodo per cercare ticket per titolo
         public Ticket searchTicket(String titolo) {
             for (int i = 0; i < tickets.size(); i++) {
                 if (tickets.get(i).getTitolo().equalsIgnoreCase(titolo)) {
@@ -88,7 +94,7 @@ public class S_GestoreTicket implements SubjectNotifiche {
             }
             return null;
         }
-        //risolvere ticket
+        //risolvere ticket per id
         public boolean risolvereTicket(int id) {
             for (int i = 0; i < tickets.size(); i++) {
                 if (tickets.get(i).getId() == id) {
@@ -99,4 +105,5 @@ public class S_GestoreTicket implements SubjectNotifiche {
             }
             return false;
         }
+        
 }

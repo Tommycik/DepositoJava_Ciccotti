@@ -1,29 +1,32 @@
-//singleton sessione
-public class Sessione {
-    private static Sessione instance;
-    private Utente utente;
+package Model;
+//singleton sessione UtenteSistema
+public class SessioneUtenteSistema {
+    //instance
+    private static SessioneUtenteSistema instance;
+    //utente
+    private UtenteSistema utente;
     //costruttore
-    private Sessione() {
+    private SessioneUtenteSistema() {
         utente = null;
     }
     //metodo getInstance
-    public static Sessione getInstance() {
+    public static SessioneUtenteSistema getInstance() {
         if (instance == null) {
-            instance = new Sessione();
+            instance = new SessioneUtenteSistema();
         }
         return instance;
     }
     //metodo getUtente
-    public Utente getUtente() {
+    public UtenteSistema getUtente() {
         return utente;
     }
     //metodo setUtente
-    public void setUtente(Utente utente) {
+    public void setUtente(UtenteSistema utente) {
         this.utente = utente;
     }
     //Controlla se admin
     public boolean isAdmin() {
-        return utente.getClass().equals(Admin.class);
+        return utente != null && utente.isAdmin();
     }
     //metodo isLogged
     public boolean isLogged() {
@@ -35,7 +38,7 @@ public class Sessione {
         return true;
     }
     //metodo login
-    public boolean login(Utente utente) {
+    public boolean login(UtenteSistema utente) {
         if (utente == null) {
             return false;
         }

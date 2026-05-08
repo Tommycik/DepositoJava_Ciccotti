@@ -1,3 +1,4 @@
+package Model;
 //classe ticket
 public class Ticket {
     private int id;
@@ -47,7 +48,7 @@ public class Ticket {
         this.id = id;
     }
     //descrizione completa
-    public String descrizioneCompleta() {
+    public String getDescrizioneCompleta() {
         return "Id: "+ id + ". " + titolo + " di " + autore + " con descrizione:\n" + descrizione + "\nRisolto: " + risolto;
     }
     

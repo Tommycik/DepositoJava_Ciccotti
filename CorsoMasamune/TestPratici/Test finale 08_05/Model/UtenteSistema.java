@@ -1,12 +1,13 @@
+package Model;
 import java.util.ArrayList;
 
-public class Utente implements ObserverNotifiche {
+public class UtenteSistema implements ObserverNotifiche {
     private String nome;
     private String password;
     //Collezione di notifiche
     protected ArrayList<String> notifiche;
     //costruttore
-    public Utente(String nome, String password) {
+    public UtenteSistema(String nome, String password) {
         this.nome = nome;
         this.password = password;
         notifiche = new ArrayList<String>();
@@ -16,10 +17,7 @@ public class Utente implements ObserverNotifiche {
     public String getNome() {
         return nome;
     }
-
-    public String getPassword() {
-        return password;
-    }
+    
     //setter
     public void setNome(String nome) {
         this.nome = nome;
@@ -30,7 +28,7 @@ public class Utente implements ObserverNotifiche {
         notifiche.add(messaggio);
     }
 
-    //metodo getNotifiche concatenate
+    //metodo per ottenere notifiche
     public ArrayList<String> getNotifiche() {
         return notifiche;
     }
@@ -43,7 +41,11 @@ public class Utente implements ObserverNotifiche {
         return this.password.equals(password);
     }
     //descrizione completa
-    public String descrizioneCompleta() {
+    public String getDescrizioneCompleta() {
         return "Nome: " + nome;
+    }
+    //metodo isAdmin
+    public boolean isAdmin() {
+        return false;
     }
 }

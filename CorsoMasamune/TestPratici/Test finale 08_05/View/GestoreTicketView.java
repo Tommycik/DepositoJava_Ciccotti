@@ -1,5 +1,7 @@
+package View;
 
 import java.util.ArrayList;
+import Model.Ticket;
 //View Gestore ticket
 public class GestoreTicketView {
     //menu utenti normali
@@ -8,8 +10,9 @@ public class GestoreTicketView {
         System.out.println("1. Aggiungi ticket");
         System.out.println("2. Lista ticket");
         System.out.println("3. Cerca ticket per titolo");
-        System.out.println("4. Logout");
-        System.out.println("5. Esci");
+        System.out.println("4. Guarda notifiche");
+        System.out.println("5. Logout");
+        System.out.println("6. Esci");
 
     }
     //menu utenti admin
@@ -18,20 +21,27 @@ public class GestoreTicketView {
         System.out.println("1. Lista ticket");
         System.out.println("2. Risolvi ticket");
         System.out.println("3. Elimina ticket");
-        System.out.println("4. Cerca ticket per titolo");
-        System.out.println("5. Logout");
-        System.out.println("6. Esci");
+        System.out.println("4. Modifica ticket");
+        System.out.println("5. Cerca ticket per titolo");
+        System.out.println("6. Guarda notifiche");
+        System.out.println("7. Logout");
+        System.out.println("8. Esci");
     }
     //menu utenti non loggati
     public static void menuUtentiNonLoggato() {
         System.out.println("Menu utenti non loggati:");
         System.out.println("1. Login");
-        System.out.println("2. Esci");
+        System.out.println("2. Registrati");
+        System.out.println("3. Esci");
     }
     //Stampa lista ticket
     public static void stampaListaTicket(ArrayList<Ticket> tickets) {
-        for(Ticket ticket : tickets) {
-            System.out.println(ticket.descrizioneCompleta());
+        if(tickets.size() == 0) {
+            System.out.println("Non ci sono ticket");
+        }else {
+            for(Ticket ticket : tickets) {
+                System.out.println(ticket.getDescrizioneCompleta());
+            }
         }
     }
     //stampa messagio
@@ -40,8 +50,12 @@ public class GestoreTicketView {
     }
     //Stampa notifiche
     public static void stampaNotifiche(ArrayList<String> notifiche) {
-        for(String notifica : notifiche) {
-            System.out.println(notifica);
+        if(notifiche.size() == 0) {
+            System.out.println("Non ci sono notifiche");
+        }else {
+            for(String notifica : notifiche) {
+                System.out.println(notifica);
+            }
         }
         System.out.println();
     }

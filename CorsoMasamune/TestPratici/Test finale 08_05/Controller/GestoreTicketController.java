@@ -1,17 +1,24 @@
-import java.util.Scanner;
+package Controller;
+
 import java.util.ArrayList;
+import Model.UtenteSistema;
+import Model.GestoreTicketFacade;
+import View.GestoreTicketView;
+//classe controller gestore ticket
 public class GestoreTicketController {
+
     private GestoreTicketFacade gestore;
     private GestoreTicketView view;
-    private Context context;
+    private ContextUtente context;
+    //utenti
     ArrayList<UtenteSistema> utenti;
 
-
+    //costruttore
     public GestoreTicketController() {
         this.gestore = new GestoreTicketFacade();
         this.view = new GestoreTicketView();
         this.utenti = new ArrayList<UtenteSistema>();
-        this.context = new Context();
+        this.context = new ContextUtente();
         this.context.setStrategy(new StrategyNonLoggato());
     }
     //getter
@@ -24,25 +31,25 @@ public class GestoreTicketController {
     public GestoreTicketView getView() {
         return view;
     }
-    public Context getContext() {
-        return context;
+    public void setStrategy(StrategyMenu strategy) {
+        this.context.setStrategy(strategy);
     }
     //stampa menu
     public void stampaMenu() {
-        if(context != null) {
-            context.stampaMenu();
-        }else {
-            view.menuUtentiNonLoggato();
+        //controlo se non è loggato o strategia non impostata
+        if(context.getStrategy() == null || (!gestore.isLogged())) {
+            context.setStrategy(new StrategyNonLoggato());
         }
+            context.stampaMenu(view);
     }
 
     //esegui azione menu
     public boolean eseguiAzioneMenu(int scelta) {
-        if(context != null) {
-            return context.eseguiAzioneMenu(scelta, view, gestore);
-        }else {
-            return false;
+        //controlo se non è loggato o strategia non impostata
+        if(context.getStrategy() == null || (!gestore.isLogged())) {
+            context.setStrategy(new StrategyNonLoggato());
         }
+        return context.eseguiAzioneMenu(scelta, this);
     }
 
 
