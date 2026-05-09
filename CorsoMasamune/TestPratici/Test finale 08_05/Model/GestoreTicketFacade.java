@@ -98,4 +98,8 @@ public class GestoreTicketFacade {
     public void addObserver(ObserverNotifiche o) {
         s_gestoreTicket.addObserver(o);
     }
+    //remove observer
+    public void removeObserver(ObserverNotifiche o) {
+        s_gestoreTicket.deleteObserver(o);
+    }
 }

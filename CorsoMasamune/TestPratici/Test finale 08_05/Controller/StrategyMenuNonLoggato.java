@@ -77,7 +77,9 @@ class StrategyMenuNonLoggato implements StrategyMenu{
                 break;
             }
         }
-        controller.stampaMessaggio("Utente non trovato");
+        if(!controller.getSessione().isLogged()) {
+            controller.stampaMessaggio("Utente non trovato");
+        }
     }
 
     //metodo per stampare menu
