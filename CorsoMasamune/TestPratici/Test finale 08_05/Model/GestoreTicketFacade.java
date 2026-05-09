@@ -23,7 +23,7 @@ public class GestoreTicketFacade {
             //controllo se l'utente è admin
             if(!sessione.isAdmin()) {
                 if(s_gestoreTicket.aggiungiTicket(ticket)){
-                    return "Ticket numero " + ticket.getId() + "con titolo " + ticket.getTitolo() + " aggiunto";
+                    return "Ticket con id " + ticket.getId() + " con titolo " + ticket.getTitolo() + " aggiunto";
                 }else {
                     return "Errore nell'aggiunta del ticket";
                 }
@@ -39,7 +39,7 @@ public class GestoreTicketFacade {
         if(sessione.isLogged()) {
             if(sessione.isAdmin()) {
                 if(s_gestoreTicket.modificaTicket(ticket)){
-                    return "Ticket numero " + ticket.getId() + "con titolo " + ticket.getTitolo() + " aggiornato";
+                    return "Ticket con id  " + ticket.getId() + " con titolo " + ticket.getTitolo() + " aggiornato";
                 }else {
                     return "Errore nell'aggiornamento del ticket";
                 }
@@ -55,7 +55,7 @@ public class GestoreTicketFacade {
         if(sessione.isLogged()) {
             if(sessione.isAdmin()) {
                 if(s_gestoreTicket.cancellaTicket(id)){
-                    return "Ticket numero " + id + " cancellato";
+                    return "Ticket con id " + id + " cancellato";
                 }else {
                     return "Errore nella cancellazione del ticket";
                 }
@@ -71,7 +71,7 @@ public class GestoreTicketFacade {
         if(sessione.isLogged()) {
             if(sessione.isAdmin()) {
                 if(s_gestoreTicket.risolvereTicket(id)){
-                    return "Ticket numero " + id + " risolto";
+                    return "Ticket con id " + id + " risolto";
                 }else {
                     return "Errore nel risolvere del ticket";
                 }

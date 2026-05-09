@@ -12,15 +12,9 @@ public class UtenteSistema implements ObserverNotifiche {
         this.password = password;
         notifiche = new ArrayList<String>();
     }
-
     //getter
     public String getNome() {
         return nome;
-    }
-    
-    //setter
-    public void setNome(String nome) {
-        this.nome = nome;
     }
     //metodo update per le notifiche
     @Override

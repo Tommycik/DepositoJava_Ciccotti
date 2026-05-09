@@ -18,10 +18,10 @@ class StrategyMenuUtenteNormale extends StrategyMenuUtente{
         //aggiungi ticket
         controller.stampaMessaggio("Inserisci titolo del ticket:");
         String titolo = stringScanner.nextLine();
-        controller.stampaMessaggio("Inserisci autore del ticket:");
-        String autore = stringScanner.nextLine();
         controller.stampaMessaggio("Inserisci descrizione del ticket:");
         String descrizione = stringScanner.nextLine();
+        //prende nome autore dalla sessione
+        String autore = controller.getSessione().getNome();
         controller.stampaMessaggio(controller.getGestore().aggiungiTicket(new Ticket(titolo, autore, descrizione)));
     }
 

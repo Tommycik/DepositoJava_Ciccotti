@@ -63,7 +63,7 @@ class S_GestoreTicket implements SubjectNotifiche {
             ticket.setId(idDisponibili.remove(0));
         }
         tickets.add(ticket);
-        notifica("Ticket con id " + ticket.getId() + " con titolo " + ticket.getTitolo() + " aggiunto");
+        notifica("Ticket con id " + ticket.getId() + " con titolo " + ticket.getTitolo() + " aggiunto\n");
         return true;
     }
     //metodo per aggiornare ticket per id
@@ -73,7 +73,7 @@ class S_GestoreTicket implements SubjectNotifiche {
                 //mette lo stesso autore di prima
                 ticket.setAutore(tickets.get(i).getAutore());
                 tickets.set(i, ticket);
-                notifica("Ticket con id " + ticket.getId() + " con titolo " + ticket.getTitolo() + " aggiornato");
+                notifica("Ticket con id " + ticket.getId() + " con titolo " + ticket.getTitolo() + " aggiornato\n");
                 return true;
             }
         }
@@ -84,7 +84,7 @@ class S_GestoreTicket implements SubjectNotifiche {
     boolean cancellaTicket(int id) {
         for (int i = 0; i < tickets.size(); i++) {
             if (tickets.get(i).getId() == id) {
-                notifica("Ticket con id " + tickets.get(i).getId() + "con titolo " + tickets.get(i).getTitolo() + " rimosso");
+                notifica("Ticket con id " + tickets.get(i).getId() + " con titolo " + tickets.get(i).getTitolo() + " rimosso\n");
                 tickets.remove(i);
                 idDisponibili.add(id);
                 return true;
@@ -122,7 +122,7 @@ class S_GestoreTicket implements SubjectNotifiche {
         for (int i = 0; i < tickets.size(); i++) {
             if (tickets.get(i).getId() == id) {
                 tickets.get(i).setRisolto(true);
-                notifica("Ticket con id " + tickets.get(i).getId() + " con titolo " + tickets.get(i).getTitolo() + " risolto");
+                notifica("Ticket con id " + tickets.get(i).getId() + " con titolo " + tickets.get(i).getTitolo() + " risolto\n");
                 return true;
             }
         }

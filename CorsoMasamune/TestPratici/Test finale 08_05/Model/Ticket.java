@@ -57,7 +57,7 @@ public class Ticket {
     }
     //descrizione completa
     public String getDescrizioneCompleta() {
-        return "Id: "+ id + ". " + titolo + " di " + autore + " con descrizione:\n" + descrizione + "\nRisolto: " + risolto;
+        return "Id: "+ id + "\nTitolo: " + titolo + "\nAutore: " + autore + "\nDescrizione: " + descrizione + "\nRisolto: " + risolto;
     }
     
 }

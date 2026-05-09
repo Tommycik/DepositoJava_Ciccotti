@@ -17,13 +17,13 @@ public class SessioneFacade {
     public boolean logout() {
         return sessione.logout();
     }
-    //verifica login
+    //verifica se utente è loggato
     public boolean isLogged() {
         return sessione.isLogged();
     }
-    //verifica utente
-    public UtenteSistema getUtente() {
-        return sessione.getUtente();
+    //ottieni nome utente
+    public String getNome() {
+        return sessione.getUtente().getNome();
     }
     //isAdmin
     public boolean isAdmin() {
