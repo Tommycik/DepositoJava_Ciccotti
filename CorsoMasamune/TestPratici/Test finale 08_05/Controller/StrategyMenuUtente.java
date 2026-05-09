@@ -2,7 +2,7 @@ package Controller;
 
 import java.util.Scanner;
 //classe astratta per startegia menu utente loggato
-public abstract class StrategyMenuUtente  implements StrategyMenu{
+abstract class StrategyMenuUtente  implements StrategyMenu{
     //metodo helper logout
     protected void logout(GestoreTicketController controller) {
         //logout

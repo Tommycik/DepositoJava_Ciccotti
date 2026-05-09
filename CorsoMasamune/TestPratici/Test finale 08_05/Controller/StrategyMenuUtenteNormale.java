@@ -4,7 +4,7 @@ import java.util.Scanner;
 import View.GestoreTicketView;
 import Model.Ticket;
 //classe strategia concretautente
-public class StrategyMenuUtenteNormale extends StrategyMenuUtente{
+class StrategyMenuUtenteNormale extends StrategyMenuUtente{
     //metodo per stampare menu
     @Override
     public void stampaMenu(GestoreTicketView view) {

@@ -1,7 +1,7 @@
 package Model;
 import java.util.ArrayList;
 //S_GestoreTicket singleton
-public class S_GestoreTicket implements SubjectNotifiche {
+class S_GestoreTicket implements SubjectNotifiche {
     //tickets
     private ArrayList<Ticket> tickets;
     //instance
@@ -16,7 +16,7 @@ public class S_GestoreTicket implements SubjectNotifiche {
         observers = new ArrayList<ObserverNotifiche>();
     }
     //metodo getInstance
-    public static S_GestoreTicket getInstance() {
+    static S_GestoreTicket getInstance() {
         if (instance == null) {
             instance = new S_GestoreTicket();
         }
@@ -40,13 +40,13 @@ public class S_GestoreTicket implements SubjectNotifiche {
     }
     //Operazioni CRUD
 
-    //metodo getTickets
-    public ArrayList<Ticket> getTickets() {
-        return tickets;
+    //metodo getTickets con copia difensiva
+    ArrayList<Ticket> getTickets() {
+        return new ArrayList<>(tickets);
     }
 
     //metodo addTicket
-    public boolean addTicket(Ticket ticket) {
+    boolean addTicket(Ticket ticket) {
         ticket.setId(id);
         id++;
         tickets.add(ticket);
@@ -54,9 +54,10 @@ public class S_GestoreTicket implements SubjectNotifiche {
         return true;
     }
     //metodo per aggiornare ticket per id
-    public boolean updateTicket(Ticket ticket) {
+    boolean updateTicket(Ticket ticket) {
         for (int i = 0; i < tickets.size(); i++) {
             if (tickets.get(i).getId() == ticket.getId()) {
+                //mette lo stesso autore di prima
                 ticket.setAutore(tickets.get(i).getAutore());
                 tickets.set(i, ticket);
                 notifica("Ticket numero " + ticket.getId() + " con titolo " + ticket.getTitolo() + " aggiornato");
@@ -66,7 +67,7 @@ public class S_GestoreTicket implements SubjectNotifiche {
     }
 
     //metodo per cancellare ticket per id
-    public boolean deleteTicket(int id) {
+    boolean deleteTicket(int id) {
         for (int i = 0; i < tickets.size(); i++) {
             if (tickets.get(i).getId() == id) {
                 notifica("Ticket numero " + tickets.get(i).getId() + "con titolo " + tickets.get(i).getTitolo() + " rimosso");
@@ -77,33 +78,33 @@ public class S_GestoreTicket implements SubjectNotifiche {
         
     }
     //metodo per cercare ticket per id
-        public Ticket searchTicket(int id) {
-            for (int i = 0; i < tickets.size(); i++) {
-                if (tickets.get(i).getId() == id) {
-                    return tickets.get(i);
-                }
+    Ticket searchTicket(int id) {
+        for (int i = 0; i < tickets.size(); i++) {
+            if (tickets.get(i).getId() == id) {
+                return tickets.get(i);
             }
-            return null;
         }
-        // metodo per cercare ticket per titolo
-        public Ticket searchTicket(String titolo) {
-            for (int i = 0; i < tickets.size(); i++) {
-                if (tickets.get(i).getTitolo().equalsIgnoreCase(titolo)) {
-                    return tickets.get(i);
-                }
+        return null;
+    }
+    // metodo per cercare ticket per titolo
+    Ticket searchTicket(String titolo) {
+        for (int i = 0; i < tickets.size(); i++) {
+            if (tickets.get(i).getTitolo().equalsIgnoreCase(titolo)) {
+                return tickets.get(i);
             }
-            return null;
         }
-        //risolvere ticket per id
-        public boolean risolvereTicket(int id) {
-            for (int i = 0; i < tickets.size(); i++) {
-                if (tickets.get(i).getId() == id) {
-                    tickets.get(i).setRisolto(true);
-                    notifica("Ticket numero " + tickets.get(i).getId() + "con titolo " + tickets.get(i).getTitolo() + " risolto");
-                    return true;
-                }
+        return null;
+    }
+    //risolvere ticket per id
+    boolean risolvereTicket(int id) {
+        for (int i = 0; i < tickets.size(); i++) {
+            if (tickets.get(i).getId() == id) {
+                tickets.get(i).setRisolto(true);
+                notifica("Ticket numero " + tickets.get(i).getId() + "con titolo " + tickets.get(i).getTitolo() + " risolto");
+                return true;
             }
-            return false;
         }
+        return false;
+    }
         
 }

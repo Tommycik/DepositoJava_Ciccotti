@@ -1,17 +1,14 @@
 //esercizio finale
 import java.util.Scanner;
 import Controller.GestoreTicketController;
-import Controller.StrategyMenuNonLoggato;
 import java.util.InputMismatchException;
 public class EsercizioFinale {  
     //main
     public static void main(String[] args) {
-        //Gestore sistema
+        //Gestore sistema con strategy non loggato di default
         GestoreTicketController controller = new GestoreTicketController(); 
         //Scanner
         Scanner intScanner = new Scanner(System.in);
-        //Strategy non loggato
-        controller.setStrategy(new StrategyMenuNonLoggato());
         //Scelta non valida di default
         int scelta = -1;
         //se continuare il ciclo o no

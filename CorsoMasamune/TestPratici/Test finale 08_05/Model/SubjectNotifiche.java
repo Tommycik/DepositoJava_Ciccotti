@@ -1,7 +1,7 @@
 package Model;
 //interface subject notifiche
-public interface SubjectNotifiche {
-    public void notifica(String messaggio);
-    public void addObserver(ObserverNotifiche o);
-    public void deleteObserver(ObserverNotifiche o);
+interface SubjectNotifiche {
+    void notifica(String messaggio);
+    void addObserver(ObserverNotifiche o);
+    void deleteObserver(ObserverNotifiche o);
 }

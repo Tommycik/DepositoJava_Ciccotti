@@ -4,7 +4,7 @@ import View.GestoreTicketView;
 import Model.UtenteSistema;
 import Model.Admin;
 //classe strategia concreta utentenon loggato
-public class StrategyMenuNonLoggato implements StrategyMenu{
+class StrategyMenuNonLoggato implements StrategyMenu{
     //helper aggiunta utente
     private void aggiungiUtente(UtenteSistema utente, GestoreTicketController controller) {
         controller.getUtenti().add(utente);

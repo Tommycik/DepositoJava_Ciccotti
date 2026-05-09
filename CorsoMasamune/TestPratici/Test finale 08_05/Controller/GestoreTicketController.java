@@ -31,19 +31,19 @@ public class GestoreTicketController {
     }
 
     //getter
-    public SessioneFacade getSessione() {
+    SessioneFacade getSessione() {
         return sessione;
     }
-    public ArrayList<UtenteSistema> getUtenti() {
+    ArrayList<UtenteSistema> getUtenti() {
         return utenti;
     }
-    public GestoreTicketFacade getGestore() {
+    GestoreTicketFacade getGestore() {
         return gestore;
     }
-    public GestoreTicketView getView() {
+    GestoreTicketView getView() {
         return view;
     }
-    public ContextUtente getContext() {
+    ContextUtente getContext() {
         return context;
     }
     
