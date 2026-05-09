@@ -18,7 +18,9 @@ public class GestoreTicketFacade {
 
     //aggiunta ticket
     public String aggiungiTicket(Ticket ticket) {
+        //controllo se l'utente è loggato
         if(sessione.isLogged()) {
+            //controllo se l'utente è admin
             if(!sessione.isAdmin()) {
                 if(s_gestoreTicket.aggiungiTicket(ticket)){
                     return "Ticket numero " + ticket.getId() + "con titolo " + ticket.getTitolo() + " aggiunto";
