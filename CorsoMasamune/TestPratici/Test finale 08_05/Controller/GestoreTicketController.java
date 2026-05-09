@@ -48,7 +48,7 @@ public class GestoreTicketController {
     }
     
     //setter
-    public void setStrategy(StrategyMenu strategy) {
+    void setStrategy(StrategyMenu strategy) {
         this.context.setStrategy(strategy);
     }
     //stampa menu

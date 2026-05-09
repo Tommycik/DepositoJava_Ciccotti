@@ -22,7 +22,7 @@ public class UtenteSistema implements ObserverNotifiche {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    //metodo notifica
+    //metodo update per le notifiche
     @Override
     public void update(String messaggio) {
         notifiche.add(messaggio);

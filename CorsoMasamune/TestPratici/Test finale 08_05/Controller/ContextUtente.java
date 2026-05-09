@@ -2,23 +2,29 @@ package Controller;
 
 import View.GestoreTicketView;
 //classe context utente
-public class ContextUtente {
+class ContextUtente {
     //strategia concreta
     private StrategyMenu strategy;
     //metodo per settare la strategia
-    public void setStrategy(StrategyMenu strategy) {
+    void setStrategy(StrategyMenu strategy) {
         this.strategy = strategy;
     }  
     //metodo per ottenere la strategia
-    public StrategyMenu getStrategy() {
+    StrategyMenu getStrategy() {
         return strategy;
     }
     //metodo per stampare menu
-    public void stampaMenu(GestoreTicketView view) {
+    void stampaMenu(GestoreTicketView view) {
+        if(strategy == null) {
+            strategy = new StrategyMenuNonLoggato();
+        }
         strategy.stampaMenu(view);
     }
     //metodo per eseguire azione menu
-    public boolean eseguiAzioneMenu(int scelta, GestoreTicketController controller) {
+    boolean eseguiAzioneMenu(int scelta, GestoreTicketController controller) {
+        if (strategy == null) {
+            strategy = new StrategyMenuNonLoggato();
+        }
         return strategy.eseguiAzioneMenu(scelta, controller);
     }
     

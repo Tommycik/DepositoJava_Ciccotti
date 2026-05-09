@@ -8,12 +8,15 @@ class S_GestoreTicket implements SubjectNotifiche {
     private static S_GestoreTicket instance;
     //id progressivi
     private int id = 0;
+    //id disponibili dopo cancellazione ticket
+    ArrayList<Integer> idDisponibili;
     //observers
     private ArrayList<ObserverNotifiche> observers;
     //costruttore
     private S_GestoreTicket() {
         tickets = new ArrayList<Ticket>();
         observers = new ArrayList<ObserverNotifiche>();
+        idDisponibili = new ArrayList<Integer>();
     }
     //metodo getInstance
     static S_GestoreTicket getInstance() {
@@ -47,8 +50,13 @@ class S_GestoreTicket implements SubjectNotifiche {
 
     //metodo addTicket
     boolean addTicket(Ticket ticket) {
-        ticket.setId(id);
-        id++;
+        //riusa gli id disponibili altrimenti aumenta l'id
+        if(idDisponibili.isEmpty()) {
+            ticket.setId(id);
+            id++;
+        }else {
+            ticket.setId(idDisponibili.remove(0));
+        }
         tickets.add(ticket);
         notifica("Ticket numero " + ticket.getId() + " con titolo " + ticket.getTitolo() + " aggiunto");
         return true;
@@ -61,9 +69,10 @@ class S_GestoreTicket implements SubjectNotifiche {
                 ticket.setAutore(tickets.get(i).getAutore());
                 tickets.set(i, ticket);
                 notifica("Ticket numero " + ticket.getId() + " con titolo " + ticket.getTitolo() + " aggiornato");
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     //metodo per cancellare ticket per id
@@ -72,10 +81,11 @@ class S_GestoreTicket implements SubjectNotifiche {
             if (tickets.get(i).getId() == id) {
                 notifica("Ticket numero " + tickets.get(i).getId() + "con titolo " + tickets.get(i).getTitolo() + " rimosso");
                 tickets.remove(i);
+                idDisponibili.add(id);
+                return true;
             }
         }
-        return true;
-        
+        return false;
     }
     //metodo per cercare ticket per id
     Ticket searchTicket(int id) {

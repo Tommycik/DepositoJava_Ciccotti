@@ -20,6 +20,7 @@ abstract class StrategyMenuUtente  implements StrategyMenu{
         //chiedi se vuole cancellare notifiche
         controller.stampaMessaggio("Vuoi cancellare le notifiche?(s/n)");
         if(stringScanner.nextLine().equalsIgnoreCase("s")) {
+            //cancella notifiche
             controller.getSessione().cancellaNotifiche();
             controller.stampaMessaggio("Notifiche cancellate");
         }else if(stringScanner.nextLine().equalsIgnoreCase("n")) {
