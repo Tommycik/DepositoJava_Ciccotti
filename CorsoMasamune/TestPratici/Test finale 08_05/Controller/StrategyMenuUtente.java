@@ -17,8 +17,13 @@ abstract class StrategyMenuUtente  implements StrategyMenu{
     protected void visualizzaNotifiche(GestoreTicketController controller) {
         Scanner stringScanner = new Scanner(System.in);
         //visualizza notifiche
-        controller.getView().stampaNotifiche(controller.getSessione().getNotifiche());
-        //chiedi se vuole cancellare notifiche
+        controller.stampaMessaggio("Notifiche: ");
+        ArrayList<String> notifiche = controller.getSessione().getNotifiche();
+        controller.getView().stampaNotifiche(notifiche);
+        //chiedi se vuole cancellare notifiche se non sono vuote
+        if(notifiche.isEmpty()){
+            return;
+        }
         controller.stampaMessaggio("Vuoi cancellare le notifiche?(s/n)");
         if(stringScanner.nextLine().equalsIgnoreCase("s")) {
             //cancella notifiche
@@ -34,11 +39,12 @@ abstract class StrategyMenuUtente  implements StrategyMenu{
     protected void cercaTicket(GestoreTicketController controller) {
         Scanner stringScanner = new Scanner(System.in);
         //cerca ticket per titolo
-        controller.stampaMessaggio("Inserisci il titolo del ticket da cercare:");
+        controller.stampaMessaggio("Inserisci il titolo del ticket da cercare: ");
         String titolo = stringScanner.nextLine();
         //cerca ticket
         ArrayList<Ticket> tickets = controller.getGestore().cercaTicket(titolo);
         if(tickets != null && tickets.isEmpty() == false) {
+            controller.stampaMessaggio("Ticket trovati: ");
             controller.getView().stampaListaTicket(tickets);
         }else {
             controller.stampaMessaggio("Nessun ticket trovato");

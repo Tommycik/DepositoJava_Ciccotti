@@ -36,6 +36,7 @@ class StrategyMenuAdmin extends StrategyMenuUtente{
         switch(scelta) {
             case 1:
                 //lista ticket
+                controller.stampaMessaggio("Lista ticket: ");
                 controller.getView().stampaListaTicket(controller.getGestore().getTickets());
                 break;
             case 2:

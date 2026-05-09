@@ -36,6 +36,7 @@ class StrategyMenuUtenteNormale extends StrategyMenuUtente{
                 break;
             case 2:
                 //lista ticket
+                controller.stampaMessaggio("Lista ticket :");
                 controller.getView().stampaListaTicket(controller.getGestore().getTickets());
                 break;
             case 3:

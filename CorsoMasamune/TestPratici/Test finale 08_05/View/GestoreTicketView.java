@@ -40,7 +40,7 @@ public class GestoreTicketView {
             System.out.println("Non ci sono ticket");
         }else {
             for(Ticket ticket : tickets) {
-                System.out.println(ticket.getDescrizioneCompleta());
+                System.out.println("\n" + ticket.getDescrizioneCompleta());
             }
         }
         System.out.println("\n");

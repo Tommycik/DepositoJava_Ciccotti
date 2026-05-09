@@ -32,7 +32,7 @@ class StrategyMenuNonLoggato implements StrategyMenu{
         for(UtenteSistema u : controller.getUtenti()) {
             if(u.getNome().equalsIgnoreCase(nome)) {
                 controller.stampaMessaggio("Nome già in uso");
-                break;
+                return;
             }
         }
         //utente o admin
@@ -74,12 +74,11 @@ class StrategyMenuNonLoggato implements StrategyMenu{
                 controller.getSessione().login(utente);
                 //login effettuato
                 controller.stampaMessaggio("Login effettuato con successo: " + utente.getDescrizioneCompleta());
-                break;
+                return;
             }
         }
-        if(!controller.getSessione().isLogged()) {
-            controller.stampaMessaggio("Utente non trovato");
-        }
+        controller.stampaMessaggio("Utente non trovato");
+        
     }
 
     //metodo per stampare menu
