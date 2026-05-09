@@ -1,6 +1,7 @@
 package Controller;
-
+import java.util.ArrayList;
 import java.util.Scanner;
+import Model.Ticket;
 //classe astratta per startegia menu utente loggato
 abstract class StrategyMenuUtente  implements StrategyMenu{
     //metodo helper logout
@@ -36,10 +37,11 @@ abstract class StrategyMenuUtente  implements StrategyMenu{
         controller.stampaMessaggio("Inserisci il titolo del ticket da cercare:");
         String titolo = stringScanner.nextLine();
         //cerca ticket
-        if(controller.getGestore().cercaTicket(titolo) != null) {
-            controller.stampaMessaggio(controller.getGestore().cercaTicket(titolo).getDescrizioneCompleta());
+        ArrayList<Ticket> tickets = controller.getGestore().cercaTicket(titolo);
+        if(tickets != null && tickets.isEmpty() == false) {
+            controller.getView().stampaListaTicket(tickets);
         }else {
-            controller.stampaMessaggio("Ticket non trovato");
+            controller.stampaMessaggio("Nessun ticket trovato");
         }
     }
     

@@ -45,11 +45,16 @@ class S_GestoreTicket implements SubjectNotifiche {
 
     //metodo getTickets con copia difensiva
     ArrayList<Ticket> getTickets() {
-        return new ArrayList<>(tickets);
+        ArrayList<Ticket> copia = new ArrayList<>();
+        for (Ticket t : tickets) {
+            //costruttore di copia
+            copia.add(new Ticket(t)); 
+        }
+        return copia;
     }
 
     //metodo addTicket
-    boolean addTicket(Ticket ticket) {
+    boolean aggiungiTicket(Ticket ticket) {
         //riusa gli id disponibili altrimenti aumenta l'id
         if(idDisponibili.isEmpty()) {
             ticket.setId(id);
@@ -62,7 +67,7 @@ class S_GestoreTicket implements SubjectNotifiche {
         return true;
     }
     //metodo per aggiornare ticket per id
-    boolean updateTicket(Ticket ticket) {
+    boolean modificaTicket(Ticket ticket) {
         for (int i = 0; i < tickets.size(); i++) {
             if (tickets.get(i).getId() == ticket.getId()) {
                 //mette lo stesso autore di prima
@@ -76,7 +81,7 @@ class S_GestoreTicket implements SubjectNotifiche {
     }
 
     //metodo per cancellare ticket per id
-    boolean deleteTicket(int id) {
+    boolean cancellaTicket(int id) {
         for (int i = 0; i < tickets.size(); i++) {
             if (tickets.get(i).getId() == id) {
                 notifica("Ticket numero " + tickets.get(i).getId() + "con titolo " + tickets.get(i).getTitolo() + " rimosso");
@@ -88,22 +93,29 @@ class S_GestoreTicket implements SubjectNotifiche {
         return false;
     }
     //metodo per cercare ticket per id
-    Ticket searchTicket(int id) {
+    Ticket cercaTicketById(int id) {
         for (int i = 0; i < tickets.size(); i++) {
             if (tickets.get(i).getId() == id) {
-                return tickets.get(i);
+                //creazione nuovo ticket con costruttore di copia
+                return new Ticket(tickets.get(i));
             }
         }
         return null;
     }
     // metodo per cercare ticket per titolo
-    Ticket searchTicket(String titolo) {
+    ArrayList<Ticket> cercaTicketsByTitolo(String titolo) {
+        ArrayList<Ticket> ticketsTrovati= new ArrayList<Ticket>();
         for (int i = 0; i < tickets.size(); i++) {
             if (tickets.get(i).getTitolo().equalsIgnoreCase(titolo)) {
-                return tickets.get(i);
+                //creazione nuovo ticket con costruttore di copia
+                ticketsTrovati.add(new Ticket(tickets.get(i)));
             }
         }
-        return null;
+        if(!ticketsTrovati.isEmpty()) {
+            return ticketsTrovati;
+        }else {
+            return null;
+        }
     }
     //risolvere ticket per id
     boolean risolvereTicket(int id) {

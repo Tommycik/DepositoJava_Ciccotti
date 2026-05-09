@@ -20,7 +20,7 @@ public class GestoreTicketFacade {
     public String aggiungiTicket(Ticket ticket) {
         if(sessione.isLogged()) {
             if(!sessione.isAdmin()) {
-                if(s_gestoreTicket.addTicket(ticket)){
+                if(s_gestoreTicket.aggiungiTicket(ticket)){
                     return "Ticket numero " + ticket.getId() + "con titolo " + ticket.getTitolo() + " aggiunto";
                 }else {
                     return "Errore nell'aggiunta del ticket";
@@ -36,7 +36,7 @@ public class GestoreTicketFacade {
     public String aggiornaTicket(Ticket ticket) {
         if(sessione.isLogged()) {
             if(sessione.isAdmin()) {
-                if(s_gestoreTicket.updateTicket(ticket)){
+                if(s_gestoreTicket.modificaTicket(ticket)){
                     return "Ticket numero " + ticket.getId() + "con titolo " + ticket.getTitolo() + " aggiornato";
                 }else {
                     return "Errore nell'aggiornamento del ticket";
@@ -52,7 +52,7 @@ public class GestoreTicketFacade {
     public String cancellaTicket(int id) {
         if(sessione.isLogged()) {
             if(sessione.isAdmin()) {
-                if(s_gestoreTicket.deleteTicket(id)){
+                if(s_gestoreTicket.cancellaTicket(id)){
                     return "Ticket numero " + id + " cancellato";
                 }else {
                     return "Errore nella cancellazione del ticket";
@@ -81,12 +81,12 @@ public class GestoreTicketFacade {
     }
 
     //ricerca ticket
-    public Ticket cercaTicket(int id) {
-        return s_gestoreTicket.searchTicket(id);
+    public Ticket cercaTicketById(int id) {
+        return s_gestoreTicket.cercaTicketById(id);
     }
 
-    public Ticket cercaTicket(String titolo) {
-        return s_gestoreTicket.searchTicket(titolo);
+    public ArrayList<Ticket> cercaTicket(String titolo) {
+        return s_gestoreTicket.cercaTicketsByTitolo(titolo);
     } 
 
     //tutti i tickets   

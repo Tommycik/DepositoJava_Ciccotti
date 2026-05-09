@@ -14,6 +14,14 @@ public class Ticket {
         this.autore = autore;
         this.descrizione = descrizione;
     }
+    //costruttore di copia 
+    public Ticket(Ticket other) {
+        this.id = other.getId();
+        this.titolo = other.getTitolo();
+        this.autore = other.getAutore();
+        this.descrizione = other.getDescrizione();
+        this.risolto = other.isRisolto();
+    }
     
     //getter
     public int getId() {
