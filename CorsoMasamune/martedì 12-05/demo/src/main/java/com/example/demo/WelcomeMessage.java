@@ -15,9 +15,11 @@ public class WelcomeMessage {
     @PostConstruct
     public void init() {
         message = "Welcome to the demo application using spring boot!";
+        System.out.println(message);
     }
     @PreDestroy
     public void destroy() {
         message = "Goodbye from the demo application using spring boot!";
+        System.out.println(message);
     }
 }
