@@ -42,16 +42,29 @@ public class RunController {
     // get singola corsa
     @GetMapping("/{id}")
     public ResponseEntity<RunRecord> findById(@PathVariable Integer id) {
-        //controllo id e lista
-        if(runs.isEmpty() || id>runs.size() || id<0){
+        //controllo lista
+        if(runs.isEmpty()){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(runs.get(id));
+        //ricerca per id
+        for (RunRecord run : runs) {
+            if (run.id() == id) {
+                return ResponseEntity.ok(run);
+            }
+        }
+        return ResponseEntity.notFound().build();
     }
 
     // crea singola corsa
     @PostMapping
     public ResponseEntity<RunRecord> create(@RequestBody RunRecord newRun) {
+        //controllo id univoco
+        for (RunRecord run: runs){
+            if(newRun.id() == run.id()){
+                return ResponseEntity.badRequest().build();
+            }
+        }
+        //aggiunta
         runs.add(newRun);
         return ResponseEntity.status(HttpStatus.CREATED).body(newRun);
         
@@ -61,24 +74,45 @@ public class RunController {
     @PutMapping("/{id}")
     public ResponseEntity<RunRecord> update(@PathVariable Integer id, @RequestBody RunRecord updatedRun) {
         //controllo id e lista
-        if(runs.isEmpty() || id>runs.size() || id<0){
+        if(runs.isEmpty()){
             return ResponseEntity.notFound().build();
         }
-        int index = runs.indexOf(id);
-        runs.set(index, updatedRun);
-        return ResponseEntity.ok(updatedRun);
+        //ricerca per id
+        for (RunRecord run : runs) {
+            if (run.id() == id) {
+                int index = runs.indexOf(run);
+                //controllo id univoco
+                for (RunRecord run2: runs){
+                    if(updatedRun.id() == run2.id() && run.id() != run2.id()){
+                        return ResponseEntity.badRequest().build();
+                    }
+                }
+                //aggiornamento
+                runs.set(index, updatedRun);
+                return ResponseEntity.ok(updatedRun);
+                
+            }
+        }
+        return ResponseEntity.notFound().build();
     }
 
     // elimina singola corsa
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         //controllo id e lista
-        if (runs.isEmpty() || id < 0 || id > runs.size()) {
+        if (runs.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        int index = runs.indexOf(id);
-        runs.remove(index);
-        return ResponseEntity.noContent().build();
+        //ricerca per id
+        for (RunRecord run : runs) {
+            if (run.id() == id) {
+                int index = runs.indexOf(run);
+                //rimozione
+                runs.remove(index);
+                return ResponseEntity.noContent().build();
+            }
+        }
+        return ResponseEntity.notFound().build();
     }
 
 }
