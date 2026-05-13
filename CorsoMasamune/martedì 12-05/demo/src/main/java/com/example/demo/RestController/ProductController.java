@@ -35,7 +35,7 @@ public class ProductController {
     }
     // get singolo
     @GetMapping("/{id}")
-    public ResponseEntity<String> getProduct(@PathVariable("id") int id){
+    public ResponseEntity<String> getProduct(@PathVariable Integer id){
         //controllo id e lista
         if(id>products.size() || id<0 || products.isEmpty()){
             return ResponseEntity.notFound().build();
@@ -50,7 +50,7 @@ public class ProductController {
     }
     // aggiorna singolo prodotto
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateProduct(@PathVariable("id") int id, @RequestBody String product){
+    public ResponseEntity<String> updateProduct(@PathVariable Integer id, @RequestBody String product){
         //controllo id e lista
         if(id>products.size() || id<0 || products.isEmpty()){
             return ResponseEntity.notFound().build();
@@ -61,7 +61,7 @@ public class ProductController {
     }
     // elimina singolo prodotto
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteProduct(@PathVariable("id") int id){
+    public ResponseEntity<String> deleteProduct(@PathVariable Integer id){
         //controllo id e lista
         if(id>products.size() || id<0 || products.isEmpty()){
             return ResponseEntity.notFound().build();

@@ -24,11 +24,11 @@ public class RunController {
 
     // costruttore e inizializzazione dei dati
     public RunController() {
-        runs.add(new RunRecord(1, "Run", LocalDateTime.now(), LocalDateTime.now().plus(1, ChronoUnit.HOURS), 100, Location.OUTDOOR));
-        runs.add(new RunRecord(2, "Run", LocalDateTime.now(), LocalDateTime.now().plus(1, ChronoUnit.HOURS), 400, Location.INDOOR));
-        runs.add(new RunRecord(3, "Run", LocalDateTime.now(), LocalDateTime.now().plus(3, ChronoUnit.HOURS), 300, Location.OUTDOOR));
-        runs.add(new RunRecord(4, "Run", LocalDateTime.now(), LocalDateTime.now().plus(2, ChronoUnit.HOURS), 200, Location.INDOOR));
-        runs.add(new RunRecord(5, "Run", LocalDateTime.now(), LocalDateTime.now().plus(4, ChronoUnit.HOURS), 2100, Location.OUTDOOR));
+        runs.add(new RunRecord(0, "Run", LocalDateTime.now(), LocalDateTime.now().plus(1, ChronoUnit.HOURS), 100, Location.OUTDOOR));
+        runs.add(new RunRecord(1, "Run", LocalDateTime.now(), LocalDateTime.now().plus(1, ChronoUnit.HOURS), 400, Location.INDOOR));
+        runs.add(new RunRecord(2, "Run", LocalDateTime.now(), LocalDateTime.now().plus(3, ChronoUnit.HOURS), 300, Location.OUTDOOR));
+        runs.add(new RunRecord(3, "Run", LocalDateTime.now(), LocalDateTime.now().plus(2, ChronoUnit.HOURS), 200, Location.INDOOR));
+        runs.add(new RunRecord(4, "Run", LocalDateTime.now(), LocalDateTime.now().plus(4, ChronoUnit.HOURS), 2100, Location.OUTDOOR));
     }
 
 
