@@ -1,0 +1,4 @@
+Insert into books (title, author, isbn, price, genre, pages) values ('The Hobbit', 'J.R.R. Tolkien', '978-0-393-92970-2', 12.2, 'ROMANZO', 400);
+Insert into books (title, author, isbn, price, genre, pages) values ('The Lord of the Rings', 'J.R.R. Tolkien', '978-0-393-92970-2', 22.2, 'ROMANZO', 500);
+Insert into books (title, author, isbn, price, genre, pages) values ('Harry Potter and the Philosopher''s Stone', 'J.K. Rowling', '978-0-393-92970-2', 14.99, 'ROMANZO', 500);
+Insert into books (title, author, isbn, price, genre, pages) values ('Harry Potter and the Chamber of Secrets', 'J.K. Rowling', '978-0-393-92970-2', 14.99, 'ROMANZO', 500);
