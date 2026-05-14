@@ -31,6 +31,16 @@ public class BooksController {
         Optional<Book> book = booksRepository.findById(id);
         return book.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
+    //get mapping per un genere
+    @GetMapping("/genere/{genre}")
+    public List<Book> getBooksByGenre(@PathVariable Genre genre) {
+        return booksRepository.findByGenre(genre);
+    }
+    //get mapping per un numero di pagine maggiore di un numero
+    @GetMapping("/pagine/{pages}")
+    public List<Book> getBooksByPages(@PathVariable int pages) {
+        return booksRepository.findByPagesGreaterThan(pages);
+    }
     //post mapping
     @PostMapping
     public ResponseEntity<Book> createBook(@RequestBody Book book) {
