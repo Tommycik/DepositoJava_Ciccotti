@@ -42,10 +42,6 @@ public class RunController {
     // get singola corsa
     @GetMapping("/{id}")
     public ResponseEntity<RunRecord> findById(@PathVariable Integer id) {
-        //controllo lista
-        if(runs.isEmpty()){
-            return ResponseEntity.notFound().build();
-        }
         //ricerca per id
         for (RunRecord run : runs) {
             if (run.id() == id) {
@@ -73,10 +69,6 @@ public class RunController {
     //  aggiorna una corsa
     @PutMapping("/{id}")
     public ResponseEntity<RunRecord> update(@PathVariable Integer id, @RequestBody RunRecord updatedRun) {
-        //controllo id e lista
-        if(runs.isEmpty()){
-            return ResponseEntity.notFound().build();
-        }
         //ricerca per id
         for (RunRecord run : runs) {
             if (run.id() == id) {
@@ -99,10 +91,6 @@ public class RunController {
     // elimina singola corsa
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        //controllo id e lista
-        if (runs.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
         //ricerca per id
         for (RunRecord run : runs) {
             if (run.id() == id) {
