@@ -1,0 +1,172 @@
+package com.example.demo.Run;
+
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+//specifica che la classe Run è un oggetto entità e deve corrispondere nel database
+@Entity
+@Table(name = "runs")  // la tabella si chiamerà "runs" (lowercase, plurale) altrimenti di default RUN
+public class Run {
+    //specifica che id funge da chiave primaria
+    @Id
+    //specifica che id è un numero intero auto-incrementato
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    // Colonna con nome esplicito, non può essere nulla, lunghezza massima 255
+    @Column(name = "title", nullable = false, length = 255)
+    private String title;
+    // Colonna  non può essere nulla
+    @Column(name = "startedOn", nullable = false)
+    private LocalDateTime startedOn;
+    // Colonna  non può essere nulla
+    @Column(name = "completedOn", nullable = false)
+    private LocalDateTime completedOn;
+    // Colonna  non può essere nulla
+    @Column(name = "miles", nullable = false)
+    private Integer miles;
+    // salva il nome dell'enum come stringa non nulla
+    //senza sarebbe salvato come 0 o 1
+    @Enumerated(EnumType.STRING)  
+    @Column(name = "location", nullable = false)
+    private Location location;
+    //costruttore per jpa
+    //costruttore effettivo che utilizza
+    protected Run() {}
+
+    // costruttore
+    //id va tolto
+    public Run(String title,LocalDateTime startedOn, LocalDateTime completedOn, Integer miles, Location location) {
+
+        this.title = title;
+
+        this.startedOn = startedOn;
+
+        this.completedOn = completedOn;
+
+        this.miles = miles;
+
+        this.location = location;
+
+    }
+
+
+    // Getters
+
+    public Integer getId() {
+
+        return id;
+
+    }
+
+
+    public String getTitle() {
+
+        return title;
+
+    }
+
+    public LocalDateTime getStartedOn() {
+
+        return startedOn;
+
+    }
+
+
+    public LocalDateTime getCompletedOn() {
+
+        return completedOn;
+
+    }
+
+
+    public Integer getMiles() {
+
+        return miles;
+
+    }
+
+
+    public Location getLocation() {
+
+        return location;
+
+    }
+
+
+    // Setters
+
+    public void setId(Integer id) {
+
+        this.id = id;
+
+    }
+
+
+    public void setTitle(String title) {
+
+        this.title = title;
+
+    }
+
+
+    public void setStartedOn(LocalDateTime startedOn) {
+
+        this.startedOn = startedOn;
+
+    }
+
+    public void setCompletedOn(LocalDateTime completedOn) {
+
+    this.completedOn = completedOn;
+
+    }
+
+
+    public void setMiles(Integer miles) {
+
+    this.miles = miles;
+
+    }
+
+
+    public void setLocation(Location location)
+    {
+
+        this.location = location;
+
+    }
+
+
+    // toString method
+
+    @Override
+
+    public String toString() {
+
+        return "Run{" +
+
+        "id=" + id +
+
+        ", title='" + title + '\'' +
+
+        ", startedOn=" + startedOn +
+
+        ", completedOn=" + completedOn +
+
+        ", miles=" + miles +
+
+        ", location=" + location +
+
+        '}';
+
+    }
+
+}
