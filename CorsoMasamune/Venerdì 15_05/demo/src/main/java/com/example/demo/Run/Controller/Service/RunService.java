@@ -1,7 +1,10 @@
 package com.example.demo.Run.Controller.Service;
+
 import com.example.demo.Run.Run;
+import com.example.demo.Run.Repository.RunRepository;
+import com.example.demo.ErrorResponse.RunNotFoundException;
 import com.example.demo.Run.Location;
-import com.example.demo.Repository.RunRepository;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -17,8 +20,8 @@ public class RunService {
     }
 
     //find by id optional
-    public Optional<Run> findById(Integer id) {
-        return runRepository.findById(id);
+    public Run findById(Integer id) {
+        return runRepository.findById(id).orElseThrow(() -> new RunNotFoundException(id));
     }
 
     //find all
@@ -36,7 +39,7 @@ public class RunService {
         Optional<Run> existing = runRepository.findById(id);
         // se non trova la corsa, restituisce errore
          if (existing.isEmpty()) {
-            return null;
+            throw new RunNotFoundException(id);
         }
         Run run = existing.get();
         run.setTitle(updatedRun.getTitle());
@@ -50,6 +53,9 @@ public class RunService {
 
     //delete
     public void deleteById(Integer id) {
+        if(!runRepository.existsById(id)){
+            throw new RunNotFoundException(id);
+        }
         runRepository.deleteById(id);
     }
 

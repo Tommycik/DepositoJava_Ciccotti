@@ -88,9 +88,6 @@ public class RunController {
     // elimina singola corsa
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        if (runService.findById(id).isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
         runService.deleteById(id);
         return ResponseEntity.noContent().build();
         
