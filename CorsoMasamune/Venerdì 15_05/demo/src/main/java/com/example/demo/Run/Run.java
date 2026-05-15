@@ -27,24 +27,27 @@ public class Run {
     // Colonna con nome esplicito, non può essere nulla, lunghezza massima 255
     //annotazioni per validazione
     @NotNull(message = "Title is required")
-    @Size(max = 255)
-    @Column(name = "title", length = 255)
+    @Size(min=3,max = 100, message = "Title must be between 3 and 100 characters")
+    @Column(name = "title")
     private String title;
     // Colonna  non può essere nulla
-    @Column(name = "startedOn", nullable = false)
+    @NotNull(message = "Starting time is required")
+    @Column(name = "startedOn")
     private LocalDateTime startedOn;
     // Colonna  non può essere nulla
-    @Column(name = "completedOn", nullable = false)
+    @NotNull(message = "Completion time is required")
+    @Column(name = "completedOn")
     private LocalDateTime completedOn;
     // Colonna  non può essere nulla
     @Column(name = "miles", nullable = false)
     @Positive(message = "Miles must be a positive number")
-    @Max(value = 10000, message = "Miles must be less than 10000")
+    @Max(value = 200, message = "Miles must be less than 200")
     private Integer miles;
     // salva il nome dell'enum come stringa non nulla
     //senza sarebbe salvato come 0 o 1
     @Enumerated(EnumType.STRING)  
-    @Column(name = "location", nullable = false)
+    @NotNull(message = "Location is required")
+    @Column(name = "location")
     private Location location;
     //costruttore per jpa
     //costruttore effettivo che utilizza

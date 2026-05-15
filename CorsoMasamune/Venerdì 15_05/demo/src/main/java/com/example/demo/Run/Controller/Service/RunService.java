@@ -56,4 +56,12 @@ public class RunService {
     public List<Run> findByLocation(Location location) {
         return runRepository.findByLocation(location);
     }
+    //find by Title
+    public List<Run> findByTitle(String title) {
+        return runRepository.findByTitle(title);
+    }
+    //find by Miles maggiori di un numero
+    public List<Run> findByMilesGreaterThan(Integer miles) {
+        return runRepository.findByMilesGreaterThan(miles);
+    }
 }

@@ -49,6 +49,11 @@ public class RunController {
         Optional <Run> run = runService.findById(id);
         return run.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
+    //get miles maggiori di un numero
+    @GetMapping("/miles/{miles}")
+    public List<Run> findByMilesGreaterThan(@PathVariable Integer miles) {
+        return runService.findByMilesGreaterThan(miles);
+    }
 
     // crea singola corsa e controlla errori validazione
     @PostMapping
