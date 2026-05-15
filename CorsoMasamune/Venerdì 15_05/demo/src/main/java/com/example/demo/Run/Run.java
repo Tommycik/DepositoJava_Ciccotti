@@ -25,6 +25,7 @@ public class Run {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     // Colonna con nome esplicito, non può essere nulla, lunghezza massima 255
+    //annotazioni per validazione
     @NotNull(message = "Title is required")
     @Size(max = 255)
     @Column(name = "title", length = 255)

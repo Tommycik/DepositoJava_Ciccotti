@@ -4,12 +4,15 @@ import com.example.demo.Run.Run;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import com.example.demo.Run.Run;
 import com.example.demo.Run.Location;
@@ -47,17 +50,31 @@ public class RunController {
         return run.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
-    // crea singola corsa
+    // crea singola corsa e controlla errori validazione
     @PostMapping
-    public ResponseEntity<Run> create(@Valid @RequestBody Run newRun) {
+    public ResponseEntity<?> create(@Valid @RequestBody Run newRun, BindingResult bindingResult) {
+        //controllo errori validazione
+        if(bindingResult.hasErrors()){
+            //creazione di un map per mantenere gli errori
+            Map<String,String> errors = new HashMap<>();
+            //iterazione su tutti gli errori
+            bindingResult.getFieldErrors().forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
+            //ritorno errore
+            return ResponseEntity.badRequest().body(errors);
+        }
         Run savedRun = runService.save(newRun);
         return ResponseEntity.status(201).body(savedRun);
         
     }
 
-    //  aggiorna una corsa
+    //  aggiorna una corsa, con binding result possaimo catturare gli errori di validazione
     @PutMapping("/{id}")
-    public ResponseEntity<Run> update(@PathVariable Integer id, @Valid @RequestBody Run updatedRun) {
+    public ResponseEntity<?> update(@PathVariable Integer id, @Valid @RequestBody Run updatedRun, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            Map<String,String> errors = new HashMap<>();
+            bindingResult.getFieldErrors().forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
+            return ResponseEntity.badRequest().body(errors);
+        }
         Run updated = runService.update(id, updatedRun);
         return ResponseEntity.ok(updated);
         
