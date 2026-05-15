@@ -4,7 +4,10 @@ import com.example.demo.Run.Location;
 import com.example.demo.Repository.RunRepository;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.stereotype.Service;
 //service per run
+@Service
 public class RunService {
     private final RunRepository runRepository;
 
