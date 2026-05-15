@@ -10,8 +10,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
 import com.example.demo.Run.Controller.RunController;
-import com.example.demo.Run.Run;
-import com.example.demo.Run.Location;
+import com.example.demo.Run.Model.Location;
+import com.example.demo.Run.Model.Run;
 
 @SpringBootApplication
 public class DemoApplication {

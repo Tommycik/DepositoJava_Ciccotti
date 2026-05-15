@@ -1,9 +1,11 @@
 package com.example.demo.Run.Controller.Service;
 
-import com.example.demo.Run.Run;
 import com.example.demo.Run.Repository.RunRepository;
 import com.example.demo.ErrorResponse.RunNotFoundException;
-import com.example.demo.Run.Location;
+import com.example.demo.Run.Model.Location;
+import com.example.demo.Run.Model.Run;
+import com.example.demo.Run.Model.RunRequest;
+import com.example.demo.Run.Model.RunResponse;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,37 +20,47 @@ public class RunService {
     public RunService(RunRepository runRepository) {
         this.runRepository = runRepository;
     }
-
+    //metodo da run a run response
+    private RunResponse toResponse(Run run) {
+        return new RunResponse(run.getId(), run.getTitle(), run.getStartedOn(), run.getCompletedOn(), run.getMiles(), run.getLocation().name());
+    }
+    //metodo da run request a run
+    private Run toRun(RunRequest runRequest) {
+        return new Run(runRequest.title(), runRequest.startedOn(), runRequest.completedOn(), runRequest.miles(), runRequest.location());
+    }
     //find by id optional
-    public Run findById(Integer id) {
-        return runRepository.findById(id).orElseThrow(() -> new RunNotFoundException(id));
+    public RunResponse findById(Integer id) {
+        Run run = runRepository.findById(id).orElseThrow(() -> new RunNotFoundException(id));
+        return toResponse(run);
     }
 
     //find all
-    public List<Run> findAll() {
-        return runRepository.findAll();
+    public List<RunResponse> findAll() {
+        return runRepository.findAll().stream().map(this::toResponse).toList();
     }
 
     //save
-    public Run save(Run newRun) {
-        return runRepository.save(newRun);
+    public RunResponse save(RunRequest newRun) {
+        Run savingRun = toRun(newRun);
+        Run savedRun = runRepository.save(savingRun);
+        return toResponse(savedRun);
     }
 
     //update
-    public Run update(Integer id, Run updatedRun) {
+    public RunResponse update(Integer id, RunRequest updatedRun) {
         Optional<Run> existing = runRepository.findById(id);
         // se non trova la corsa, restituisce errore
-         if (existing.isEmpty()) {
+        if (existing.isEmpty()) {
             throw new RunNotFoundException(id);
         }
         Run run = existing.get();
-        run.setTitle(updatedRun.getTitle());
-        run.setStartedOn(updatedRun.getStartedOn());
-        run.setCompletedOn(updatedRun.getCompletedOn());
-        run.setMiles(updatedRun.getMiles());
-        run.setLocation(updatedRun.getLocation());
+        run.setTitle(updatedRun.title());
+        run.setStartedOn(updatedRun.startedOn());
+        run.setCompletedOn(updatedRun.completedOn());
+        run.setMiles(updatedRun.miles());
+        run.setLocation(updatedRun.location());
         Run updated = runRepository.save(run);
-        return updated;
+        return toResponse(updated);
     }
 
     //delete
@@ -60,15 +72,15 @@ public class RunService {
     }
 
     //find by location
-    public List<Run> findByLocation(Location location) {
-        return runRepository.findByLocation(location);
+    public List<RunResponse> findByLocation(Location location) {
+        return runRepository.findByLocation(location).stream().map(this::toResponse).toList();
     }
     //find by Title
-    public List<Run> findByTitle(String title) {
-        return runRepository.findByTitle(title);
+    public List<RunResponse> findByTitle(String title) {
+        return runRepository.findByTitle(title).stream().map(this::toResponse).toList();
     }
     //find by Miles maggiori di un numero
-    public List<Run> findByMilesGreaterThan(Integer miles) {
-        return runRepository.findByMilesGreaterThan(miles);
+    public List<RunResponse> findByMilesGreaterThan(Integer miles) {
+        return runRepository.findByMilesGreaterThan(miles).stream().map(this::toResponse).toList();
     }
 }
