@@ -9,8 +9,9 @@ import org.springframework.stereotype.Service;
 //service per run
 @Service
 public class RunService {
+    //repository
     private final RunRepository runRepository;
-
+    //costruttore con iniezione di repository
     public RunService(RunRepository runRepository) {
         this.runRepository = runRepository;
     }
